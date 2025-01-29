@@ -120,5 +120,38 @@ def download_csv():
                      download_name='vergi_hesaplama_raporu.csv')
 
 
+def analyze_csv_structure(file_path):
+    df = pd.read_csv(file_path, encoding='utf-8', on_bad_lines='skip')
+
+    print("\nCSV Yapı Analizi:")
+    print("=" * 50)
+
+    for idx, row in df.iterrows():
+        row_type = ""
+
+        # İlk sütuna göre satır tipini belirle
+        if row[0] == 'Statement':
+            if row[1] == 'Header':
+                row_type = "Statement Header satırı"
+            elif row[1] == 'Data':
+                row_type = f"Statement Data satırı - {row[2]}: {row[3]}"
+
+        elif row[0] == 'Account Information':
+            row_type = f"Hesap Bilgisi satırı - {row[2]}: {row[3]}"
+
+        elif 'Trades' in str(row.values):
+            row_type = "İşlemler bölümü başlangıcı"
+
+        elif pd.isna(row[0]):
+            row_type = "Boş satır"
+
+        else:
+            row_type = f"Diğer satır tipi: {row[0]}"
+
+        print(f"Satır {idx+1}: {row_type}")
+        print(f"İçerik: {', '.join(str(x) for x in row.values if pd.notna(x))}")
+        print("-" * 50)
+
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    analyze_csv_structure('U7470952_20241202_20250103.csv')
