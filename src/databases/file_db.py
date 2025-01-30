@@ -25,7 +25,7 @@ class FileDB(Database):
             # log = f"[{timestamp}] {log_type}: {message}\n"
             log = f"{message}"
             f.write(f"{log}\n")
-            print(log)
+            # print(log)
 
     def log_info(self, info_message: str):
         self._write_log(f"{info_message}", "INFO")
