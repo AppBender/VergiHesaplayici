@@ -4,7 +4,11 @@ import io
 import os
 import pandas as pd
 from databases.file_db import FileDB
-from werkzeug.datastructures import FileStorage
+
+from models.dividend import Dividend
+from models.fee import Fee
+from models.trade import Trade
+from models.witholding_tax import WithholdingTax
 
 
 # Flask uygulaması
@@ -19,18 +23,6 @@ def welcome():
     return render_template('index.html')
 
 
-def parse_numeric(value):
-    try:
-        if pd.isna(value):
-            return 0
-        value_str = str(value).replace(',', '').replace('(', '-').replace(')', '')
-        return float(value_str)
-    except ValueError as e:
-        db.log_error(f"ValueError: {str(e)} for value: {value}")
-        # print(f"ValueError: {str(e)} for value: {value}")
-        return 0  # Return 0 for non-numeric values
-
-
 def calculate_tax(file_path):
     df = pd.read_csv(file_path, encoding='utf-8')
 
@@ -40,93 +32,74 @@ def calculate_tax(file_path):
     total_tax_amount = 0
     total_net_profit = 0
 
+    # Identify section headers and column indices
+    section_headers = {}
+    for idx, row in df.iterrows():
+        if row.iloc[0] == 'Trades':
+            section_headers['Trades'] = idx + 1  # Next row is the header
+        elif row.iloc[0] == 'Fees':
+            section_headers['Fees'] = idx + 1
+        elif row.iloc[0] == 'Dividends':
+            section_headers['Dividends'] = idx + 1
+        elif row.iloc[0] == 'Withholding Tax':
+            section_headers['Withholding Tax'] = idx + 1
+
     for idx, row in df.iterrows():
         try:
-            if row.iloc[0] == 'Statement' and row.iloc[1] == 'Data':
-                if row.iloc[2] == 'Realized P/L':
-                    realized_pl = parse_numeric(row.iloc[3])
-                    taxable_profit = max(realized_pl, 0)
-                    tax_amount = taxable_profit * tax_rate
-                    net_profit = realized_pl - tax_amount
+            if row.empty or pd.isna(row.iloc[0]):
+                db.log_error(f"Skipping empty or invalid row {idx}")
+                continue
 
-                    total_taxable_profit += taxable_profit
-                    total_tax_amount += tax_amount
-                    total_net_profit += net_profit
+            if row.iloc[0] == 'Trades':
+                header_row = df.iloc[section_headers['Trades']]
+                trade = Trade(row, header_row)
+                taxable_profit, tax_amount, net_profit = trade.calculate_tax(tax_rate)
 
-                    processed_row = {
-                        'Type': 'Statement',
-                        'Description': row.iloc[2],
-                        'RealizedProfit': f"{realized_pl:.2f}",
-                        'TaxableProfit': f"{taxable_profit:.2f}",
-                        'TaxAmount': f"{tax_amount:.2f}",
-                        'NetProfit': f"{net_profit:.2f}"
-                    }
-                    processed_data.append(processed_row)
+                total_taxable_profit += taxable_profit
+                total_tax_amount += tax_amount
+                total_net_profit += net_profit
 
-            elif row.iloc[0] == 'Account Information' and row.iloc[1] == 'Data':
                 processed_row = {
-                    'Type': 'Account Information',
-                    'Field': row.iloc[2],
-                    'Value': row.iloc[3]
+                    'Type': 'Trade',
+                    'Symbol': trade.symbol,
+                    'Quantity': f"{trade.quantity:.2f}",
+                    'TradePrice': f"{trade.trade_price:.2f}",
+                    'Proceeds': f"{trade.proceeds:.2f}",
+                    'Commission': f"{trade.commission:.2f}",
+                    'RealizedProfit': f"{trade.realized_pl:.2f}",
+                    'TaxableProfit': f"{taxable_profit:.2f}",
+                    'TaxAmount': f"{tax_amount:.2f}",
+                    'NetProfit': f"{net_profit:.2f}"
                 }
                 processed_data.append(processed_row)
 
-            elif row.iloc[0] == 'Trades' and row.iloc[1] == 'Data':
-                try:
-                    quantity = parse_numeric(row.iloc[2])
-                    trade_price = parse_numeric(row.iloc[3])
-                    proceeds = parse_numeric(row.iloc[4])
-                    commission = parse_numeric(row.iloc[5])
-                    realized_pl = parse_numeric(row.iloc[6])
-
-                    taxable_profit = max(realized_pl, 0)
-                    tax_amount = taxable_profit * tax_rate
-                    net_profit = realized_pl - tax_amount
-
-                    total_taxable_profit += taxable_profit
-                    total_tax_amount += tax_amount
-                    total_net_profit += net_profit
-
-                    processed_row = {
-                        'Type': 'Trade',
-                        'Symbol': row.iloc[1],
-                        'Quantity': f"{quantity:.2f}",
-                        'TradePrice': f"{trade_price:.2f}",
-                        'Proceeds': f"{proceeds:.2f}",
-                        'Commission': f"{commission:.2f}",
-                        'RealizedProfit': f"{realized_pl:.2f}",
-                        'TaxableProfit': f"{taxable_profit:.2f}",
-                        'TaxAmount': f"{tax_amount:.2f}",
-                        'NetProfit': f"{net_profit:.2f}"
-                    }
-                    processed_data.append(processed_row)
-                except ValueError as e:
-                    db.log_error(f"ValueError: {str(e)} for row {idx}")
-
-            elif row.iloc[0] == 'Fees' and row.iloc[1] == 'Data':
-                fee_amount = parse_numeric(row.iloc[2])
+            elif row.iloc[0] == 'Fees':
+                header_row = df.iloc[section_headers['Fees']]
+                fee = Fee(row, header_row)
                 processed_row = {
                     'Type': 'Fee',
-                    'Description': row.iloc[1],
-                    'Amount': f"{fee_amount:.2f}"
+                    'Description': fee.description,
+                    'Amount': f"{fee.amount:.2f}"
                 }
                 processed_data.append(processed_row)
 
-            elif row.iloc[0] == 'Dividends' and row.iloc[1] == 'Data':
-                dividend_amount = parse_numeric(row.iloc[2])
+            elif row.iloc[0] == 'Dividends':
+                header_row = df.iloc[section_headers['Dividends']]
+                dividend = Dividend(row, header_row)
                 processed_row = {
                     'Type': 'Dividend',
-                    'Description': row.iloc[1],
-                    'Amount': f"{dividend_amount:.2f}"
+                    'Description': dividend.description,
+                    'Amount': f"{dividend.amount:.2f}"
                 }
                 processed_data.append(processed_row)
 
-            elif row.iloc[0] == 'Withholding Tax' and row.iloc[1] == 'Data':
-                withholding_tax_amount = parse_numeric(row.iloc[2])
+            elif row.iloc[0] == 'Withholding Tax':
+                header_row = df.iloc[section_headers['Withholding Tax']]
+                withholding_tax = WithholdingTax(row, header_row)
                 processed_row = {
                     'Type': 'Withholding Tax',
-                    'Description': row.iloc[1],
-                    'Amount': f"{withholding_tax_amount:.2f}"
+                    'Description': withholding_tax.description,
+                    'Amount': f"{withholding_tax.amount:.2f}"
                 }
                 processed_data.append(processed_row)
         except Exception as e:
@@ -145,6 +118,7 @@ def calculate_tax(file_path):
     }
 
     return processed_data, summary, fieldnames
+
 
 # Usage in the route
 @app.route('/calculate-tax', methods=['POST'])
