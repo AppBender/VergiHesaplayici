@@ -130,23 +130,25 @@ def analyze_csv_structure(file_path):
         row_type = ""
 
         # İlk sütuna göre satır tipini belirle
-        if row[0] == 'Statement':
-            if row[1] == 'Header':
-                row_type = "Statement Header satırı"
-            elif row[1] == 'Data':
-                row_type = f"Statement Data satırı - {row[2]}: {row[3]}"
+    for idx, row in df.iterrows():
+        # Use iloc for positional indexing
+        if row.iloc[0] == 'Statement':
+            if row.iloc[1] == 'Header':
+                print(f"Row {idx}: Statement Header")
+            elif row.iloc[1] == 'Data':
+                print(f"Row {idx}: Statement Data - {row.iloc[2]}: {row.iloc[3]}")
 
-        elif row[0] == 'Account Information':
-            row_type = f"Hesap Bilgisi satırı - {row[2]}: {row[3]}"
+        elif row.iloc[0] == 'Account Information':
+            print(f"Row {idx}: Account Info - {row.iloc[2]}: {row.iloc[3]}")
 
         elif 'Trades' in str(row.values):
-            row_type = "İşlemler bölümü başlangıcı"
+            print(f"Row {idx}: Trades section start")
 
-        elif pd.isna(row[0]):
-            row_type = "Boş satır"
+        elif pd.isna(row.iloc[0]):
+            print(f"Row {idx}: Empty row")
 
         else:
-            row_type = f"Diğer satır tipi: {row[0]}"
+            print(f"Row {idx}: Other type - {row.iloc[0]}")
 
         print(f"Satır {idx+1}: {row_type}")
         print(f"İçerik: {', '.join(str(x) for x in row.values if pd.notna(x))}")
