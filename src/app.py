@@ -5,10 +5,7 @@ import os
 import pandas as pd
 from databases.file_db import FileDB
 
-from models.dividend import Dividend
-from models.fee import Fee
-from models.trade import Trade
-from models.witholding_tax import WithholdingTax
+from models.csv_parser import CSVParser
 
 
 # Flask uygulaması
@@ -23,106 +20,27 @@ def welcome():
     return render_template('index.html')
 
 
-def calculate_tax(file_path):
-    df = pd.read_csv(file_path, encoding='utf-8')
-
-    processed_data = []
-    tax_rate = 0.15
-    total_taxable_profit = 0
-    total_tax_amount = 0
-    total_net_profit = 0
-
-    # Identify section headers and column indices
-    section_headers = {}
-    for idx, row in df.iterrows():
-        if row.iloc[0] == 'Trades':
-            section_headers['Trades'] = idx + 1  # Next row is the header
-        elif row.iloc[0] == 'Fees':
-            section_headers['Fees'] = idx + 1
-        elif row.iloc[0] == 'Dividends':
-            section_headers['Dividends'] = idx + 1
-        elif row.iloc[0] == 'Withholding Tax':
-            section_headers['Withholding Tax'] = idx + 1
-
-    for idx, row in df.iterrows():
-        try:
-            if row.empty or pd.isna(row.iloc[0]):
-                db.log_error(f"Skipping empty or invalid row {idx}")
-                continue
-
-            if row.iloc[0] == 'Trades':
-                header_row = df.iloc[section_headers['Trades']]
-                trade = Trade(row, header_row)
-                taxable_profit, tax_amount, net_profit = trade.calculate_tax(tax_rate)
-
-                total_taxable_profit += taxable_profit
-                total_tax_amount += tax_amount
-                total_net_profit += net_profit
-
-                processed_row = {
-                    'Type': 'Trade',
-                    'Symbol': trade.symbol,
-                    'Quantity': f"{trade.quantity:.2f}",
-                    'TradePrice': f"{trade.trade_price:.2f}",
-                    'Proceeds': f"{trade.proceeds:.2f}",
-                    'Commission': f"{trade.commission:.2f}",
-                    'RealizedProfit': f"{trade.realized_pl:.2f}",
-                    'TaxableProfit': f"{taxable_profit:.2f}",
-                    'TaxAmount': f"{tax_amount:.2f}",
-                    'NetProfit': f"{net_profit:.2f}"
-                }
-                processed_data.append(processed_row)
-
-            elif row.iloc[0] == 'Fees':
-                header_row = df.iloc[section_headers['Fees']]
-                fee = Fee(row, header_row)
-                processed_row = {
-                    'Type': 'Fee',
-                    'Description': fee.description,
-                    'Amount': f"{fee.amount:.2f}"
-                }
-                processed_data.append(processed_row)
-
-            elif row.iloc[0] == 'Dividends':
-                header_row = df.iloc[section_headers['Dividends']]
-                dividend = Dividend(row, header_row)
-                processed_row = {
-                    'Type': 'Dividend',
-                    'Description': dividend.description,
-                    'Amount': f"{dividend.amount:.2f}"
-                }
-                processed_data.append(processed_row)
-
-            elif row.iloc[0] == 'Withholding Tax':
-                header_row = df.iloc[section_headers['Withholding Tax']]
-                withholding_tax = WithholdingTax(row, header_row)
-                processed_row = {
-                    'Type': 'Withholding Tax',
-                    'Description': withholding_tax.description,
-                    'Amount': f"{withholding_tax.amount:.2f}"
-                }
-                processed_data.append(processed_row)
-        except Exception as e:
-            db.log_error(f"Error processing row {idx}: {str(e)}")
-
-    # Dynamically generate fieldnames from processed data
-    fieldnames = set()
-    for row in processed_data:
-        fieldnames.update(row.keys())
-    fieldnames = list(fieldnames)
-
-    summary = {
-        'TotalTaxableProfit': f"{total_taxable_profit:.2f}",
-        'TotalTaxAmount': f"{total_tax_amount:.2f}",
-        'TotalNetProfit': f"{total_net_profit:.2f}"
-    }
-
-    return processed_data, summary, fieldnames
-
-
-# Usage in the route
 @app.route('/calculate-tax', methods=['POST'])
 def process_tax_route():
+    """Processes tax calculation route for uploaded CSV files.
+
+    This function handles the file upload process, validates the uploaded file,
+    processes the tax calculations using CSVParser, and generates both a downloadable
+    CSV report and an HTML results page.
+
+    Returns:
+        tuple: A tuple containing either:
+            - (str, int): Error message and HTTP status code (400 or 500) if an error occurs
+            - template: Rendered 'results.html' template with processed data and summary if successful
+
+    Raises:
+        Exception: Any exception that occurs during file processing or tax calculation
+
+    Notes:
+        - Expects a CSV file upload through POST request
+        - Saves processed results to 'src/vergi_hesaplama_raporu.csv'
+        - Uses temporary file 'temp_uploaded_file.csv' during processing
+    """
     if 'file' not in request.files:
         return 'Dosya yüklenmedi', 400
 
@@ -134,7 +52,8 @@ def process_tax_route():
         temp_path = 'temp_uploaded_file.csv'
         file.save(temp_path)
 
-        processed_data, summary, fieldnames = calculate_tax(temp_path)
+        parser = CSVParser(temp_path)
+        processed_data, summary, fieldnames = parser.parse()
 
         output = io.StringIO()
         csv_writer = csv.DictWriter(output, fieldnames=fieldnames)
@@ -157,6 +76,29 @@ def process_tax_route():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    """
+    Process uploaded CSV file for tax calculations and generate report.
+
+    This function handles both GET and POST requests:
+    - GET: Renders the index template
+    - POST: Processes uploaded CSV file, calculates taxes, and generates report
+
+    The function performs the following steps on POST:
+    1. Validates file upload
+    2. Saves uploaded file temporarily
+    3. Parses CSV data and calculates taxes
+    4. Generates output CSV with tax calculations
+    5. Saves report file
+    6. Cleans up temporary file
+
+    Returns:
+        On GET: Rendered index.html template
+        On POST success: Rendered index.html template with calculation summary
+        On POST error: Error message with appropriate HTTP status code (400 or 500)
+
+    Raises:
+        Exception: If any error occurs during file processing or tax calculations
+    """
     summary = None
     if request.method == 'POST':
         # Dosya kontrolü
@@ -170,8 +112,10 @@ def index():
         file.save(temp_path)
 
         try:
+            parser = CSVParser(temp_path)
+
             # Vergi hesaplamasını yap
-            processed_data, summary, fieldnames = calculate_tax(temp_path)
+            processed_data, summary, fieldnames = parser.parse()
 
             # CSV dosyası oluştur
             output = io.StringIO()
@@ -255,7 +199,7 @@ def analyze_csv_structure(file_path):
 
 
 if __name__ == '__main__':
-    # app.run(debug=True)
+    app.run(debug=True)
     # analyze_csv_structure('U7470952_20241202_20250103.csv')
-    processed_data, summary, fieldnames = calculate_tax('U7470952_20241202_20250103.csv')    # print(processed_data)
-    print(summary)
+    # processed_data, summary, fieldnames = calculate_tax('U7470952_20241202_20250103.csv')    # print(processed_data)
+    # print(summary)
