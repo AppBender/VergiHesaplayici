@@ -1,24 +1,16 @@
-import csv
-import io
-import os
-import pandas as pd
+import utils.config as config
 
-from models.csv_processor import CSVProcessor
 from flask import Flask, request, send_file, render_template
-from databases.file_db import FileDB
-from models.csv_parser import CSVParser
+from models.csv_processor import CSVProcessor
+from utils.file_manager import FileManager
+from werkzeug.datastructures import FileStorage
 
 
-# Flask uygulaması
-app = Flask(__name__, template_folder='../templates')
-db = FileDB()
-db.clear_logs()
-
-report_name = "vergi_hesaplama_raporu.csv"
-report_path = f'src/{report_name}'
+app = Flask(__name__, template_folder='templates/')
+file_manager = FileManager()
+file_manager.clear_directory(config.OUTPUT_DIR)
 
 
-# Anasayfa
 @app.route('/')
 def welcome():
     return render_template('index.html')
@@ -50,17 +42,18 @@ def index():
     """
     summary = None
     if request.method == 'POST':
-        # Dosya kontrolü
+        # File check
         if 'file' not in request.files:
             return 'Dosya yüklenemedi', 400
 
         file = request.files['file']
+        if file.filename == '':
+            return 'Dosya seçilmedi', 400
 
-        # Geçici dosya olarak kaydet
-        temp_path = 'temp_uploaded_file.csv'
-        file.save(temp_path)
+        # Save as temporary file
+        file.save(config.TEMP_PATH)
 
-        processor = CSVProcessor(temp_path, report_path)
+        processor = CSVProcessor(config.TEMP_PATH, config.REPORT_PATH)
         processed_data, summary = processor.process_csv()
 
         if processed_data is None:
@@ -71,14 +64,19 @@ def index():
 
 @app.route('/download')
 def download_csv():
-    return send_file(report_name,
+    return send_file(config.REPORT_PATH,
                      mimetype='text/csv',
                      as_attachment=True,
-                     download_name=report_name)
+                     download_name=config.REPORT_NAME)
 
 
 if __name__ == '__main__':
     app.run(debug=True)
-    # processed_data, summary, fieldnames = calculate_tax('U7470952_20241202_20250103.csv')
-    # print(processed_data)
-    # print(summary)
+    # Simulate file upload
+    # with open('U7470952_20241202_20250103.csv', 'rb') as f:
+    #     file = FileStorage(f)
+    #     temp_path = file_manager.create_file(config.TEMP_PATH)
+    #     file.save(temp_path)
+
+    #     processor = CSVProcessor(temp_path, config.REPORT_PATH)
+    #     processed_data, summary = processor.process_csv()

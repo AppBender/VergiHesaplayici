@@ -29,8 +29,7 @@ def analyze_csv_structure(file_path):
 
 # Test function
 def test_analyze_csv_structure():
-    file_path = '/Users/eraydiler/Me/Development/Web/VergiHesaplayici/U7470952_20241202_20250103.csv'
-    analyze_csv_structure(file_path)
+    analyze_csv_structure('U7470952_20241202_20250103.csv')
 
 
 if __name__ == "__main__":

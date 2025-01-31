@@ -4,10 +4,8 @@ from databases.database import Database
 
 
 class FileDB(Database):
-    def __init__(self, log_file='logs.txt'):
-        # Get project root directory (2 levels up from file_db.py)
-        project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-        self.log_file = os.path.join(project_root, log_file)
+    def __init__(self, log_file='output/logs.txt'):
+        self.log_file = log_file
 
     def clear_logs(self) -> bool:
         try:
@@ -22,13 +20,10 @@ class FileDB(Database):
     def _write_log(self, message: str, log_type: str):
         timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         with open(self.log_file, 'a', encoding='utf-8') as f:
-            # log = f"[{timestamp}] {log_type}: {message}\n"
-            log = f"{message}"
-            f.write(f"{log}\n")
-            # print(log)
+            f.write(f'[{timestamp}] {log_type}: {message}\n')
 
     def log_info(self, info_message: str):
         self._write_log(f"{info_message}", "INFO")
 
     def log_error(self, error_message: str):
-        self._write_log(f"{error_message}", "ERROR")
+        self._write_log(f"Error: {error_message}", "ERROR")

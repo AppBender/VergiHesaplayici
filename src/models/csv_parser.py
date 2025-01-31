@@ -39,7 +39,6 @@ class CSVParser:
         self.file_path = file_path
         self.df = pd.read_csv(file_path, encoding='utf-8')
         self.section_headers = self.identify_section_headers()
-        self.db = FileDB()
 
     def identify_section_headers(self):
         """
@@ -94,6 +93,7 @@ class CSVParser:
             - All monetary values are formatted to 2 decimal places
             - Default tax rate is 15%
         """
+        db = FileDB()
         processed_data = []
         tax_rate = 0.15
         total_taxable_profit = 0
@@ -103,7 +103,7 @@ class CSVParser:
         for idx, row in self.df.iterrows():
             try:
                 if row.empty or pd.isna(row.iloc[0]):
-                    self.db.log_error(f"Skipping empty or invalid row {idx}")
+                    db.log_error(f"Skipping empty or invalid row {idx}")
                     continue
 
                 if row.iloc[0] == 'Trades':
@@ -159,7 +159,7 @@ class CSVParser:
                     }
                     processed_data.append(processed_row)
             except Exception as e:
-                self.db.log_error(f"Error processing row {idx}: {str(e)}")
+                db.log_error(f"Error processing row {idx}: {str(e)}")
 
         # Dynamically generate fieldnames from processed data
         fieldnames = set()
