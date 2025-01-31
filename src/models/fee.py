@@ -5,7 +5,8 @@ class Fee:
     """
     A class representing a fee entry from a data row.
 
-    This class processes a row of data and extracts fee information based on the provided header row.
+    This class processes a row of data and extracts fee information based on the provided
+    header row.
 
     Parameters
     ----------
