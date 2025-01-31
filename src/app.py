@@ -12,6 +12,7 @@ from models.csv_parser import CSVParser
 app = Flask(__name__, template_folder='../templates')
 db = FileDB()
 db.clear_logs()
+report_file_path = 'src/vergi_hesaplama_raporu.csv'
 
 
 # Anasayfa
@@ -30,8 +31,10 @@ def process_tax_route():
 
     Returns:
         tuple: A tuple containing either:
-            - (str, int): Error message and HTTP status code (400 or 500) if an error occurs
-            - template: Rendered 'results.html' template with processed data and summary if successful
+            - (str, int): Error message and HTTP status code (400 or 500) if an error
+            occurs
+            - template: Rendered 'results.html' template with processed data and summary
+            if successful
 
     Raises:
         Exception: Any exception that occurs during file processing or tax calculation
@@ -64,7 +67,7 @@ def process_tax_route():
 
         output.seek(0)
 
-        with open('src/vergi_hesaplama_raporu.csv', 'w', newline='', encoding='utf-8') as f:
+        with open(report_file_path, 'w', newline='', encoding='utf-8') as f:
             f.write(output.getvalue())
 
         return render_template('results.html', results=processed_data, summary=summary)
@@ -132,7 +135,7 @@ def index():
             output.seek(0)
 
             # Dosyayı geçici olarak kaydet
-            with open('src/vergi_hesaplama_raporu.csv', 'w', newline='', encoding='utf-8') as f:
+            with open(report_file_path, 'w', newline='', encoding='utf-8') as f:
                 f.write(output.getvalue())
 
         except Exception as e:

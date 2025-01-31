@@ -10,19 +10,20 @@ from databases.file_db import FileDB
 class CSVParser:
     """CSVParser class for processing financial data from CSV files.
 
-    This class handles the parsing and processing of CSV files containing financial transaction data,
-    including trades, fees, dividends, and withholding taxes. It calculates tax implications and
-    provides summarized financial data.
+    This class handles the parsing and processing of CSV files containing financial
+    transaction data, including trades, fees, dividends, and withholding taxes.
+    It calculates tax implications and provides summarized financial data.
 
     Attributes:
         file_path (str): Path to the CSV file to be processed
         df (pandas.DataFrame): DataFrame containing the CSV data
-        section_headers (dict): Dictionary mapping section names to their starting row indices
-        db (FileDB): Database instance for logging errors
+        section_headers (dict): Dictionary mapping section names to their starting row
+        indices db (FileDB): Database instance for logging errors
 
     Methods:
-        identify_section_headers(): Identifies the starting positions of different data sections
-        parse(): Processes the CSV data and returns processed transactions with tax calculations
+        identify_section_headers(): Identifies the starting positions of different data
+        sections parse(): Processes the CSV data and returns processed transactions with
+        tax calculations
 
     Returns from parse():
         tuple: Contains three elements:
@@ -67,7 +68,8 @@ class CSVParser:
 
     def parse(self):
         """
-        Parses the loaded CSV data and processes it into structured format with tax calculations.
+        Parses the loaded CSV data and processes it into structured format with tax
+        calculations.
 
         The method processes different types of financial data including:
         - Trades (with tax calculations)

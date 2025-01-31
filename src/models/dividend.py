@@ -5,7 +5,8 @@ class Dividend:
     """
     A class representing a dividend transaction.
 
-    This class processes dividend information from a data row using corresponding header information.
+    This class processes dividend information from a data row using corresponding header
+    information.
 
     Attributes:
         description (str): The description of the dividend transaction.
@@ -16,7 +17,8 @@ class Dividend:
         header_row: A row containing header information with column names.
 
     Note:
-        The class expects 'Description' and 'Amount' columns to be present in the header_row.
+        The class expects 'Description' and 'Amount' columns to be present in the
+        header_row.
         The Amount value is automatically parsed into a numeric format.
     """
     def __init__(self, row, header_row):
