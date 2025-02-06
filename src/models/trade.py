@@ -7,7 +7,7 @@ class Trade:
         self.asset_category = row.iloc[3]
         self.currency = row.iloc[4]
         self.symbol = row.iloc[5]
-        self.date_time = row.iloc[6]
+        self.date_time = str(row.iloc[6])  # Ensure date_time is a string
         self.quantity = float(row.iloc[7])
         self.trade_price = float(row.iloc[8])
         self.current_price = float(row.iloc[9])
