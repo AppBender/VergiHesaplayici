@@ -48,32 +48,32 @@ class CSVParser:
                     }
                     processed_data.append(processed_row)
 
-                # elif row.iloc[0] == 'Fees' and row.iloc[1] == 'Data':
-                #     fee = Fee(row)
-                #     processed_row = {
-                #         'Type': 'Fee',
-                #         'Description': fee.description,
-                #         'Amount': f"{fee.amount:.2f}"
-                #     }
-                #     processed_data.append(processed_row)
+                elif row.iloc[0] == 'Fees' and row.iloc[1] == 'Data':
+                    fee = Fee(row)
+                    processed_row = {
+                        'Type': 'Fee',
+                        'Description': fee.description,
+                        'Amount': f"{fee.amount:.2f}"
+                    }
+                    processed_data.append(processed_row)
 
-                # elif row.iloc[0] == 'Dividends' and row.iloc[1] == 'Data':
-                #     dividend = Dividend(row)
-                #     processed_row = {
-                #         'Type': 'Dividend',
-                #         'Description': dividend.description,
-                #         'Amount': f"{dividend.amount:.2f}"
-                #     }
-                #     processed_data.append(processed_row)
+                elif row.iloc[0] == 'Dividends' and row.iloc[1] == 'Data':
+                    dividend = Dividend(row)
+                    processed_row = {
+                        'Type': 'Dividend',
+                        'Description': dividend.description,
+                        'Amount': f"{dividend.amount:.2f}"
+                    }
+                    processed_data.append(processed_row)
 
-                # elif row.iloc[0] == 'Withholding Tax' and row.iloc[1] == 'Data':
-                #     withholding_tax = WithholdingTax(row)
-                #     processed_row = {
-                #         'Type': 'Withholding Tax',
-                #         'Description': withholding_tax.description,
-                #         'Amount': f"{withholding_tax.amount:.2f}"
-                #     }
-                #     processed_data.append(processed_row)
+                elif row.iloc[0] == 'Withholding Tax' and row.iloc[1] == 'Data':
+                    withholding_tax = WithholdingTax(row)
+                    processed_row = {
+                        'Type': 'Withholding Tax',
+                        'Description': withholding_tax.description,
+                        'Amount': f"{withholding_tax.amount:.2f}"
+                    }
+                    processed_data.append(processed_row)
             except Exception as e:
                 self.db.log_error(f"Error processing row {idx}: {str(e)}")
 
