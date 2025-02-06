@@ -17,6 +17,15 @@ class CSVProcessor:
             # Vergi hesaplamasını yap
             processed_data, summary, fieldnames = parser.parse()
 
+            # Desired order of columns
+            order = [
+                'Type', 'Symbol', 'Quantity', 'TradePrice', 'Proceeds', 'Commission',
+                'RealizedProfit', 'TaxableProfit', 'TaxAmount', 'NetProfit'
+            ]
+
+            # Ensure fieldnames are in the desired order
+            fieldnames = [field for field in order if field in fieldnames]
+
             # CSV dosyası oluştur
             output = io.StringIO()
             csv_writer = csv.DictWriter(output, fieldnames=fieldnames)

@@ -71,12 +71,13 @@ def download_csv():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # app.run(debug=True)
     # Simulate file upload
-    # with open('U7470952_20241202_20250103.csv', 'rb') as f:
-    #     file = FileStorage(f)
-    #     temp_path = file_manager.create_file(config.TEMP_PATH)
-    #     file.save(temp_path)
+    with open('U7470952_20241202_20250103.csv', 'rb') as f:
+        file = FileStorage(f)
+        temp_path = file_manager.create_file(config.TEMP_PATH)
+        file.save(temp_path)
 
-    #     processor = CSVProcessor(temp_path, config.REPORT_PATH)
-    #     processed_data, summary = processor.process_csv()
+        processor = CSVProcessor(temp_path, config.REPORT_PATH)
+        processed_data, summary = processor.process_csv()
+        print(summary)
