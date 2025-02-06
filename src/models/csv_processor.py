@@ -61,6 +61,7 @@ class CSVProcessor:
             csv_writer.writerow(['İşlem Tipi', 'Sembol', 'Tarih', 'İşlem Açıklaması', 'USD Tutar', 'TCMB Kuru', 'TL Karşılığı', 'Kategori'])
 
             # Write data
+            previous_row_empty = False
             for category, rows in categories.items():
                 for row in rows:
                     if category == 'Hisse Senedi':
@@ -83,13 +84,17 @@ class CSVProcessor:
                             'Stopaj', row['Symbol'], row['Date/Time'], 'Temettü Stopajı',
                             row['Amount'], '', '', 'Stopaj'
                         ])
+                    previous_row_empty = False
+                # Add an empty row between sections if the previous row is not empty
+                if not previous_row_empty:
+                    csv_writer.writerow(['', '', '', '', '', '', '', ''])
+                    previous_row_empty = True
 
             # Write totals
-            csv_writer.writerow(['', '', '', '', '', '', '', ''])
-            csv_writer.writerow(['Özet Hesaplama'])
-            csv_writer.writerow(['Kategori', 'USD Toplam', 'TL Toplam'])
+            csv_writer.writerow(['Özet Hesaplama', '', '', '', '', '', '', ''])
+            csv_writer.writerow(['Kategori', 'USD Toplam', 'TL Toplam', '', '', '', '', ''])
             for category, total in totals.items():
-                csv_writer.writerow([category, total['USD'], total['TL']])
+                csv_writer.writerow([category, total['USD'], total['TL'], '', '', '', '', ''])
 
             # İmleç başına dön
             output.seek(0)
