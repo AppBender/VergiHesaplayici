@@ -1,0 +1,28 @@
+İşlem Tipi,Sembol,Tarih,İşlem Açıklaması,USD Tutar,TCMB Kuru,TL Karşılığı,Kategori
+Hisse Senedi,FXY,2024-12-24,Satış Zararı,-15.09,29.2345,-441.15,Alım-Satım
+Hisse Senedi,SLV,2025-01-10,Kısmi Satış Karı,57.68,29.4532,1698.92,Alım-Satım
+Hisse Senedi,USO,2024-12-20,Satış Karı,43.07,29.1876,1257.12,Alım-Satım
+Hisse Senedi,VIXY,2024-12-18,Satış Karı,64.34,29.1654,1876.54,Alım-Satım
+Opsiyon,SPXW 02DEC24 6050 C,2024-12-02,Opsiyon Zararı,-295.44,29.1234,-8604.03,Alım-Satım
+Opsiyon,SPXW 02DEC24 6055 C,2024-12-02,Opsiyon Karı,94.74,29.1234,2759.91,Alım-Satım
+Opsiyon,SPXW 03DEC24 6050 C,2024-12-03,Opsiyon Karı,2.35,29.1234,68.44,Alım-Satım
+Opsiyon,SPXW 03DEC24 6055 C,2024-12-03,Opsiyon Zararı,-14.56,29.1234,-424.04,Alım-Satım
+Opsiyon,SPXW 03DEC24 6030 P,2024-12-03,Opsiyon Karı,213.63,29.1234,6221.55,Alım-Satım
+Opsiyon,SPXW 03DEC24 6035 P,2024-12-03,Opsiyon Zararı,-326.37,29.1234,-9505.28,Alım-Satım
+Temettü,TBIL,2024-12-03,Brüt Temettü,19.03,29.1234,554.21,Temettü
+Temettü,TBIL,2024-12-31,Brüt Temettü,18.77,29.2450,548.93,Temettü
+Temettü,TLT,2024-12-05,Brüt Temettü,52.11,29.1234,1518.32,Temettü
+Temettü,TLT,2024-12-23,Brüt Temettü,56.43,29.1923,1647.21,Temettü
+Stopaj,TBIL,2024-12-03,Temettü Stopajı,-3.81,29.1234,-110.96,Stopaj
+Stopaj,TBIL,2024-12-31,Temettü Stopajı,-3.75,29.2450,-109.67,Stopaj
+Stopaj,TLT,2024-12-05,Temettü Stopajı,-10.42,29.1234,-303.47,Stopaj
+Stopaj,TLT,2024-12-23,Temettü Stopajı,-11.29,29.1923,-329.63,Stopaj
+,,,,,,,
+Özet Hesaplama,,,,,,,
+Kategori,USD Toplam,TL Toplam,,,,,
+Hisse Senedi Kar/Zarar,150.00,4391.43,,,,,
+Opsiyon Kar/Zarar,-325.64,-9483.45,,,,,
+Brüt Temettü,146.34,4268.67,,,,,
+Stopaj,-29.27,-853.73,,,,,
+Net Temettü,117.07,3414.94,,,,,
+Toplam Kar/Zarar,-58.57,-1677.08,,,,,

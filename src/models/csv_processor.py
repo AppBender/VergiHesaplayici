@@ -17,26 +17,79 @@ class CSVProcessor:
             # Vergi hesaplamasını yap
             processed_data, summary, fieldnames = parser.parse()
 
-            # Desired order of columns
-            order = [
-                'Type', 'Symbol', 'Quantity', 'TradePrice', 'Proceeds', 'Commission',
-                'RealizedProfit', 'TaxableProfit', 'TaxAmount', 'NetProfit',
-                'Description', 'Amount'
-            ]
+            # Group data by categories
+            categories = {
+                'Hisse Senedi': [],
+                'Opsiyon': [],
+                'Temettü': [],
+                'Stopaj': []
+            }
 
-            # Ensure fieldnames are in the desired order
-            fieldnames = [field for field in order if field in fieldnames]
+            for row in processed_data:
+                if row['Type'] == 'Trade':
+                    if 'Option' in row['Symbol']:
+                        categories['Opsiyon'].append(row)
+                    else:
+                        categories['Hisse Senedi'].append(row)
+                elif row['Type'] == 'Dividend':
+                    categories['Temettü'].append(row)
+                elif row['Type'] == 'Withholding Tax':
+                    categories['Stopaj'].append(row)
+                elif row['Type'] == 'Fee':
+                    categories['Stopaj'].append(row)
+
+            # Calculate totals for each category
+            totals = {
+                'Hisse Senedi': {'USD': 0, 'TL': 0},
+                'Opsiyon': {'USD': 0, 'TL': 0},
+                'Temettü': {'USD': 0, 'TL': 0},
+                'Stopaj': {'USD': 0, 'TL': 0}
+            }
+
+            for category, rows in categories.items():
+                for row in rows:
+                    if 'RealizedProfit' in row:
+                        totals[category]['USD'] += float(row['RealizedProfit'])
+                    if 'Amount' in row:
+                        totals[category]['USD'] += float(row['Amount'])
 
             # CSV dosyası oluştur
             output = io.StringIO()
-            csv_writer = csv.DictWriter(output, fieldnames=fieldnames)
+            csv_writer = csv.writer(output)
 
-            # Başlıkları yaz
-            csv_writer.writeheader()
+            # Write headers
+            csv_writer.writerow(['İşlem Tipi', 'Sembol', 'Tarih', 'İşlem Açıklaması', 'USD Tutar', 'TCMB Kuru', 'TL Karşılığı', 'Kategori'])
 
-            # Verileri yaz
-            for row in processed_data:
-                csv_writer.writerow(row)
+            # Write data
+            for category, rows in categories.items():
+                for row in rows:
+                    if category == 'Hisse Senedi':
+                        csv_writer.writerow([
+                            'Hisse Senedi', row['Symbol'], row['Date/Time'], 'Satış Karı' if float(row['RealizedProfit']) > 0 else 'Satış Zararı',
+                            row['RealizedProfit'], '', '', 'Alım-Satım'
+                        ])
+                    elif category == 'Opsiyon':
+                        csv_writer.writerow([
+                            'Opsiyon', row['Symbol'], row['Date/Time'], 'Opsiyon Karı' if float(row['RealizedProfit']) > 0 else 'Opsiyon Zararı',
+                            row['RealizedProfit'], '', '', 'Alım-Satım'
+                        ])
+                    elif category == 'Temettü':
+                        csv_writer.writerow([
+                            'Temettü', row['Symbol'], row['Date/Time'], 'Brüt Temettü',
+                            row['Amount'], '', '', 'Temettü'
+                        ])
+                    elif category == 'Stopaj':
+                        csv_writer.writerow([
+                            'Stopaj', row['Symbol'], row['Date/Time'], 'Temettü Stopajı',
+                            row['Amount'], '', '', 'Stopaj'
+                        ])
+
+            # Write totals
+            csv_writer.writerow(['', '', '', '', '', '', '', ''])
+            csv_writer.writerow(['Özet Hesaplama'])
+            csv_writer.writerow(['Kategori', 'USD Toplam', 'TL Toplam'])
+            for category, total in totals.items():
+                csv_writer.writerow([category, total['USD'], total['TL']])
 
             # İmleç başına dön
             output.seek(0)

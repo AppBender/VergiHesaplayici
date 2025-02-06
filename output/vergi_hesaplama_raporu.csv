@@ -1,57 +1,64 @@
-Type,Symbol,Quantity,TradePrice,Proceeds,Commission,RealizedProfit,TaxableProfit,TaxAmount,NetProfit,Description,Amount
-Trade,FXY,-32.33,58.68,1897.25,-1.06,-15.09,-15.09,-2.26,-12.82,,
-Trade,SLV,94.00,26.48,-2489.12,-1.00,0.00,0.00,0.00,0.00,,
-Trade,TBIL,0.30,49.89,-15.22,-0.02,0.00,0.00,0.00,0.00,,
-Trade,TBIL,0.30,49.87,-15.02,-0.02,0.00,0.00,0.00,0.00,,
-Trade,TLT,0.44,94.82,-41.68,-0.04,0.00,0.00,0.00,0.00,,
-Trade,TLT,28.00,88.51,-2478.28,-1.00,0.00,0.00,0.00,0.00,,
-Trade,TLT,0.52,87.01,-45.13,-0.05,0.00,0.00,0.00,0.00,,
-Trade,USO,-28.00,72.27,2023.56,-1.06,42.59,42.59,6.39,36.20,,
-Trade,USO,-0.27,73.20,20.12,-0.20,0.48,0.48,0.07,0.41,,
-Trade,VIXY,12.08,41.32,-499.00,-1.00,0.00,0.00,0.00,0.00,,
-Trade,VIXY,-12.08,46.81,565.35,-1.02,64.34,64.34,9.65,54.69,,
-Trade,SPXW 02DEC24 6050 C,-2.00,1.55,310.00,-2.57,0.00,0.00,0.00,0.00,,
-Trade,SPXW 02DEC24 6050 C,2.00,3.47,-694.00,-2.57,-389.15,-389.15,-58.37,-330.77,,
-Trade,SPXW 02DEC24 6050 C,2.00,3.37,-674.00,-2.57,0.00,0.00,0.00,0.00,,
-Trade,SPXW 02DEC24 6050 C,2.00,3.37,-674.00,-2.57,0.00,0.00,0.00,0.00,,
-Trade,SPXW 02DEC24 6050 C,-4.00,3.63,1452.00,-5.15,93.71,93.71,14.06,79.65,,
-Trade,SPXW 02DEC24 6055 C,2.00,0.90,-180.00,-2.39,0.00,0.00,0.00,0.00,,
-Trade,SPXW 02DEC24 6055 C,-2.00,1.87,374.00,-2.57,189.03,189.03,28.36,160.68,,
-Trade,SPXW 02DEC24 6055 C,-2.00,1.82,364.00,-2.57,0.00,0.00,0.00,0.00,,
-Trade,SPXW 02DEC24 6055 C,-2.00,1.82,364.00,-2.57,0.00,0.00,0.00,0.00,,
-Trade,SPXW 02DEC24 6055 C,4.00,2.03,-812.00,-5.15,-94.29,-94.29,-14.14,-80.15,,
-Trade,SPXW 03DEC24 6050 C,-1.00,2.05,205.00,-1.64,0.00,0.00,0.00,0.00,,
-Trade,SPXW 03DEC24 6050 C,1.00,3.10,-310.00,-1.64,-108.27,-108.27,-16.24,-92.03,,
-Trade,SPXW 03DEC24 6050 C,-1.00,2.27,227.00,-1.74,0.00,0.00,0.00,0.00,,
-Trade,SPXW 03DEC24 6050 C,1.00,1.13,-113.00,-1.64,110.63,110.63,16.59,94.03,,
-Trade,SPXW 03DEC24 6055 C,1.00,1.15,-115.00,-1.64,0.00,0.00,0.00,0.00,,
-Trade,SPXW 03DEC24 6055 C,-1.00,1.60,160.00,-1.64,41.73,41.73,6.26,35.47,,
-Trade,SPXW 03DEC24 6055 C,1.00,1.13,-113.00,-1.74,0.00,0.00,0.00,0.00,,
-Trade,SPXW 03DEC24 6055 C,-1.00,0.60,60.00,-1.55,-56.28,-56.28,-8.44,-47.84,,
-Trade,SPXW 03DEC24 6030 P,1.00,1.66,-166.00,-1.74,0.00,0.00,0.00,0.00,,
-Trade,SPXW 03DEC24 6030 P,-1.00,3.83,383.00,-1.64,213.63,213.63,32.04,181.58,,
-Trade,SPXW 03DEC24 6035 P,-1.00,2.62,262.00,-1.74,0.00,0.00,0.00,0.00,,
-Trade,SPXW 03DEC24 6035 P,1.00,5.85,-585.00,-1.64,-326.37,-326.37,-48.96,-277.42,,
-Fee,,,,,,,,,,E*******R3:CBOE ONE ADD-ON FOR NOV 2024,1.00
-Fee,,,,,,,,,,E*******R3:CBOE ONE ADD-ON FOR DEC 2024,-1.00
-Fee,,,,,,,,,,E*******R3:OPRA NP L1 FOR NOV 2024,1.50
-Fee,,,,,,,,,,E*******R3:OPRA NP L1 FOR DEC 2024,-1.50
-Fee,,,,,,,,,,e*******r3:US Securities Snapshot and Futures Value Bundle Non-Professional for Nov 2024,10.00
-Fee,,,,,,,,,,e*******r3:US Securities Snapshot and Futures Value Bundle Non-Professional for Dec 2024,-10.00
-Fee,,,,,,,,,,E*******R3:CBOE ONE ADD-ON FOR DEC 2024,1.00
-Fee,,,,,,,,,,E*******R3:CBOE ONE ADD-ON FOR JAN 2025,-1.00
-Fee,,,,,,,,,,E*******R3:OPRA NP L1 FOR DEC 2024,1.50
-Fee,,,,,,,,,,E*******R3:OPRA NP L1 FOR JAN 2025,-1.50
-Fee,,,,,,,,,,e*******r3:US Securities Snapshot and Futures Value Bundle Non-Professional for Dec 2024,10.00
-Fee,,,,,,,,,,e*******r3:US Securities Snapshot and Futures Value Bundle Non-Professional for Jan 2025,-10.00
-Fee,,,,,,,,,,nan,0.00
-Dividend,,,,,,,,,,TBIL(US74933W4520) Cash Dividend USD 0.184283 per Share (Ordinary Dividend),19.03
-Dividend,,,,,,,,,,TLT(US4642874329) Cash Dividend USD 0.325021 per Share (Ordinary Dividend),52.11
-Dividend,,,,,,,,,,TLT(US4642874329) Cash Dividend USD 0.351032 per Share (Ordinary Dividend),56.43
-Dividend,,,,,,,,,,TBIL(US74933W4520) Cash Dividend USD 0.181215 per Share (Ordinary Dividend),18.77
-Dividend,,,,,,,,,,nan,146.34
-Withholding Tax,,,,,,,,,,TBIL(US74933W4520) Cash Dividend USD 0.184283 per Share - US Tax,-3.81
-Withholding Tax,,,,,,,,,,TLT(US4642874329) Cash Dividend USD 0.325021 per Share - US Tax,-10.42
-Withholding Tax,,,,,,,,,,TLT(US4642874329) Cash Dividend USD 0.351032 per Share - US Tax,-11.29
-Withholding Tax,,,,,,,,,,TBIL(US74933W4520) Cash Dividend USD 0.181215 per Share - US Tax,-3.75
-Withholding Tax,,,,,,,,,,nan,-29.27
+İşlem Tipi,Sembol,Tarih,İşlem Açıklaması,USD Tutar,TCMB Kuru,TL Karşılığı,Kategori
+Hisse Senedi,FXY,"2024-12-24, 10:41:31",Satış Zararı,-15.09,,,Alım-Satım
+Hisse Senedi,SLV,"2024-12-20, 09:04:18",Satış Zararı,0.00,,,Alım-Satım
+Hisse Senedi,TBIL,"2024-12-06, 09:30:00",Satış Zararı,0.00,,,Alım-Satım
+Hisse Senedi,TBIL,"2025-01-02, 09:33:15",Satış Zararı,0.00,,,Alım-Satım
+Hisse Senedi,TLT,"2024-12-06, 09:33:10",Satış Zararı,0.00,,,Alım-Satım
+Hisse Senedi,TLT,"2024-12-20, 08:39:28",Satış Zararı,0.00,,,Alım-Satım
+Hisse Senedi,TLT,"2024-12-24, 09:33:10",Satış Zararı,0.00,,,Alım-Satım
+Hisse Senedi,USO,"2024-12-20, 08:58:34",Satış Karı,42.59,,,Alım-Satım
+Hisse Senedi,USO,"2024-12-20, 13:22:29",Satış Karı,0.48,,,Alım-Satım
+Hisse Senedi,VIXY,"2024-12-09, 10:30:53",Satış Zararı,0.00,,,Alım-Satım
+Hisse Senedi,VIXY,"2024-12-18, 15:30:47",Satış Karı,64.34,,,Alım-Satım
+Hisse Senedi,SPXW 02DEC24 6050 C,"2024-12-02, 11:05:03",Satış Zararı,0.00,,,Alım-Satım
+Hisse Senedi,SPXW 02DEC24 6050 C,"2024-12-02, 11:39:33",Satış Zararı,-389.15,,,Alım-Satım
+Hisse Senedi,SPXW 02DEC24 6050 C,"2024-12-02, 11:39:37",Satış Zararı,0.00,,,Alım-Satım
+Hisse Senedi,SPXW 02DEC24 6050 C,"2024-12-02, 11:39:55",Satış Zararı,0.00,,,Alım-Satım
+Hisse Senedi,SPXW 02DEC24 6050 C,"2024-12-02, 11:40:34",Satış Karı,93.71,,,Alım-Satım
+Hisse Senedi,SPXW 02DEC24 6055 C,"2024-12-02, 11:05:03",Satış Zararı,0.00,,,Alım-Satım
+Hisse Senedi,SPXW 02DEC24 6055 C,"2024-12-02, 11:39:33",Satış Karı,189.03,,,Alım-Satım
+Hisse Senedi,SPXW 02DEC24 6055 C,"2024-12-02, 11:39:37",Satış Zararı,0.00,,,Alım-Satım
+Hisse Senedi,SPXW 02DEC24 6055 C,"2024-12-02, 11:39:55",Satış Zararı,0.00,,,Alım-Satım
+Hisse Senedi,SPXW 02DEC24 6055 C,"2024-12-02, 11:40:34",Satış Zararı,-94.29,,,Alım-Satım
+Hisse Senedi,SPXW 03DEC24 6050 C,"2024-12-03, 10:34:25",Satış Zararı,0.00,,,Alım-Satım
+Hisse Senedi,SPXW 03DEC24 6050 C,"2024-12-03, 11:28:39",Satış Zararı,-108.27,,,Alım-Satım
+Hisse Senedi,SPXW 03DEC24 6050 C,"2024-12-03, 11:33:56",Satış Zararı,0.00,,,Alım-Satım
+Hisse Senedi,SPXW 03DEC24 6050 C,"2024-12-03, 11:44:46",Satış Karı,110.63,,,Alım-Satım
+Hisse Senedi,SPXW 03DEC24 6055 C,"2024-12-03, 10:34:25",Satış Zararı,0.00,,,Alım-Satım
+Hisse Senedi,SPXW 03DEC24 6055 C,"2024-12-03, 11:28:39",Satış Karı,41.73,,,Alım-Satım
+Hisse Senedi,SPXW 03DEC24 6055 C,"2024-12-03, 11:33:56",Satış Zararı,0.00,,,Alım-Satım
+Hisse Senedi,SPXW 03DEC24 6055 C,"2024-12-03, 11:44:46",Satış Zararı,-56.28,,,Alım-Satım
+Hisse Senedi,SPXW 03DEC24 6030 P,"2024-12-03, 11:33:56",Satış Zararı,0.00,,,Alım-Satım
+Hisse Senedi,SPXW 03DEC24 6030 P,"2024-12-03, 11:44:46",Satış Karı,213.63,,,Alım-Satım
+Hisse Senedi,SPXW 03DEC24 6035 P,"2024-12-03, 11:33:56",Satış Zararı,0.00,,,Alım-Satım
+Hisse Senedi,SPXW 03DEC24 6035 P,"2024-12-03, 11:44:46",Satış Zararı,-326.37,,,Alım-Satım
+Temettü,TBIL(US74933W4520) Cash Dividend USD 0.184283 per Share (Ordinary Dividend),2024-12-03,Brüt Temettü,19.03,,,Temettü
+Temettü,TLT(US4642874329) Cash Dividend USD 0.325021 per Share (Ordinary Dividend),2024-12-05,Brüt Temettü,52.11,,,Temettü
+Temettü,TLT(US4642874329) Cash Dividend USD 0.351032 per Share (Ordinary Dividend),2024-12-23,Brüt Temettü,56.43,,,Temettü
+Temettü,TBIL(US74933W4520) Cash Dividend USD 0.181215 per Share (Ordinary Dividend),2024-12-31,Brüt Temettü,18.77,,,Temettü
+Temettü,nan,nan,Brüt Temettü,146.34,,,Temettü
+Stopaj,E*******R3:CBOE ONE ADD-ON FOR NOV 2024,2024-12-03,Temettü Stopajı,1.00,,,Stopaj
+Stopaj,E*******R3:CBOE ONE ADD-ON FOR DEC 2024,2024-12-03,Temettü Stopajı,-1.00,,,Stopaj
+Stopaj,E*******R3:OPRA NP L1 FOR NOV 2024,2024-12-03,Temettü Stopajı,1.50,,,Stopaj
+Stopaj,E*******R3:OPRA NP L1 FOR DEC 2024,2024-12-03,Temettü Stopajı,-1.50,,,Stopaj
+Stopaj,e*******r3:US Securities Snapshot and Futures Value Bundle Non-Professional for Nov 2024,2024-12-03,Temettü Stopajı,10.00,,,Stopaj
+Stopaj,e*******r3:US Securities Snapshot and Futures Value Bundle Non-Professional for Dec 2024,2024-12-03,Temettü Stopajı,-10.00,,,Stopaj
+Stopaj,E*******R3:CBOE ONE ADD-ON FOR DEC 2024,2025-01-03,Temettü Stopajı,1.00,,,Stopaj
+Stopaj,E*******R3:CBOE ONE ADD-ON FOR JAN 2025,2025-01-03,Temettü Stopajı,-1.00,,,Stopaj
+Stopaj,E*******R3:OPRA NP L1 FOR DEC 2024,2025-01-03,Temettü Stopajı,1.50,,,Stopaj
+Stopaj,E*******R3:OPRA NP L1 FOR JAN 2025,2025-01-03,Temettü Stopajı,-1.50,,,Stopaj
+Stopaj,e*******r3:US Securities Snapshot and Futures Value Bundle Non-Professional for Dec 2024,2025-01-03,Temettü Stopajı,10.00,,,Stopaj
+Stopaj,e*******r3:US Securities Snapshot and Futures Value Bundle Non-Professional for Jan 2025,2025-01-03,Temettü Stopajı,-10.00,,,Stopaj
+Stopaj,nan,nan,Temettü Stopajı,0.00,,,Stopaj
+Stopaj,TBIL(US74933W4520) Cash Dividend USD 0.184283 per Share - US Tax,2024-12-03,Temettü Stopajı,-3.81,,,Stopaj
+Stopaj,TLT(US4642874329) Cash Dividend USD 0.325021 per Share - US Tax,2024-12-05,Temettü Stopajı,-10.42,,,Stopaj
+Stopaj,TLT(US4642874329) Cash Dividend USD 0.351032 per Share - US Tax,2024-12-23,Temettü Stopajı,-11.29,,,Stopaj
+Stopaj,TBIL(US74933W4520) Cash Dividend USD 0.181215 per Share - US Tax,2024-12-31,Temettü Stopajı,-3.75,,,Stopaj
+Stopaj,nan,nan,Temettü Stopajı,-29.27,,,Stopaj
+,,,,,,,
+Özet Hesaplama
+Kategori,USD Toplam,TL Toplam
+Hisse Senedi,-233.31000000000003,0
+Opsiyon,0,0
+Temettü,292.68,0
+Stopaj,-58.54,0

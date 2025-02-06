@@ -37,6 +37,7 @@ class CSVParser:
                     processed_row = {
                         'Type': 'Trade',
                         'Symbol': trade.symbol,
+                        'Date/Time': trade.date_time,
                         'Quantity': f"{trade.quantity:.2f}",
                         'TradePrice': f"{trade.trade_price:.2f}",
                         'Proceeds': f"{trade.proceeds:.2f}",
@@ -52,7 +53,8 @@ class CSVParser:
                     fee = Fee(row)
                     processed_row = {
                         'Type': 'Fee',
-                        'Description': fee.description,
+                        'Symbol': fee.symbol,
+                        'Date/Time': fee.date_time,
                         'Amount': f"{fee.amount:.2f}"
                     }
                     processed_data.append(processed_row)
@@ -61,7 +63,8 @@ class CSVParser:
                     dividend = Dividend(row)
                     processed_row = {
                         'Type': 'Dividend',
-                        'Description': dividend.description,
+                        'Symbol': dividend.symbol,
+                        'Date/Time': dividend.date_time,
                         'Amount': f"{dividend.amount:.2f}"
                     }
                     processed_data.append(processed_row)
@@ -70,7 +73,8 @@ class CSVParser:
                     withholding_tax = WithholdingTax(row)
                     processed_row = {
                         'Type': 'Withholding Tax',
-                        'Description': withholding_tax.description,
+                        'Symbol': withholding_tax.symbol,
+                        'Date/Time': withholding_tax.date_time,
                         'Amount': f"{withholding_tax.amount:.2f}"
                     }
                     processed_data.append(processed_row)
