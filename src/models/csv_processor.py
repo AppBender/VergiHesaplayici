@@ -27,7 +27,7 @@ class CSVProcessor:
 
             for row in processed_data:
                 if row['Type'] == 'Trade':
-                    if 'Option' in row['Symbol']:
+                    if row['Asset Category'] == 'Equity and Index Options':
                         categories['Opsiyon'].append(row)
                     else:
                         categories['Hisse Senedi'].append(row)

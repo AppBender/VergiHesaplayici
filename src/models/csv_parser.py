@@ -36,6 +36,7 @@ class CSVParser:
 
                     processed_row = {
                         'Type': 'Trade',
+                        'Asset Category': trade.asset_category,
                         'Symbol': trade.symbol,
                         'Date/Time': trade.date_time,
                         'Quantity': f"{trade.quantity:.2f}",
