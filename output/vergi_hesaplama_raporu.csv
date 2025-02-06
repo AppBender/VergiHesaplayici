@@ -32,11 +32,13 @@ Hisse Senedi,SPXW 03DEC24 6030 P,"2024-12-03, 11:33:56",Satış Zararı,0.00,,,A
 Hisse Senedi,SPXW 03DEC24 6030 P,"2024-12-03, 11:44:46",Satış Karı,213.63,,,Alım-Satım
 Hisse Senedi,SPXW 03DEC24 6035 P,"2024-12-03, 11:33:56",Satış Zararı,0.00,,,Alım-Satım
 Hisse Senedi,SPXW 03DEC24 6035 P,"2024-12-03, 11:44:46",Satış Zararı,-326.37,,,Alım-Satım
+,,,,,,,
 Temettü,TBIL(US74933W4520) Cash Dividend USD 0.184283 per Share (Ordinary Dividend),2024-12-03,Brüt Temettü,19.03,,,Temettü
 Temettü,TLT(US4642874329) Cash Dividend USD 0.325021 per Share (Ordinary Dividend),2024-12-05,Brüt Temettü,52.11,,,Temettü
 Temettü,TLT(US4642874329) Cash Dividend USD 0.351032 per Share (Ordinary Dividend),2024-12-23,Brüt Temettü,56.43,,,Temettü
 Temettü,TBIL(US74933W4520) Cash Dividend USD 0.181215 per Share (Ordinary Dividend),2024-12-31,Brüt Temettü,18.77,,,Temettü
 Temettü,nan,nan,Brüt Temettü,146.34,,,Temettü
+,,,,,,,
 Stopaj,E*******R3:CBOE ONE ADD-ON FOR NOV 2024,2024-12-03,Temettü Stopajı,1.00,,,Stopaj
 Stopaj,E*******R3:CBOE ONE ADD-ON FOR DEC 2024,2024-12-03,Temettü Stopajı,-1.00,,,Stopaj
 Stopaj,E*******R3:OPRA NP L1 FOR NOV 2024,2024-12-03,Temettü Stopajı,1.50,,,Stopaj
@@ -56,9 +58,9 @@ Stopaj,TLT(US4642874329) Cash Dividend USD 0.351032 per Share - US Tax,2024-12-2
 Stopaj,TBIL(US74933W4520) Cash Dividend USD 0.181215 per Share - US Tax,2024-12-31,Temettü Stopajı,-3.75,,,Stopaj
 Stopaj,nan,nan,Temettü Stopajı,-29.27,,,Stopaj
 ,,,,,,,
-Özet Hesaplama
-Kategori,USD Toplam,TL Toplam
-Hisse Senedi,-233.31000000000003,0
-Opsiyon,0,0
-Temettü,292.68,0
-Stopaj,-58.54,0
+Özet Hesaplama,,,,,,,
+Kategori,USD Toplam,TL Toplam,,,,,
+Hisse Senedi,-233.31000000000003,0,,,,,
+Opsiyon,0,0,,,,,
+Temettü,292.68,0,,,,,
+Stopaj,-58.54,0,,,,,
