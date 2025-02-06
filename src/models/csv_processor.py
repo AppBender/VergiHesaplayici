@@ -20,7 +20,8 @@ class CSVProcessor:
             # Desired order of columns
             order = [
                 'Type', 'Symbol', 'Quantity', 'TradePrice', 'Proceeds', 'Commission',
-                'RealizedProfit', 'TaxableProfit', 'TaxAmount', 'NetProfit'
+                'RealizedProfit', 'TaxableProfit', 'TaxAmount', 'NetProfit',
+                'Description', 'Amount'
             ]
 
             # Ensure fieldnames are in the desired order
