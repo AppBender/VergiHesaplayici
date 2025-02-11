@@ -8,7 +8,7 @@ from pymongo import MongoClient
 class MongoDB(Database):
     def __init__(self):
         self.client = MongoClient(os.environ.get('MONGODB_URI'))
-        self.db = self.client.db
+        self.db = self.client.vergi_hesaplayici_db
         self.info = self.db.info
         self.errors = self.db.errors
         self.exchange_rates = self.db.exchange_rates
