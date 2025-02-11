@@ -1,37 +1,18 @@
 İşlem Tipi,Sembol,Tarih,İşlem Açıklaması,USD Tutar,TCMB Kuru,TL Karşılığı,Kategori
 Hisse Senedi,FXY,"2024-12-24, 10:41:31",Satış Zararı,-15.09,35.1697,-530.71,Alım-Satım
-Hisse Senedi,SLV,"2024-12-20, 09:04:18",Satış Zararı,0.00,35.0698,0.00,Alım-Satım
-Hisse Senedi,TBIL,"2024-12-06, 09:30:00",Satış Zararı,0.00,34.7377,0.00,Alım-Satım
-Hisse Senedi,TBIL,"2025-01-02, 09:33:15",Satış Zararı,0.00,35.3438,0.00,Alım-Satım
-Hisse Senedi,TLT,"2024-12-06, 09:33:10",Satış Zararı,0.00,34.7377,0.00,Alım-Satım
-Hisse Senedi,TLT,"2024-12-20, 08:39:28",Satış Zararı,0.00,35.0698,0.00,Alım-Satım
-Hisse Senedi,TLT,"2024-12-24, 09:33:10",Satış Zararı,0.00,35.1697,0.00,Alım-Satım
 Hisse Senedi,USO,"2024-12-20, 08:58:34",Satış Karı,42.59,35.0698,1493.62,Alım-Satım
 Hisse Senedi,USO,"2024-12-20, 13:22:29",Satış Karı,0.48,35.0698,16.83,Alım-Satım
-Hisse Senedi,VIXY,"2024-12-09, 10:30:53",Satış Zararı,0.00,34.7633,0.00,Alım-Satım
 Hisse Senedi,VIXY,"2024-12-18, 15:30:47",Satış Karı,64.34,34.9849,2250.93,Alım-Satım
 ,,,,,,,
-Opsiyon,SPXW 02DEC24 6050 C,"2024-12-02, 11:05:03",Opsiyon Zararı,0.00,34.6417,0.00,Alım-Satım
 Opsiyon,SPXW 02DEC24 6050 C,"2024-12-02, 11:39:33",Opsiyon Zararı,-389.15,34.6417,-13480.82,Alım-Satım
-Opsiyon,SPXW 02DEC24 6050 C,"2024-12-02, 11:39:37",Opsiyon Zararı,0.00,34.6417,0.00,Alım-Satım
-Opsiyon,SPXW 02DEC24 6050 C,"2024-12-02, 11:39:55",Opsiyon Zararı,0.00,34.6417,0.00,Alım-Satım
 Opsiyon,SPXW 02DEC24 6050 C,"2024-12-02, 11:40:34",Opsiyon Karı,93.71,34.6417,3246.27,Alım-Satım
-Opsiyon,SPXW 02DEC24 6055 C,"2024-12-02, 11:05:03",Opsiyon Zararı,0.00,34.6417,0.00,Alım-Satım
 Opsiyon,SPXW 02DEC24 6055 C,"2024-12-02, 11:39:33",Opsiyon Karı,189.03,34.6417,6548.32,Alım-Satım
-Opsiyon,SPXW 02DEC24 6055 C,"2024-12-02, 11:39:37",Opsiyon Zararı,0.00,34.6417,0.00,Alım-Satım
-Opsiyon,SPXW 02DEC24 6055 C,"2024-12-02, 11:39:55",Opsiyon Zararı,0.00,34.6417,0.00,Alım-Satım
 Opsiyon,SPXW 02DEC24 6055 C,"2024-12-02, 11:40:34",Opsiyon Zararı,-94.29,34.6417,-3266.37,Alım-Satım
-Opsiyon,SPXW 03DEC24 6050 C,"2024-12-03, 10:34:25",Opsiyon Zararı,0.00,34.7056,0.00,Alım-Satım
 Opsiyon,SPXW 03DEC24 6050 C,"2024-12-03, 11:28:39",Opsiyon Zararı,-108.27,34.7056,-3757.58,Alım-Satım
-Opsiyon,SPXW 03DEC24 6050 C,"2024-12-03, 11:33:56",Opsiyon Zararı,0.00,34.7056,0.00,Alım-Satım
 Opsiyon,SPXW 03DEC24 6050 C,"2024-12-03, 11:44:46",Opsiyon Karı,110.63,34.7056,3839.48,Alım-Satım
-Opsiyon,SPXW 03DEC24 6055 C,"2024-12-03, 10:34:25",Opsiyon Zararı,0.00,34.7056,0.00,Alım-Satım
 Opsiyon,SPXW 03DEC24 6055 C,"2024-12-03, 11:28:39",Opsiyon Karı,41.73,34.7056,1448.26,Alım-Satım
-Opsiyon,SPXW 03DEC24 6055 C,"2024-12-03, 11:33:56",Opsiyon Zararı,0.00,34.7056,0.00,Alım-Satım
 Opsiyon,SPXW 03DEC24 6055 C,"2024-12-03, 11:44:46",Opsiyon Zararı,-56.28,34.7056,-1953.23,Alım-Satım
-Opsiyon,SPXW 03DEC24 6030 P,"2024-12-03, 11:33:56",Opsiyon Zararı,0.00,34.7056,0.00,Alım-Satım
 Opsiyon,SPXW 03DEC24 6030 P,"2024-12-03, 11:44:46",Opsiyon Karı,213.63,34.7056,7414.16,Alım-Satım
-Opsiyon,SPXW 03DEC24 6035 P,"2024-12-03, 11:33:56",Opsiyon Zararı,0.00,34.7056,0.00,Alım-Satım
 Opsiyon,SPXW 03DEC24 6035 P,"2024-12-03, 11:44:46",Opsiyon Zararı,-326.37,34.7056,-11326.87,Alım-Satım
 ,,,,,,,
 Temettü,TBIL(US74933W4520) Cash Dividend USD 0.184283 per Share (Ordinary Dividend),2024-12-03,Brüt Temettü,19.03,34.7056,660.45,Temettü
@@ -58,7 +39,7 @@ Stopaj,TBIL(US74933W4520) Cash Dividend USD 0.181215 per Share - US Tax,2024-12-
 ,,,,,,,
 Özet Hesaplama,,,,,,,
 Kategori,USD Toplam,TL Toplam,,,,,
-Hisse Senedi,92.32000000000001,0,,,,,
-Opsiyon,-325.63,0,,,,,
-Temettü,292.68,0,,,,,
-Stopaj,-58.54,0,,,,,
+Hisse Senedi,92.32000000000001,3230.673979,,,,,
+Opsiyon,-325.63,-11288.359798,,,,,
+Temettü,146.34,5115.702275,,,,,
+Stopaj,-29.27,-1023.209131,,,,,

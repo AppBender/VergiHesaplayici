@@ -48,13 +48,6 @@ class CSVProcessor:
                 'Stopaj': {'USD': 0, 'TL': 0}
             }
 
-            for category, rows in categories.items():
-                for row in rows:
-                    if 'RealizedProfit' in row:
-                        totals[category]['USD'] += float(row['RealizedProfit'])
-                    if 'Amount' in row:
-                        totals[category]['USD'] += float(row['Amount'])
-
             # CSV dosyası oluştur
             output = io.StringIO()
             csv_writer = csv.writer(output)
@@ -66,6 +59,10 @@ class CSVProcessor:
             previous_row_empty = False
             for category, rows in categories.items():
                 for row in rows:
+                    # Skip buy transactions
+                    if 'RealizedProfit' in row and float(row['RealizedProfit']) == 0:
+                        continue
+
                     date_str = str(row['Date/Time']).split(',')[0]  # Ensure date_str is a string
                     if date_str.lower() == 'nan':
                         continue  # Skip rows with NaN date
@@ -73,6 +70,14 @@ class CSVProcessor:
                     date_obj = datetime.strptime(date_str, '%Y-%m-%d')
                     exchange_rate = get_exchange_rate(date_obj)
                     tl_equivalent = float(row['RealizedProfit']) * exchange_rate if 'RealizedProfit' in row else float(row['Amount']) * exchange_rate
+
+                    # Accumulate totals
+                    if 'RealizedProfit' in row:
+                        totals[category]['USD'] += float(row['RealizedProfit'])
+                        totals[category]['TL'] += tl_equivalent
+                    if 'Amount' in row:
+                        totals[category]['USD'] += float(row['Amount'])
+                        totals[category]['TL'] += tl_equivalent
 
                     if category == 'Hisse Senedi':
                         csv_writer.writerow([
