@@ -29,7 +29,7 @@ def analyze_csv_structure(file_path):
 
 # Test function
 def test_analyze_csv_structure():
-    analyze_csv_structure('U7470952_20241202_20250103.csv')
+    analyze_csv_structure('example_ibkr_report.csv')
 
 
 if __name__ == "__main__":
