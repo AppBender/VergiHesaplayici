@@ -7,12 +7,12 @@ from models.csv_parser import CSVParser
 from utils.exchange_rate import get_exchange_rate
 
 
-class CSVProcessor:
+class ReportGenerator:
     def __init__(self, temp_path, report_path):
         self.temp_path = temp_path
         self.report_path = report_path
 
-    def process_csv(self):
+    def generate_report(self):
         try:
             parser = CSVParser(self.temp_path)
 

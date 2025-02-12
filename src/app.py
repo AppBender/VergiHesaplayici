@@ -1,6 +1,6 @@
 import utils.config as config
 from flask import Flask, request, send_file, render_template
-from models.csv_processor import CSVProcessor
+from models.report_generator import ReportGenerator
 from utils.file_manager import FileManager
 from werkzeug.datastructures import FileStorage
 from utils.preprocess_csv import preprocess_csv  # Import the pre-processing function
@@ -57,8 +57,8 @@ def index():
             # Pre-process the CSV file to add missing commas
             preprocess_csv(config.TEMP_PATH, config.TEMP_PATH, 17)
 
-            processor = CSVProcessor(config.TEMP_PATH, config.REPORT_PATH)
-            processed_data, summary = processor.process_csv()
+            generator = ReportGenerator(config.TEMP_PATH, config.REPORT_PATH)
+            processed_data, summary = generator.generate_report()
 
             if processed_data is None:
                 raise ValueError('Dosya işlenemedi')
@@ -89,6 +89,6 @@ if __name__ == '__main__':
     #     # Pre-process the CSV file to add missing commas
     #     preprocess_csv(temp_path, temp_path, 17)
 
-    #     processor = CSVProcessor(temp_path, config.REPORT_PATH)
-    #     processed_data, summary = processor.process_csv()
+    #     generator = ReportGenerator(temp_path, config.REPORT_PATH)
+    #     processed_data, summary = generator.generate_report()
     #     print(summary)
