@@ -40,28 +40,33 @@ def index():
         The uploaded file is temporarily saved as 'temp_uploaded_file.csv'
     """
     summary = None
+    error_message = None
     if request.method == 'POST':
-        # File check
-        if 'file' not in request.files:
-            return 'Dosya yüklenemedi', 400
+        try:
+            # File check
+            if 'file' not in request.files:
+                raise ValueError('Dosya yüklenemedi')
 
-        file = request.files['file']
-        if file.filename == '':
-            return 'Dosya seçilmedi', 400
+            file = request.files['file']
+            if file.filename == '':
+                raise ValueError('Dosya seçilmedi')
 
-        # Save as temporary file
-        file.save(config.TEMP_PATH)
+            # Save as temporary file
+            file.save(config.TEMP_PATH)
 
-        # Pre-process the CSV file to add missing commas
-        preprocess_csv(config.TEMP_PATH, config.TEMP_PATH, 17)
+            # Pre-process the CSV file to add missing commas
+            preprocess_csv(config.TEMP_PATH, config.TEMP_PATH, 17)
 
-        processor = CSVProcessor(config.TEMP_PATH, config.REPORT_PATH)
-        processed_data, summary = processor.process_csv()
+            processor = CSVProcessor(config.TEMP_PATH, config.REPORT_PATH)
+            processed_data, summary = processor.process_csv()
 
-        if processed_data is None:
-            return 'Hata: Dosya işlenemedi', 500
+            if processed_data is None:
+                raise ValueError('Dosya işlenemedi')
 
-    return render_template('index.html', summary=summary)
+        except Exception as e:
+            error_message = str(e)
+
+    return render_template('index.html', summary=summary, error_message=error_message)
 
 
 @app.route('/download')
