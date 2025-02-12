@@ -1,10 +1,9 @@
 import utils.config as config
-
 from flask import Flask, request, send_file, render_template
 from models.csv_processor import CSVProcessor
 from utils.file_manager import FileManager
 from werkzeug.datastructures import FileStorage
-
+from utils.preprocess_csv import preprocess_csv  # Import the pre-processing function
 
 app = Flask(__name__, template_folder='templates/')
 file_manager = FileManager()
@@ -53,6 +52,9 @@ def index():
         # Save as temporary file
         file.save(config.TEMP_PATH)
 
+        # Pre-process the CSV file to add missing commas
+        preprocess_csv(config.TEMP_PATH, config.TEMP_PATH, 17)
+
         processor = CSVProcessor(config.TEMP_PATH, config.REPORT_PATH)
         processed_data, summary = processor.process_csv()
 
@@ -71,13 +73,17 @@ def download_csv():
 
 
 if __name__ == '__main__':
-    # app.run(debug=True)
+    app.run(debug=True)
     # Simulate file upload
-    with open('example_ibkr_report.csv', 'rb') as f:
-        file = FileStorage(f)
-        temp_path = file_manager.create_file(config.TEMP_PATH)
-        file.save(temp_path)
+    # with open('example_ibkr_report.csv', 'rb') as f:
+    # with open('example_ibkr_report_without_commas.csv', 'rb') as f:
+    #     file = FileStorage(f)
+    #     temp_path = file_manager.create_file(config.TEMP_PATH)
+    #     file.save(temp_path)
 
-        processor = CSVProcessor(temp_path, config.REPORT_PATH)
-        processed_data, summary = processor.process_csv()
-        print(summary)
+    #     # Pre-process the CSV file to add missing commas
+    #     preprocess_csv(temp_path, temp_path, 17)
+
+    #     processor = CSVProcessor(temp_path, config.REPORT_PATH)
+    #     processed_data, summary = processor.process_csv()
+    #     print(summary)
