@@ -105,11 +105,16 @@ class CSVProcessor:
                     csv_writer.writerow(['', '', '', '', '', '', '', ''])
                     previous_row_empty = True
 
+            # Calculate total profit/loss
+            total_profit_loss_tl = sum(total['TL'] for total in totals.values())
+            total_profit_loss_usd = sum(total['USD'] for total in totals.values())
+
             # Write totals
             csv_writer.writerow(['Özet Hesaplama', '', '', '', '', '', '', ''])
             csv_writer.writerow(['Kategori', 'USD Toplam', 'TL Toplam', '', '', '', '', ''])
             for category, total in totals.items():
                 csv_writer.writerow([category, total['USD'], total['TL'], '', '', '', '', ''])
+            csv_writer.writerow(['Toplam Kar/Zarar', total_profit_loss_usd, total_profit_loss_tl, '', '', '', '', ''])
 
             # İmleç başına dön
             output.seek(0)
