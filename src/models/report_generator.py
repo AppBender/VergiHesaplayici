@@ -50,7 +50,7 @@ class ReportGenerator:
 
             # CSV dosyası oluştur
             output = io.StringIO()
-            csv_writer = csv.writer(output)
+            csv_writer = csv.writer(output, delimiter=';', lineterminator='\n')
 
             # Write headers
             csv_writer.writerow(['İşlem Tipi', 'Sembol', 'Tarih', 'İşlem Açıklaması', 'USD Tutar', 'TCMB Kuru', 'TL Karşılığı', 'Kategori'])
@@ -119,8 +119,8 @@ class ReportGenerator:
             # İmleç başına dön
             output.seek(0)
 
-            # Dosyayı geçici olarak kaydet
-            with open(self.report_path, 'w', newline='', encoding='utf-8') as f:
+            # Dosyayı kaydet
+            with open(self.report_path, 'w', newline='', encoding='utf-8-sig') as f:
                 f.write(output.getvalue())
 
             return processed_data, summary
