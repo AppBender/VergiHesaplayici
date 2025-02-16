@@ -78,16 +78,16 @@ def download_csv():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # app.run(debug=True)
     # Simulate file upload
-    # with open('sample_ibkr_detailed_report.csv', 'rb') as f:
-    #     file = FileStorage(f)
-    #     temp_path = file_manager.create_file(config.TEMP_PATH)
-    #     file.save(temp_path)
+    with open('sample_ibkr_detailed_report.csv', 'rb') as f:
+        file = FileStorage(f)
+        temp_path = file_manager.create_file(config.TEMP_PATH)
+        file.save(temp_path)
 
-    #     # Pre-process the CSV file to add missing commas
-    #     preprocess_csv(temp_path, temp_path, 17)
+        # Pre-process the CSV file to add missing commas
+        preprocess_csv(temp_path, temp_path, 17)
 
-    #     generator = ReportGenerator(temp_path, config.REPORT_PATH)
-    #     processed_data, summary = generator.generate_report()
-    #     print(summary)
+        generator = ReportGenerator(temp_path, config.REPORT_PATH)
+        processed_data, summary = generator.generate_report()
+        print(summary)
