@@ -1,0 +1,383 @@
+﻿Statement,Header,Field Name,Field Value
+Statement,Data,BrokerName,Interactive Brokers LLC
+Statement,Data,BrokerAddress,"Two Pickwick Plaza, Greenwich, CT 06830"
+Statement,Data,Title,Activity Statement
+Statement,Data,Period,"December 2, 2024 - January 3, 2025"
+Statement,Data,WhenGenerated,"2025-02-13, 18:56:40 EST"
+Account Information,Header,Field Name,Field Value
+Account Information,Data,Name,Eray Diler
+Account Information,Data,Account Alias,Portfolio
+Account Information,Data,Account,U7470952
+Account Information,Data,Account Type,Individual
+Account Information,Data,Customer Type,Individual
+Account Information,Data,Account Capabilities,Margin
+Account Information,Data,Base Currency,USD
+Net Asset Value,Header,Asset Class,Prior Total,Current Long,Current Short,Current Total,Change
+Net Asset Value,Data,Cash ,4727.950081419,3435.790570305,0,3435.790570305,-1292.159511114
+Net Asset Value,Data,Stock,24352.61,24338.31,0,24338.31,-14.3
+Net Asset Value,Data,Total,29080.560081419,27774.100570305,0,27774.100570305,-1306.459511114
+Net Asset Value,Header,Time Weighted Rate of Return
+Net Asset Value,Data,-4.492722695%
+Change in NAV,Header,Field Name,Field Value
+Change in NAV,Data,Starting Value,29080.560081419
+Change in NAV,Data,Details not available,
+Change in NAV,Data,Ending Value,27774.100570305
+Realized & Unrealized Performance Summary,Header,Asset Category,Symbol,Cost Adj.,Realized S/T Profit,Realized S/T Loss,Realized L/T Profit,Realized L/T Loss,Realized Total,Unrealized S/T Profit,Unrealized S/T Loss,Unrealized L/T Profit,Unrealized L/T Loss,Unrealized Total,Total,Code
+Realized & Unrealized Performance Summary,Data,Stocks,BIIB,0,0,0,0,0,0,0,-2.187534,0,0,-2.187534,-2.187534,
+Realized & Unrealized Performance Summary,Data,Stocks,FXY,0,0,-15.08650552,0,0,-15.08650552,0,0,0,0,0,-15.08650552,
+Realized & Unrealized Performance Summary,Data,Stocks,SLV,0,0,0,0,0,0,45.995488,0,0,0,45.995488,45.995488,
+Realized & Unrealized Performance Summary,Data,Stocks,TBIL,0,0,0,0,0,0,2.650524,-0.213586,0,0,2.436938,2.436938,
+Realized & Unrealized Performance Summary,Data,Stocks,TLT,0,0,0,0,0,0,0.100053,-1096.74233,0,0,-1096.642277,-1096.642277,
+Realized & Unrealized Performance Summary,Data,Stocks,USO,0,43.07202982,0,0,0,43.07202982,0,0,0,0,0,43.07202982,
+Realized & Unrealized Performance Summary,Data,Stocks,VIXY,0,64.33725073,0,0,0,64.33725073,0,0,0,0,0,64.33725073,
+Realized & Unrealized Performance Summary,Data,Total,,0,107.40928055,-15.08650552,0,0,92.32277503,48.746065,-1099.14345,0,0,-1050.397385,-958.07460997,
+Realized & Unrealized Performance Summary,Data,Equity and Index Options,SPXW 02DEC24 6050 C,0,93.7084,-389.1458,0,0,-295.4374,0,0,0,0,0,-295.4374,
+Realized & Unrealized Performance Summary,Data,Equity and Index Options,SPXW 02DEC24 6055 C,0,189.0342,-94.2916,0,0,94.7426,0,0,0,0,0,94.7426,
+Realized & Unrealized Performance Summary,Data,Equity and Index Options,SPXW 03DEC24 6030 P,0,213.6271,0,0,0,213.6271,0,0,0,0,0,213.6271,
+Realized & Unrealized Performance Summary,Data,Equity and Index Options,SPXW 03DEC24 6035 P,0,0,-326.3729,0,0,-326.3729,0,0,0,0,0,-326.3729,
+Realized & Unrealized Performance Summary,Data,Equity and Index Options,SPXW 03DEC24 6050 C,0,110.6271,-108.2729,0,0,2.3542,0,0,0,0,0,2.3542,
+Realized & Unrealized Performance Summary,Data,Equity and Index Options,SPXW 03DEC24 6055 C,0,41.7271,-56.2829,0,0,-14.5558,0,0,0,0,0,-14.5558,
+Realized & Unrealized Performance Summary,Data,Total,,0,648.7239,-974.3661,0,0,-325.6422,0,0,0,0,0,-325.6422,
+Realized & Unrealized Performance Summary,Data,Total (All Assets),,0,756.13318055,-989.45260552,0,0,-233.31942497,48.746065,-1099.14345,0,0,-1050.397385,-1283.71680997,
+Cash Report,Header,Currency Summary,Currency,Total,Securities,Futures,
+Cash Report,Data,Starting Cash,Base Currency Summary,4727.950081419,4727.950081419,0,
+Cash Report,Data,Commissions,Base Currency Summary,-57.10817611,-57.10817611,0,
+Cash Report,Data,Deposits,Base Currency Summary,0.05,0.05,0,
+Cash Report,Data,Dividends,Base Currency Summary,146.34,146.34,0,
+Cash Report,Data,Trades (Sales),Base Currency Summary,8667.275444,8667.275444,0,
+Cash Report,Data,Trades (Purchase),Base Currency Summary,-10019.446779,-10019.446779,0,
+Cash Report,Data,Withholding Tax,Base Currency Summary,-29.27,-29.27,0,
+Cash Report,Data,Ending Cash,Base Currency Summary,3435.790570305,3435.790570305,0,
+Cash Report,Data,Ending Settled Cash,Base Currency Summary,3435.790570305,3435.790570305,0,
+Open Positions,Header,DataDiscriminator,Asset Category,Currency,Symbol,Open,Quantity,Mult,Cost Price,Cost Basis,Close Price,Value,Unrealized P/L,Code
+Open Positions,Data,Summary,Stocks,USD,BIIB,-,0.6427,1,155.620871324,100.017534,152.21,97.83,-2.187534,
+Open Positions,Data,Lot,Stocks,USD,BIIB,"2024-11-20, 11:56:54",0.6427,,155.620871324,100.017534,152.21,97.83,-2.187534,ST
+Open Positions,Data,Summary,Stocks,USD,SLV,-,94,1,26.490686298,2490.124512,26.98,2536.12,45.995488,SY
+Open Positions,Data,Lot,Stocks,USD,SLV,"2024-12-20, 09:04:18",94,,26.490686298,2490.124512,26.98,2536.12,45.995488,ST
+Open Positions,Data,Summary,Stocks,USD,TBIL,-,103.8602,1,49.866580875,5179.153063,49.89,5181.59,2.436938,
+Open Positions,Data,Lot,Stocks,USD,TBIL,"2025-01-02, 09:33:15",0.3012,,49.914910359,15.034371,49.89,15.026881404,-0.00749,ST
+Open Positions,Data,Lot,Stocks,USD,TBIL,"2024-12-06, 09:30:00",0.305,,49.939960656,15.231688,49.89,15.216463573,-0.015224,ST
+Open Positions,Data,Lot,Stocks,USD,TBIL,"2024-11-06, 09:30:01",0.3094,,49.919941823,15.44523,49.89,15.435979769,-0.00925,ST
+Open Positions,Data,Lot,Stocks,USD,TBIL,"2024-10-04, 09:30:00",0.3388,,49.929952774,16.916268,49.89,16.902747077,-0.013521,ST
+Open Positions,Data,Lot,Stocks,USD,TBIL,"2024-09-05, 09:34:01",0.5243,,49.899885562,26.16251,49.89,26.157350332,-0.00516,ST
+Open Positions,Data,Lot,Stocks,USD,TBIL,"2024-09-03, 09:39:25",0.1504,,50.34849734,7.572414,49.89,7.503462693,-0.068951,ST
+Open Positions,Data,Lot,Stocks,USD,TBIL,"2024-09-03, 09:39:25",50,,49.86350052,2493.175026,49.89,2494.502225106,1.327199,ST
+Open Positions,Data,Lot,Stocks,USD,TBIL,"2024-08-05, 09:33:02",0.5285,,49.919869442,26.382651,49.89,26.366888519,-0.015762,ST
+Open Positions,Data,Lot,Stocks,USD,TBIL,"2024-07-03, 09:33:02",0.5288,,49.889839259,26.381747,49.89,26.381855533,0.000109,ST
+Open Positions,Data,Lot,Stocks,USD,TBIL,"2024-06-05, 15:30:15",0.1403,,50.348503207,7.063895,49.89,6.999573244,-0.064322,ST
+Open Positions,Data,Lot,Stocks,USD,TBIL,"2024-06-05, 15:30:15",50,,49.8636012,2493.18006,49.89,2494.502225106,1.322165,ST
+Open Positions,Data,Lot,Stocks,USD,TBIL,"2024-06-05, 09:34:01",0.3534,,49.899850028,17.634607,49.89,17.631141727,-0.003465,ST
+Open Positions,Data,Lot,Stocks,USD,TBIL,"2024-05-07, 09:30:00",0.3501,,49.919868609,17.476946,49.89,17.46650458,-0.010441,ST
+Open Positions,Data,Lot,Stocks,USD,TBIL,"2024-05-02, 12:52:13",0.03,,49.855,1.49565,49.89,1.496701335,0.001051,ST
+Open Positions,Data,Summary,Stocks,USD,TLT,-,189.286,1,93.083546992,17619.412276,87.29,16522.77,-1096.642277,
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-12-24, 09:33:10",0.5187,,87.097081164,45.177256,87.29,45.277309463,0.100053,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-12-20, 08:39:28",28,,88.545762286,2479.281344,87.29,2444.119269254,-35.162075,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-12-06, 09:33:10",0.4396,,94.914893085,41.724587,87.29,38.372672527,-3.351914,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-11-07, 09:33:19",0.3338,,90.840820851,30.322666,87.29,29.137393288,-1.185273,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-11-04, 11:04:51",0.0326,,92.92006135,3.029194,87.29,2.845653149,-0.183541,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-11-04, 11:04:51",38,,92.025574526,3496.971832,87.29,3317.019008273,-179.952824,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-10-25, 08:44:38",32,,92.871298,2971.881536,87.29,2793.279164862,-178.602371,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-10-07, 09:33:22",0.3233,,95.125100526,30.753945,87.29,28.220848562,-2.533096,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-09-16, 15:19:24",12,,101.273368333,1215.28042,87.29,1047.479686823,-167.800733,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-09-16, 15:19:24",0.8359,,101.188952028,84.583845,87.29,72.965689185,-11.618156,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-09-09, 09:33:29",0.2735,,99.389341865,27.182985,87.29,23.873807862,-3.309177,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-08-23, 14:57:30",25,,98.3395,2458.4875,87.29,2182.249347548,-276.238152,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-08-23, 14:57:30",0.4222,,98.3,41.50226,87.29,36.853826981,-4.648433,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-08-07, 09:33:03",0.2174,,96.126030359,20.897799,87.29,18.976840326,-1.920959,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-07-08, 09:34:15",0.2082,,92.582487992,19.275674,87.29,18.173772566,-1.101901,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-06-10, 09:34:19",0.1511,,91.020933157,13.753263,87.29,13.189515057,-0.563748,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-06-05, 15:29:36",26,,93.158461538,2422.12,87.29,2269.53932145,-152.580679,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-06-05, 15:29:36",0.847,,93.12,78.87264,87.29,73.934607895,-4.938032,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-05-08, 09:33:11",0.1513,,90.440350297,13.683625,87.29,13.206973051,-0.476652,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-04-29, 10:53:04",0.2511,,89.768801274,22.540946,87.29,21.918512447,-0.622434,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-04-29, 10:53:04",11,,88.945620182,978.401822,87.29,960.189712921,-18.212109,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-04-26, 11:55:35",0.531,,89.157749529,47.342765,87.29,46.350976142,-0.991789,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-04-26, 11:55:35",4,,88.407815,353.63126,87.29,349.159895608,-4.471364,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-04-17, 14:31:46",1,,90.19098,90.19098,87.29,87.289973902,-2.901006,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-04-09, 09:30:01",0.1051,,91.951855376,9.66414,87.29,9.174176257,-0.489964,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-03-26, 09:30:07",0.173,,93.885895954,16.24226,87.29,15.101165485,-1.141095,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-03-26, 09:30:00",1,,94.4567,94.4567,87.29,87.289973902,-7.166726,ST
+Open Positions,Data,Lot,Stocks,USD,TLT,"2024-03-15, 07:48:39",5.4712,,93.61,512.159032,87.29,477.580905212,-34.578127,ST
+Open Positions,Total,,Stocks,USD,,,,,,25388.707385,,24338.31,-1050.397385,
+Trades,Header,DataDiscriminator,Asset Category,Currency,Symbol,Date/Time,Exchange,Quantity,T. Price,Proceeds,Comm/Fee,Basis,Realized P/L,Code
+Trades,Data,Order,Stocks,USD,FXY,"2024-12-24, 10:41:31",-,-32.3321,58.68,1897.247628,-1.059766524,-1911.274366,-15.086506,C;FPA;P
+Trades,Data,Trade,Stocks,USD,FXY,"2024-12-24, 10:41:31",IBKR,-0.3321,58.68,19.487628,-0.195497076,-19.629866,-0.337736,C;FP;P
+Trades,Data,ClosedLot,Stocks,USD,FXY,2024-04-29,,0.3321,59.108298705,,,19.629866,-0.337736,ST
+Trades,Data,Trade,Stocks,USD,FXY,"2024-12-24, 10:41:31",DARK,-4,58.68,234.72,-0.812600936,-236.4332,-2.525801,C;P
+Trades,Data,ClosedLot,Stocks,USD,FXY,2024-04-29,,4,59.1083,,,236.4332,-2.525801,ST
+Trades,Data,Trade,Stocks,USD,FXY,"2024-12-24, 10:41:31",PEARL,-28,58.68,1643.04,-0.051668512,-1655.2113,-12.222969,C;P
+Trades,Data,ClosedLot,Stocks,USD,FXY,2024-04-29,,11,59.1083,,,650.1913,-4.731599,ST
+Trades,Data,ClosedLot,Stocks,USD,FXY,2024-07-17,,17,59.118823529,,,1005.02,-7.49137,ST
+Trades,SubTotal,,Stocks,USD,FXY,,,-32.3321,,1897.247628,-1.059766524,-1911.274366,-15.086506,
+Trades,Data,Order,Stocks,USD,SLV,"2024-12-20, 09:04:18",-,94,26.48,-2489.12,-1.004512,2490.124512,0,O
+Trades,Data,Trade,Stocks,USD,SLV,"2024-12-20, 09:04:18",ISLAND,94,26.48,-2489.12,-1.004512,2490.124512,0,O
+Trades,SubTotal,,Stocks,USD,SLV,,,94,,-2489.12,-1.004512,2490.124512,0,
+Trades,Data,Order,Stocks,USD,TBIL,"2024-12-06, 09:30:00",-,0.305,49.89,-15.21645,-0.01523841,15.23168841,0,O;R
+Trades,Data,Trade,Stocks,USD,TBIL,"2024-12-06, 09:30:00",IBDRIPUS,0.305,49.89,-15.21645,-0.01523841,15.23168841,0,O;R
+Trades,Data,Order,Stocks,USD,TBIL,"2025-01-02, 09:33:15",-,0.3012,49.865,-15.019338,-0.015033193,15.034371193,0,O;R
+Trades,Data,Trade,Stocks,USD,TBIL,"2025-01-02, 09:33:15",IBDRIPUS,0.3012,49.865,-15.019338,-0.015033193,15.034371193,0,O;R
+Trades,SubTotal,,Stocks,USD,TBIL,,,0.6062,,-30.235788,-0.030271603,30.266059603,0,
+Trades,Data,Order,Stocks,USD,TLT,"2024-12-06, 09:33:10",-,0.4396,94.82,-41.682872,-0.041714523,41.724586523,0,O;R
+Trades,Data,Trade,Stocks,USD,TLT,"2024-12-06, 09:33:10",IBDRIPUS,0.4396,94.82,-41.682872,-0.041714523,41.724586523,0,O;R
+Trades,Data,Order,Stocks,USD,TLT,"2024-12-20, 08:39:28",-,28,88.51,-2478.28,-1.001344,2479.281344,0,O
+Trades,Data,Trade,Stocks,USD,TLT,"2024-12-20, 08:39:28",ARCA,28,88.51,-2478.28,-1.001344,2479.281344,0,O
+Trades,Data,Order,Stocks,USD,TLT,"2024-12-24, 09:33:10",-,0.5187,87.01,-45.132087,-0.045169433,45.177256433,0,O;R
+Trades,Data,Trade,Stocks,USD,TLT,"2024-12-24, 09:33:10",IBDRIPUS,0.5187,87.01,-45.132087,-0.045169433,45.177256433,0,O;R
+Trades,SubTotal,,Stocks,USD,TLT,,,28.9583,,-2565.094959,-1.088227956,2566.183186956,0,
+Trades,Data,Order,Stocks,USD,USO,"2024-12-20, 08:58:34",-,-28,72.27,2023.56,-1.062246968,-1979.908177,42.589576,C
+Trades,Data,Trade,Stocks,USD,USO,"2024-12-20, 08:58:34",NYSENAT,-28,72.27,2023.56,-1.062246968,-1979.908177,42.589576,C
+Trades,Data,ClosedLot,Stocks,USD,USO,2024-09-04,,1.578,70.257702788,,,110.866655,3.11554,ST
+Trades,Data,ClosedLot,Stocks,USD,USO,2024-10-30,,26.422,70.738078949,,,1869.041522,39.474036,ST
+Trades,Data,Order,Stocks,USD,USO,"2024-12-20, 13:22:29",-,-0.2748,73.2,20.11536,-0.201778209,-19.431128,0.482454,C;FP
+Trades,Data,Trade,Stocks,USD,USO,"2024-12-20, 13:22:29",IBKR,-0.2748,73.2,20.11536,-0.201778209,-19.431128,0.482454,C;FP
+Trades,Data,ClosedLot,Stocks,USD,USO,2024-10-30,,0.2748,70.71007278,,,19.431128,0.482454,ST
+Trades,SubTotal,,Stocks,USD,USO,,,-28.2748,,2043.67536,-1.264025177,-1999.339305,43.07203,
+Trades,Data,Order,Stocks,USD,VIXY,"2024-12-09, 10:30:53",-,12.0776,41.315826985,-498.996032,-1.000869587,499.996901587,0,FPA;O;P
+Trades,Data,Trade,Stocks,USD,VIXY,"2024-12-09, 10:30:53",DARK,12,41.3158,-495.7896,-1.000864,496.790464,0,O;P
+Trades,Data,Trade,Stocks,USD,VIXY,"2024-12-09, 10:30:53",IBKR,0.0776,41.32,-3.206432,-0.000005587,3.206437587,0,FP;O;P
+Trades,Data,Order,Stocks,USD,VIXY,"2024-12-18, 15:30:47",-,-12.0776,46.81,565.352456,-1.018303267,-499.996902,64.337251,C;FPA;P
+Trades,Data,Trade,Stocks,USD,VIXY,"2024-12-18, 15:30:47",ARCA,-12,46.81,561.72,-1.018183816,-496.790464,63.911352,C;P
+Trades,Data,ClosedLot,Stocks,USD,VIXY,2024-12-09,,12,41.399205333,,,496.790464,63.911352,ST
+Trades,Data,Trade,Stocks,USD,VIXY,"2024-12-18, 15:30:47",IBKR,-0.0776,46.81,3.632456,-0.000119451,-3.206438,0.425899,C;FP;P
+Trades,Data,ClosedLot,Stocks,USD,VIXY,2024-12-09,,0.0776,41.32007732,,,3.206438,0.425899,ST
+Trades,SubTotal,,Stocks,USD,VIXY,,,0,,66.356424,-2.019172854,-0.000000413,64.337251,
+Trades,Total,,Stocks,USD,,,,,,-1077.171335,-6.465976114,1175.960087146,92.322775, 
+Trades,Header,DataDiscriminator,Asset Category,Currency,Symbol,Date/Time,Exchange,Quantity,T. Price,Proceeds,Comm/Fee,Basis,Realized P/L,Code
+Trades,Data,Order,Equity and Index Options,USD,SPXW 02DEC24 6050 C,"2024-12-02, 11:05:03",-,-2,1.55,310,-2.5729,-307.4271,0,O
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 02DEC24 6050 C,"2024-12-02, 11:05:03",CBOE,-2,1.55,310,-2.5729,-307.4271,0,O
+Trades,Data,Order,Equity and Index Options,USD,SPXW 02DEC24 6050 C,"2024-12-02, 11:39:33",-,2,3.47,-694,-2.5729,307.4271,-389.1458,C;P
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 02DEC24 6050 C,"2024-12-02, 11:39:33",CBOE,1,3.47,-347,-1.63645,153.71355,-194.9229,C;P
+Trades,Data,ClosedLot,Equity and Index Options,USD,SPXW 02DEC24 6050 C,2024-12-02,,-1,1.5371355,,,-153.71355,-194.9229,ST
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 02DEC24 6050 C,"2024-12-02, 11:39:33",CBOE,1,3.47,-347,-0.93645,153.71355,-194.2229,C;P
+Trades,Data,ClosedLot,Equity and Index Options,USD,SPXW 02DEC24 6050 C,2024-12-02,,-1,1.5371355,,,-153.71355,-194.2229,ST
+Trades,Data,Order,Equity and Index Options,USD,SPXW 02DEC24 6050 C,"2024-12-02, 11:39:37",-,2,3.37,-674,-2.5729,676.5729,0,O
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 02DEC24 6050 C,"2024-12-02, 11:39:37",CBOE,2,3.37,-674,-2.5729,676.5729,0,O
+Trades,Data,Order,Equity and Index Options,USD,SPXW 02DEC24 6050 C,"2024-12-02, 11:39:55",-,2,3.37,-674,-2.5729,676.5729,0,O;P
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 02DEC24 6050 C,"2024-12-02, 11:39:55",CBOE,1,3.37,-337,-1.63645,338.63645,0,O;P
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 02DEC24 6050 C,"2024-12-02, 11:39:55",CBOE,1,3.37,-337,-0.93645,337.93645,0,O;P
+Trades,Data,Order,Equity and Index Options,USD,SPXW 02DEC24 6050 C,"2024-12-02, 11:40:34",-,-4,3.63,1452,-5.1458,-1353.1458,93.7084,C;P
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 02DEC24 6050 C,"2024-12-02, 11:40:34",CBOE,-1,3.63,363,-1.63645,-338.28645,23.0771,C;P
+Trades,Data,ClosedLot,Equity and Index Options,USD,SPXW 02DEC24 6050 C,2024-12-02,,1,3.3828645,,,338.28645,23.0771,ST
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 02DEC24 6050 C,"2024-12-02, 11:40:34",CBOE,-1,3.63,363,-0.93645,-338.28645,23.7771,C;P
+Trades,Data,ClosedLot,Equity and Index Options,USD,SPXW 02DEC24 6050 C,2024-12-02,,1,3.3828645,,,338.28645,23.7771,ST
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 02DEC24 6050 C,"2024-12-02, 11:40:34",CBOE,-1,3.63,363,-1.28645,-338.63645,23.0771,C;P
+Trades,Data,ClosedLot,Equity and Index Options,USD,SPXW 02DEC24 6050 C,2024-12-02,,1,3.3863645,,,338.63645,23.0771,ST
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 02DEC24 6050 C,"2024-12-02, 11:40:34",CBOE,-1,3.63,363,-1.28645,-337.93645,23.7771,C;P
+Trades,Data,ClosedLot,Equity and Index Options,USD,SPXW 02DEC24 6050 C,2024-12-02,,1,3.3793645,,,337.93645,23.7771,ST
+Trades,SubTotal,,Equity and Index Options,USD,SPXW 02DEC24 6050 C,,,0,,-280,-15.4374,0,-295.4374,
+Trades,Data,Order,Equity and Index Options,USD,SPXW 02DEC24 6055 C,"2024-12-02, 11:05:03",-,2,0.9,-180,-2.3929,182.3929,0,O;P
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 02DEC24 6055 C,"2024-12-02, 11:05:03",CBOE,1,0.9,-90,-1.54645,91.54645,0,O;P
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 02DEC24 6055 C,"2024-12-02, 11:05:03",CBOE,1,0.9,-90,-0.84645,90.84645,0,O;P
+Trades,Data,Order,Equity and Index Options,USD,SPXW 02DEC24 6055 C,"2024-12-02, 11:39:33",-,-2,1.87,374,-2.5729,-182.3929,189.0342,C;P
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 02DEC24 6055 C,"2024-12-02, 11:39:33",CBOE,-1,1.87,187,-1.63645,-91.54645,93.8171,C;P
+Trades,Data,ClosedLot,Equity and Index Options,USD,SPXW 02DEC24 6055 C,2024-12-02,,1,0.9154645,,,91.54645,93.8171,ST
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 02DEC24 6055 C,"2024-12-02, 11:39:33",CBOE,-1,1.87,187,-0.93645,-90.84645,95.2171,C;P
+Trades,Data,ClosedLot,Equity and Index Options,USD,SPXW 02DEC24 6055 C,2024-12-02,,1,0.9084645,,,90.84645,95.2171,ST
+Trades,Data,Order,Equity and Index Options,USD,SPXW 02DEC24 6055 C,"2024-12-02, 11:39:37",-,-2,1.82,364,-2.5729,-361.4271,0,O
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 02DEC24 6055 C,"2024-12-02, 11:39:37",CBOE,-2,1.82,364,-2.5729,-361.4271,0,O
+Trades,Data,Order,Equity and Index Options,USD,SPXW 02DEC24 6055 C,"2024-12-02, 11:39:55",-,-2,1.82,364,-2.5729,-361.4271,0,O;P
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 02DEC24 6055 C,"2024-12-02, 11:39:55",CBOE,-1,1.82,182,-1.63645,-180.36355,0,O;P
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 02DEC24 6055 C,"2024-12-02, 11:39:55",CBOE,-1,1.82,182,-0.93645,-181.06355,0,O;P
+Trades,Data,Order,Equity and Index Options,USD,SPXW 02DEC24 6055 C,"2024-12-02, 11:40:34",-,4,2.03,-812,-5.1458,722.8542,-94.2916,C;P
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 02DEC24 6055 C,"2024-12-02, 11:40:34",CBOE,1,2.03,-203,-1.63645,180.71355,-23.9229,C;P
+Trades,Data,ClosedLot,Equity and Index Options,USD,SPXW 02DEC24 6055 C,2024-12-02,,-1,1.8071355,,,-180.71355,-23.9229,ST
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 02DEC24 6055 C,"2024-12-02, 11:40:34",CBOE,1,2.03,-203,-0.93645,180.71355,-23.2229,C;P
+Trades,Data,ClosedLot,Equity and Index Options,USD,SPXW 02DEC24 6055 C,2024-12-02,,-1,1.8071355,,,-180.71355,-23.2229,ST
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 02DEC24 6055 C,"2024-12-02, 11:40:34",CBOE,1,2.03,-203,-1.28645,180.36355,-23.9229,C;P
+Trades,Data,ClosedLot,Equity and Index Options,USD,SPXW 02DEC24 6055 C,2024-12-02,,-1,1.8036355,,,-180.36355,-23.9229,ST
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 02DEC24 6055 C,"2024-12-02, 11:40:34",CBOE,1,2.03,-203,-1.28645,181.06355,-23.2229,C;P
+Trades,Data,ClosedLot,Equity and Index Options,USD,SPXW 02DEC24 6055 C,2024-12-02,,-1,1.8106355,,,-181.06355,-23.2229,ST
+Trades,SubTotal,,Equity and Index Options,USD,SPXW 02DEC24 6055 C,,,0,,110,-15.2574,0,94.7426,
+Trades,Data,Order,Equity and Index Options,USD,SPXW 03DEC24 6050 C,"2024-12-03, 10:34:25",-,-1,2.05,205,-1.63645,-203.36355,0,O
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 03DEC24 6050 C,"2024-12-03, 10:34:25",CBOE,-1,2.05,205,-1.63645,-203.36355,0,O
+Trades,Data,Order,Equity and Index Options,USD,SPXW 03DEC24 6050 C,"2024-12-03, 11:28:39",-,1,3.1,-310,-1.63645,203.36355,-108.2729,C
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 03DEC24 6050 C,"2024-12-03, 11:28:39",CBOE,1,3.1,-310,-1.63645,203.36355,-108.2729,C
+Trades,Data,ClosedLot,Equity and Index Options,USD,SPXW 03DEC24 6050 C,2024-12-03,,-1,2.0336355,,,-203.36355,-108.2729,ST
+Trades,Data,Order,Equity and Index Options,USD,SPXW 03DEC24 6050 C,"2024-12-03, 11:33:56",-,-1,2.27,227,-1.73645,-225.26355,0,O
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 03DEC24 6050 C,"2024-12-03, 11:33:56",CBOE,-1,2.27,227,-1.73645,-225.26355,0,O
+Trades,Data,Order,Equity and Index Options,USD,SPXW 03DEC24 6050 C,"2024-12-03, 11:44:46",-,1,1.13,-113,-1.63645,225.26355,110.6271,C
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 03DEC24 6050 C,"2024-12-03, 11:44:46",CBOE,1,1.13,-113,-1.63645,225.26355,110.6271,C
+Trades,Data,ClosedLot,Equity and Index Options,USD,SPXW 03DEC24 6050 C,2024-12-03,,-1,2.2526355,,,-225.26355,110.6271,ST
+Trades,SubTotal,,Equity and Index Options,USD,SPXW 03DEC24 6050 C,,,0,,9,-6.6458,0,2.3542,
+Trades,Data,Order,Equity and Index Options,USD,SPXW 03DEC24 6055 C,"2024-12-03, 10:34:25",-,1,1.15,-115,-1.63645,116.63645,0,O
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 03DEC24 6055 C,"2024-12-03, 10:34:25",CBOE,1,1.15,-115,-1.63645,116.63645,0,O
+Trades,Data,Order,Equity and Index Options,USD,SPXW 03DEC24 6055 C,"2024-12-03, 11:28:39",-,-1,1.6,160,-1.63645,-116.63645,41.7271,C
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 03DEC24 6055 C,"2024-12-03, 11:28:39",CBOE,-1,1.6,160,-1.63645,-116.63645,41.7271,C
+Trades,Data,ClosedLot,Equity and Index Options,USD,SPXW 03DEC24 6055 C,2024-12-03,,1,1.1663645,,,116.63645,41.7271,ST
+Trades,Data,Order,Equity and Index Options,USD,SPXW 03DEC24 6055 C,"2024-12-03, 11:33:56",-,1,1.13,-113,-1.73645,114.73645,0,O
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 03DEC24 6055 C,"2024-12-03, 11:33:56",CBOE,1,1.13,-113,-1.73645,114.73645,0,O
+Trades,Data,Order,Equity and Index Options,USD,SPXW 03DEC24 6055 C,"2024-12-03, 11:44:46",-,-1,0.6,60,-1.54645,-114.73645,-56.2829,C
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 03DEC24 6055 C,"2024-12-03, 11:44:46",CBOE,-1,0.6,60,-1.54645,-114.73645,-56.2829,C
+Trades,Data,ClosedLot,Equity and Index Options,USD,SPXW 03DEC24 6055 C,2024-12-03,,1,1.1473645,,,114.73645,-56.2829,ST
+Trades,SubTotal,,Equity and Index Options,USD,SPXW 03DEC24 6055 C,,,0,,-8,-6.5558,0,-14.5558,
+Trades,Data,Order,Equity and Index Options,USD,SPXW 03DEC24 6030 P,"2024-12-03, 11:33:56",-,1,1.66,-166,-1.73645,167.73645,0,O
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 03DEC24 6030 P,"2024-12-03, 11:33:56",CBOE,1,1.66,-166,-1.73645,167.73645,0,O
+Trades,Data,Order,Equity and Index Options,USD,SPXW 03DEC24 6030 P,"2024-12-03, 11:44:46",-,-1,3.83,383,-1.63645,-167.73645,213.6271,C
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 03DEC24 6030 P,"2024-12-03, 11:44:46",CBOE,-1,3.83,383,-1.63645,-167.73645,213.6271,C
+Trades,Data,ClosedLot,Equity and Index Options,USD,SPXW 03DEC24 6030 P,2024-12-03,,1,1.6773645,,,167.73645,213.6271,ST
+Trades,SubTotal,,Equity and Index Options,USD,SPXW 03DEC24 6030 P,,,0,,217,-3.3729,0,213.6271,
+Trades,Data,Order,Equity and Index Options,USD,SPXW 03DEC24 6035 P,"2024-12-03, 11:33:56",-,-1,2.62,262,-1.73645,-260.26355,0,O
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 03DEC24 6035 P,"2024-12-03, 11:33:56",CBOE,-1,2.62,262,-1.73645,-260.26355,0,O
+Trades,Data,Order,Equity and Index Options,USD,SPXW 03DEC24 6035 P,"2024-12-03, 11:44:46",-,1,5.85,-585,-1.63645,260.26355,-326.3729,C
+Trades,Data,Trade,Equity and Index Options,USD,SPXW 03DEC24 6035 P,"2024-12-03, 11:44:46",CBOE,1,5.85,-585,-1.63645,260.26355,-326.3729,C
+Trades,Data,ClosedLot,Equity and Index Options,USD,SPXW 03DEC24 6035 P,2024-12-03,,-1,2.6026355,,,-260.26355,-326.3729,ST
+Trades,SubTotal,,Equity and Index Options,USD,SPXW 03DEC24 6035 P,,,0,,-323,-3.3729,0,-326.3729,
+Trades,Total,,Equity and Index Options,USD,,,,,,-275,-50.6422,0,-325.6422, 
+Deposits & Withdrawals,Header,Currency,Settle Date,Description,Amount
+Deposits & Withdrawals,Data,USD,2024-12-18,Commission Adjustment (Consolidated Audit Trail Fee Refund),0.05
+Deposits & Withdrawals,Data,Total,,,0.05
+Fees,Header,Subtitle,Currency,Date,Description,Amount
+Fees,Data,Other Fees,USD,2024-12-03,E*******R3:CBOE ONE ADD-ON FOR NOV 2024,1
+Fees,Data,Other Fees,USD,2024-12-03,E*******R3:CBOE ONE ADD-ON FOR DEC 2024,-1
+Fees,Data,Other Fees,USD,2024-12-03,E*******R3:OPRA NP L1 FOR NOV 2024,1.5
+Fees,Data,Other Fees,USD,2024-12-03,E*******R3:OPRA NP L1 FOR DEC 2024,-1.5
+Fees,Data,Other Fees,USD,2024-12-03,e*******r3:US Securities Snapshot and Futures Value Bundle Non-Professional for Nov 2024,10
+Fees,Data,Other Fees,USD,2024-12-03,e*******r3:US Securities Snapshot and Futures Value Bundle Non-Professional for Dec 2024,-10
+Fees,Data,Other Fees,USD,2025-01-03,E*******R3:CBOE ONE ADD-ON FOR DEC 2024,1
+Fees,Data,Other Fees,USD,2025-01-03,E*******R3:CBOE ONE ADD-ON FOR JAN 2025,-1
+Fees,Data,Other Fees,USD,2025-01-03,E*******R3:OPRA NP L1 FOR DEC 2024,1.5
+Fees,Data,Other Fees,USD,2025-01-03,E*******R3:OPRA NP L1 FOR JAN 2025,-1.5
+Fees,Data,Other Fees,USD,2025-01-03,e*******r3:US Securities Snapshot and Futures Value Bundle Non-Professional for Dec 2024,10
+Fees,Data,Other Fees,USD,2025-01-03,e*******r3:US Securities Snapshot and Futures Value Bundle Non-Professional for Jan 2025,-10
+Fees,Data,Total,,,,0
+Fees,Notes,"Market data is provided by Global Financial Information Services (GmbH). Your local broker collects amounts owed for fees and tax for such data on behalf of Global Financial Information Services (GmbH). Note, you are responsible for any applicable taxes relating to the provision of these services."
+Dividends,Header,Currency,Date,Description,Amount
+Dividends,Data,USD,2024-12-03,TBIL(US74933W4520) Cash Dividend USD 0.184283 per Share (Ordinary Dividend),19.03
+Dividends,Data,USD,2024-12-05,TLT(US4642874329) Cash Dividend USD 0.325021 per Share (Ordinary Dividend),52.11
+Dividends,Data,USD,2024-12-23,TLT(US4642874329) Cash Dividend USD 0.351032 per Share (Ordinary Dividend),56.43
+Dividends,Data,USD,2024-12-31,TBIL(US74933W4520) Cash Dividend USD 0.181215 per Share (Ordinary Dividend),18.77
+Dividends,Data,Total,,,146.34
+Withholding Tax,Header,Currency,Date,Description,Amount,Code
+Withholding Tax,Data,USD,2024-12-03,TBIL(US74933W4520) Cash Dividend USD 0.184283 per Share - US Tax,-3.81,
+Withholding Tax,Data,USD,2024-12-05,TLT(US4642874329) Cash Dividend USD 0.325021 per Share - US Tax,-10.42,
+Withholding Tax,Data,USD,2024-12-23,TLT(US4642874329) Cash Dividend USD 0.351032 per Share - US Tax,-11.29,
+Withholding Tax,Data,USD,2024-12-31,TBIL(US74933W4520) Cash Dividend USD 0.181215 per Share - US Tax,-3.75,
+Withholding Tax,Data,Total,,,-29.27,
+Change in Dividend Accruals,Header,Asset Category,Currency,Symbol,Date,Ex Date,Pay Date,Quantity,Tax,Fee,Gross Rate,Gross Amount,Net Amount,Code
+Change in Dividend Accruals,Data,Starting Dividend Accruals in USD,,,,,,,,,,,0,
+Change in Dividend Accruals,Data,Stocks,USD,TBIL,2024-11-29,2024-12-02,2024-12-03,103.254,3.81,0,0.184283,19.03,15.22,Po
+Change in Dividend Accruals,Data,Stocks,USD,TBIL,2024-12-03,2024-12-02,2024-12-03,103.254,-3.81,0,0.184283,-19.03,-15.22,Re
+Change in Dividend Accruals,Data,Stocks,USD,TBIL,2024-12-27,2024-12-30,2024-12-31,103.559,3.75,0,0.181215,18.77,15.02,Po
+Change in Dividend Accruals,Data,Stocks,USD,TBIL,2024-12-31,2024-12-30,2024-12-31,103.559,-3.75,0,0.181215,-18.77,-15.02,Re
+Change in Dividend Accruals,Data,Stocks,USD,TLT,2024-11-29,2024-12-02,2024-12-05,160.3277,10.42,0,0.325021,52.11,41.69,Po
+Change in Dividend Accruals,Data,Stocks,USD,TLT,2024-12-05,2024-12-02,2024-12-05,160.3277,-10.42,0,0.325021,-52.11,-41.69,Re
+Change in Dividend Accruals,Data,Stocks,USD,TLT,2024-12-17,2024-12-18,2024-12-23,160.7673,11.29,0,0.351,56.43,45.14,Po
+Change in Dividend Accruals,Data,Stocks,USD,TLT,2024-12-23,2024-12-18,2024-12-23,160.7673,-11.29,0,0.351032,-56.43,-45.14,Re
+Change in Dividend Accruals,Data,Total,,,,,,,0,0,,-0,-0,
+Change in Dividend Accruals,Data,Ending Dividend Accruals in USD,,,,,,,,,,,0,
+Financial Instrument Information,Header,Asset Category,Symbol,Description,Conid,Security ID,Underlying,Listing Exch,Multiplier,Type,Code
+Financial Instrument Information,Data,Stocks,BIIB,BIOGEN INC,26734397,US09062X1037,BIIB,NASDAQ,1,COMMON,
+Financial Instrument Information,Data,Stocks,FXY,INVESCO CURRENCYSHARES JAPAN,319355967,US46138W1071,FXY,ARCA,1,ETF,
+Financial Instrument Information,Data,Stocks,SLV,ISHARES SILVER TRUST,39039301,US46428Q1094,SLV,ARCA,1,ETF,
+Financial Instrument Information,Data,Stocks,TBIL,US TREASURY 3 MONTH BILL ETF,578561477,US74933W4520,TBIL,NASDAQ,1,ETF,
+Financial Instrument Information,Data,Stocks,TLT,ISHARES 20+ YEAR TREASURY BD,15547841,US4642874329,TLT,NASDAQ,1,ETF,
+Financial Instrument Information,Data,Stocks,USO,UNITED STATES OIL FUND LP,418893644,US91232N2071,USO,ARCA,1,ETF,
+Financial Instrument Information,Data,Stocks,VIXY,PROSHARES VIX SHORT-TERM FUT,738675328,US74347Y7307,VIXY,BATS,1,ETF,
+Financial Instrument Information,Header,Asset Category,Symbol,Description,Conid,Underlying,Listing Exch,Multiplier,Expiry,Delivery Month,Type,Strike,Code
+Financial Instrument Information,Data,Equity and Index Options,SPXW  241202C06050000,SPXW 02DEC24 6050 C,738391258,SPX,CBOE,100,2024-12-02,2024-12,C,6050,
+Financial Instrument Information,Data,Equity and Index Options,SPXW  241202C06055000,SPXW 02DEC24 6055 C,741005862,SPX,CBOE,100,2024-12-02,2024-12,C,6055,
+Financial Instrument Information,Data,Equity and Index Options,SPXW  241203C06050000,SPXW 03DEC24 6050 C,738575864,SPX,CBOE,100,2024-12-03,2024-12,C,6050,
+Financial Instrument Information,Data,Equity and Index Options,SPXW  241203C06055000,SPXW 03DEC24 6055 C,741006023,SPX,CBOE,100,2024-12-03,2024-12,C,6055,
+Financial Instrument Information,Data,Equity and Index Options,SPXW  241203P06030000,SPXW 03DEC24 6030 P,740305805,SPX,CBOE,100,2024-12-03,2024-12,P,6030,
+Financial Instrument Information,Data,Equity and Index Options,SPXW  241203P06035000,SPXW 03DEC24 6035 P,741006075,SPX,CBOE,100,2024-12-03,2024-12,P,6035,
+Codes,Header,Code,Meaning,Code (Cont.),Meaning (Cont.)
+Codes,Data,A,Assignment
+Codes,Data,ADR,ADR Fee Accrual
+Codes,Data,AEx,Automatic exercise for dividend-related recommendation.
+Codes,Data,AFx,AutoFX conversion resulting from trading
+Codes,Data,Adj,Adjustment
+Codes,Data,Al,Allocation
+Codes,Data,Aw,Away Trade
+Codes,Data,B,Automatic Buy-in
+Codes,Data,Bo,Direct Borrow
+Codes,Data,C,Closing Trade
+Codes,Data,CD,Cash Delivery
+Codes,Data,CP,Complex Position
+Codes,Data,Ca,Cancelled
+Codes,Data,Co,Corrected Trade
+Codes,Data,Cx,Part or all of this transaction was a Crossing executed as dual agent by IB for two IB customers
+Codes,Data,DT,Discounted Trade
+Codes,Data,De,Delivery or Conversion Action
+Codes,Data,ETF,ETF Creation/Redemption
+Codes,Data,Ep,Resulted from an Expired Position
+Codes,Data,Ex,Exercise
+Codes,Data,FP,The fractional portion of this trade was executed against IB or an affiliate.
+Codes,Data,FPA,The fractional portion of this trade was executed against IB or an affiliate. IB acted as agent for the whole share portion of this trade.
+Codes,Data,G,Trade in Guaranteed Account Segment
+Codes,Data,GEA,Exercise or Assignment resulting from offsetting positions
+Codes,Data,HC,Highest Cost tax basis election
+Codes,Data,HFI,Investment Transferred to Hedge Fund
+Codes,Data,HFR,Redemption from Hedge Fund
+Codes,Data,I,Internal Transfer
+Codes,Data,IA,The transaction was executed against IB or an affiliate
+Codes,Data,IM,A portion of the order was executed against IB or an affiliate; IB acted as agent on a portion.
+Codes,Data,INV,Investment Transfer from Investor
+Codes,Data,IPO,This transaction was executed as part of an IPO in which IB was a member of the selling group and is classified as a Principal trade.
+Codes,Data,L,Ordered by IB (Margin Violation)
+Codes,Data,LD,Adjusted by Loss Disallowed from Wash Sale
+Codes,Data,LI,"Last In, First Out (LIFO) tax basis election"
+Codes,Data,LT,Long Term P/L
+Codes,Data,Lo,Direct Loan
+Codes,Data,M,Entered manually by IB
+Codes,Data,MEx,Manual exercise for dividend-related recommendation.
+Codes,Data,ML,Maximize Losses tax basis election
+Codes,Data,MLG,Maximize Long Term Gain tax basis election
+Codes,Data,MLL,Maximize Long Term Loss tax basis election
+Codes,Data,MSG,Maximize Short Term Gain tax basis election
+Codes,Data,MSL,Maximize Short Term Loss tax basis election
+Codes,Data,O,Opening Trade
+Codes,Data,Off,Yes and No contracts offset to $1.00 cash settlement
+Codes,Data,P,Partial Execution
+Codes,Data,PE,Perpetual Investment
+Codes,Data,PI,Price Improvement
+Codes,Data,PTA,Post Trade Allocation
+Codes,Data,Po,Interest or Dividend Accrual Posting
+Codes,Data,Pr,Part or all of this transaction was executed by the Exchange as a Crossing by IB against an IB affiliate and is therefore classified as a Principal and not an agency trade
+Codes,Data,R,Dividend Reinvestment
+Codes,Data,RED,Redemption to Investor
+Codes,Data,RI,Recurring Investment
+Codes,Data,RP,"IB acted as agent for the fractional share portion of this trade, which was executed by an IB affiliate as riskless principal."
+Codes,Data,RPA,IB acted as agent for both the fractional share portion and the whole share portion of this trade; the fractional share portion was executed by an IB Affiliate as riskless principal.
+Codes,Data,Rb,Rebill
+Codes,Data,Re,Interest or Dividend Accrual Reversal
+Codes,Data,Ri,Reimbursement
+Codes,Data,S0,Contract settled to zero value
+Codes,Data,S1,Contract settled to $1.00
+Codes,Data,SF,Trade is subject to IBKR Lite Surcharge Fee if volume of such trades exceeds 10% of the total monthly Lite trade volume
+Codes,Data,SI,This order was solicited by Interactive Brokers
+Codes,Data,SL,Specific Lot tax basis election
+Codes,Data,SO,This order was marked as solicited by your Introducing Broker
+Codes,Data,SS,Customer designated this trade for shortened settlement and so is subject to execution at prices above the prevailing market
+Codes,Data,ST,Short Term P/L
+Codes,Data,SY,Positions that may be eligible for Stock Yield. Potential for additional annualized income of 3.08 USD
+Codes,Data,T,Transfer
+Codes,Data,Un,Unvested shares from stock grant
+Codes,Data,XCH,Mutual Fund Exchange Transaction
+Notes/Legal Notes,Header,Type,Note
+Notes/Legal Notes,Data,Notes,"Stock exchange transactions generally settle on the trade date plus one business day (T+1). Options, futures and US open-end mutual fund transactions also settle on trade date plus one business day. Some exchanges and other transaction types may have longer or shorter settlement periods. Ending settled cash reflects the cash that has actually settled."
+Notes/Legal Notes,Data,Notes,Initial and maintenance margin requirements are available within the Account Window of the Trader Workstation.
+Notes/Legal Notes,Data,Notes,"Interactive Brokers LLC receives compensation from fund companies in connection with the purchase and holding of fund shares by customers of Interactive Brokers LLC. Such compensation includes, but is not limited to, Rule 12b-1 fees that are paid out of the funds assets. The source and amount of any remuneration received by Interactive Brokers LLC in connection with a transaction will be furnished upon written request of the customer.  IB may share a portion of the compensation received from fund companies with your independent advisor or introducing broker."
+Notes/Legal Notes,Data,Notes,"Quantities preceded by a ""-"" sign indicate sell transactions. Other transactions are purchases. "
+Notes/Legal Notes,Data,Notes,"IB acts as agent in executing the fractional share portion of your order. In certain circumstances, IB routes the fractional portion of your order to an affiliate, which may execute the fractional portion of the order as principal. In such circumstances, this is indicated by the codes associated with the trade. If an IB affiliate acts as principal in executing any fractional share portion of your order, the order will be executed at the price displayed for the opposite side of the NBBO from your order (the offer if you are buying and the bid if you are selling) at the time of execution. If an IB affiliate is acting as riskless principal in connection with filling the fractional share portion of your order, the affiliate will execute the fractional share portion of your order at the price it receives for the execution of the whole share."
+Notes/Legal Notes,Data,Notes,"In case of partial executions, commissions are charged on the total quantity executed on the original order. The commission is displayed on the first partial execution only."
+Notes/Legal Notes,Data,Notes,Each closed lot indicated above with a reference to note (6) was chosen by the end of the trading day to be sold versus the specific opening purchase identified in that row.
+Notes/Legal Notes,Data,Notes,Trade execution times are displayed in Eastern Time.
+Notes/Legal Notes,Data,Notes,Applicable regulatory fees for your transactions are available on the IB website at www.interactivebrokers.com/en/accounts/fees/exchangeAndRegulatoryFees.php.
+Notes/Legal Notes,Data,Notes,"Borrow Fee Rate represents the cost to borrow stock expressed in percent per annum. It is applied to the collateral value on the stock borrow contract and is separate from any interest earned on credit cash balances. Similarly, Loan Fee Rate represents the benefit to lend stock. A positive rate indicates a cost to the borrower/benefit to the lender and a negative rate indicates a benefit to the borrower/cost to the lender. In general, the fee rates for hard-to-borrow stocks are higher than for normal availability stocks."
+Notes/Legal Notes,Data,Notes,Interest Rate on Customer Collateral represents the interest paid on the collateral posted to the customer's account and received from lending stock.  A positive rate indicates a benefit to the lender.
+Notes/Legal Notes,Data,Notes,"The closing prices on this Activity Statement are indicative and may come from third-party sources. Interactive Brokers does not warrant the accuracy of the prices provided by third-party sources. Due to time zone differences, certain non-US mutual funds may deliver closing prices after the Activity Statement has been produced and the closing prices for such funds will reflect the previous day's price."
+Notes/Legal Notes,Data,Notes,All Market Data and Research services are provided through Global Financial Information Services (GmbH).
+Notes/Legal Notes,Data,Notes,"Market data is provided by Global Financial Information Services (GmbH). Your local broker collects amounts owed for fees and tax for such data on behalf of Global Financial Information Services (GmbH). Note, you are responsible for any applicable taxes relating to the provision of these services."
+Notes/Legal Notes,Data,Mutual Fund Notes,"All purchase and sales of mutual funds are calculated against the published NAV (Net Asset Value) of the underlying fund and is displayed on this confirmation as the ""C. Price"" (Closing Price). Due to any fees charged by a fund and/or any share rounding, the net price you pay may vary from the published NAV and is shown on this confirmation as the ""T. Price"" (Trade Price)."
+Notes/Legal Notes,Data,Fixed Income Notes,"Call features for bonds or preferred stocks may affect the yield. For zero coupon, compound interest and multiplier securities, there are no periodic payments and securities may be callable below maturity value without notice to holder unless registered. For asset-backed securities, the actual yield may vary depending on the speed at which the underlying note is pre-paid. For additional information regarding bond yield, please contact the IB Help Desk at: ibkr.com/help. If this debt security is unrated by a nationally recognized statistical rating organization, it may pose a high risk of default. You should consult an independent advisor to determine whether unrated bonds are appropriate for your portfolio in light of your goals and your financial circumstances. Fees charged by bond trading centers are included in the cost of bond transactions."
+Notes/Legal Notes,Data,Legal Notes,"Please promptly report any inaccuracy or discrepancy in this statement, or in your account. Contact the IB Customer Service Department in writing using the form available on the IB website. You may also contact IB by phone, but if you report an error by phone, you should re-confirm such oral communication in writing in order to protect your rights, including rights under the Securities Investor Protection Act (SIPA).Interactive Brokers:Interactive Brokers LLC, www.interactivebrokers.com, 877-442-2757 (U.S.)Interactive Brokers (UK) (Ltd), www.interactivebrokers.co.uk, 00800-42-276537 (Intl)Interactive Brokers Canada Inc., www.interactivebrokers.ca, 877-745-4222 (Can.)"
+Notes/Legal Notes,Data,Legal Notes,"Unless otherwise noted, Interactive Brokers acted as agent in the execution of the above transactions. For those exchanges where IB is not a direct clearing member or custodian, IB may use one of the following clearing agents or sub-custodians: Interactive Brokers Australia Pty Limited; Interactive Brokers Canada Inc.; Interactive Brokers Hong Kong Limited; Interactive Brokers Ireland, Limited; Interactive Brokers Securities Japan, Inc.; Interactive Brokers (U.K.) Limited; IBKR Financial Services AG; ABN Amro Clearing Singapore Pte. Ltd.; BBVA Bancomer, S.A.; BNP Securities Services, Milan Branch; BMO Harris Bank N.A.; Citibank Europe plc; Skandinaviska Enskilda Banken AB (including select branches)."
+Notes/Legal Notes,Data,Legal Notes,"IB acts as agent or riskless principal in foreign currency exchange transactions and as riskless principal in spot precious metals transactions.  Such transactions are executed against an IB affiliate or a third party, which acts as principal in such transactions and may have a long or short position and may have profited or lost in connection with the transaction.  Foreign currency exchange and spot precious metals transactions executed by Customer through IB are not regulated or overseen by the SEC or the CFTC."
+Notes/Legal Notes,Data,Legal Notes,"IB accepts liquidity rebates or other order flow payments from Alternative Trading Systems, market makers and exchanges for certain orders in stocks. IB receives payment for some option orders pursuant to exchange-mandated marketing fee programs or other arrangements. The source and nature of any compensation received by IB in connection with any transaction is available upon written request of the customer. For further information, check the IB website and the Order Routing and Payment for Order Flow Disclosure provided when you opened your account and annually or visit ibkr.com/help.  "
+Notes/Legal Notes,Data,Legal Notes,"For security futures trades, if not already indicated on this statement, information about the time of any transaction, the identity of the counterparty to the transaction, and whether IB is acting as agent or principal, as agent for the counterparty, as agent for both parties to the contract, or as principal, and if acting as principal, whether the transaction was a block transaction or an exchange for physicals transaction, will be available upon written request of the customer."
+Notes/Legal Notes,Data,Legal Notes,Customer is requested to promptly advise Interactive Brokers of any material change in Customers investment objectives.
+Notes/Legal Notes,Data,Legal Notes,"A financial statement of Interactive Brokers LLC is available for your personal inspection at www.interactivebrokers.com or at its offices, or a copy of it will be mailed upon your written request."
+Notes/Legal Notes,Data,Legal Notes,"For trades executed on the ASX market, the ASX 24 market and the Cboe Australia market, this confirmation is issued subject to: (i) the Applicable Laws, the directions, decisions and requirements of the relevant market operator, the operating rules of the relevant market, the clearing rules and where relevant, the relevant settlement rules, (ii) the customs and usages of the relevant financial market, and (iii) the correction of errors and omissions. Trades in Cash Market Products (as that term is defined in the relevant ASIC market integrity rules) on ASX market and Cboe Australia are cleared by BNP Paribas, ARBN 149 440 291, AFSL 402467, who is a participant of ASX Clear Pty Ltd and ASX Settlement Pty Ltd. Trades in Derivative Products on ASX and all products on ASX 24 are cleared by Interactive Brokers Australia (“IBA”) as a participant of ASX Clear Pty Ltd and ASX Clear (Futures) Pty Ltd. If your transaction was a crossing transaction, IBA may have either acted on behalf of (i) both the buyer and seller of this transaction, or (ii) on behalf of the buyer or seller on one side of the transaction and acted as Principal on the other side. Under the Corporations Act 2001, where IBA enters into an exchange traded derivative on a customer's behalf, IBA is regarded as having issued the derivative to the customer."
+Notes/Legal Notes,Data,Legal Notes,"For All Options Trades Executed on the Stock Exchange of Hong Kong (""SEHK""): (a) Options can involve a high degree of risk and may not be suitable for every investor. Investors should ensure they understand those risks before participating in the options market. (b) All options contracts executed on the SEHK were executed by Interactive Brokers Hong Kong Limited on behalf of Interactive Brokers LLC. (c) In the event of a default committed by Interactive Brokers LLC resulting in the client suffering any pecuniary loss, the client shall have a right to claim under the Investor Compensation Fund established under the Hong Kong Securities and Futures Ordinance, subject to the terms of the Investor Compensation Fund from time to time. (d) All Exchange Traded Options Business made for or on behalf of a client shall be subject to the relevant provisions of the constitution, Rules of The Stock Exchange of Hong Kong Limited (""SEHK Rules""), regulations, the Articles, customs and usages of SEHK, the Options Trading Rules, the Clearing Rules of SEOCH, the CCASS Rules and the laws of Hong Kong, which shall be binding on both Interactive Brokers LLC and the client."
+Notes/Legal Notes,Data,Legal Notes,"Interactive Brokers LLC is a SIPC member. Deposits held away from Interactive Brokers LLC may not qualify under SIPC protection. Also, futures and options on futures are not covered by SIPC."
+Notes/Legal Notes,Data,,Interactive Brokers LLC is a SIPC Member
