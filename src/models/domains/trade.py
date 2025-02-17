@@ -1,4 +1,4 @@
-from base_model import BaseModel
+from .base_model import BaseModel
 from dataclasses import dataclass
 from datetime import datetime
 from decimal import Decimal
