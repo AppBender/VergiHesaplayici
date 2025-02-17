@@ -1,19 +1,24 @@
 from dataclasses import dataclass
+from datetime import datetime
 from decimal import Decimal
+from typing import List
 from .base_model import BaseModel
 
 
 @dataclass
 class WithholdingTax(BaseModel):
-    def to_csv_row(self) -> list[str]:
+    symbol: str    # Description'dan parse ediliyor
+
+    def to_csv_row(self) -> List[str]:
         return [
             'Stopaj',
             self.symbol,
             self.date.strftime('%Y-%m-%d'),
-            '',  # No sell date for withholding tax
+            '',  # Satış tarihi yok
             'Temettü Stopajı',
-            f"{self.amount_usd:.2f}",
+            '',  # Miktar yok
+            self.format_amount(self.amount_usd),
             f"{self.exchange_rate:.4f}",
-            f"{self.amount_tl:.2f}",
+            self.format_amount(self.amount_tl),
             'Stopaj'
         ]

@@ -39,8 +39,7 @@ class DividendParser(ParserProtocol[Dividend]):
                     )
                     dividends.append(dividend)
             except Exception as e:
-                error_msg = f"Temettü satırı işlenirken hata: {str(e)}\nSatır verisi: {row.tolist()}"
-                self.logger.log_error(error_msg)
+                self.logger.log_error(f"Temettü satırı işlenirken hata: {str(e)}\nSatır verisi: {row.tolist()}")
                 continue
 
         return dividends

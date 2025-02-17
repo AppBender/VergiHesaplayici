@@ -14,6 +14,7 @@ Hisse Senedi;VIXY;2024-12-09;2024-12-09;Satış Zararı;12.00;0.00;34.7633;0.00;
 Hisse Senedi;VIXY;2024-12-09;2024-12-09;Satış Zararı;0.08;0.00;34.7633;0.00;Alım-Satım
 Hisse Senedi;VIXY;2024-12-18;2024-12-18;Satış Karı;-12.00;63.91;34.9849;2235.93;Alım-Satım
 Hisse Senedi;VIXY;2024-12-18;2024-12-18;Satış Karı;-0.08;0.43;34.9849;14.90;Alım-Satım
+;;;;;;;;;
 Opsiyon;SPXW 02DEC24 6050 C;2024-12-02;2024-12-02;Satış Zararı;-2.00;0.00;34.6417;0.00;Alım-Satım
 Opsiyon;SPXW 02DEC24 6050 C;2024-12-02;2024-12-02;Satış Zararı;1.00;-194.92;34.6417;-6752.46;Alım-Satım
 Opsiyon;SPXW 02DEC24 6050 C;2024-12-02;2024-12-02;Satış Zararı;1.00;-194.22;34.6417;-6728.21;Alım-Satım
@@ -48,17 +49,33 @@ Opsiyon;SPXW 03DEC24 6030 P;2024-12-03;2024-12-03;Satış Karı;-1.00;213.63;34.
 Opsiyon;SPXW 03DEC24 6035 P;2024-12-03;2024-12-03;Satış Zararı;-1.00;0.00;34.7056;0.00;Alım-Satım
 Opsiyon;SPXW 03DEC24 6035 P;2024-12-03;2024-12-03;Satış Zararı;1.00;-326.37;34.7056;-11326.97;Alım-Satım
 ;;;;;;;;;
+Ücret;E*******R3;2024-12-03;;E*******R3:CBOE ONE ADD-ON FOR NOV 2024;;1.00;34.7056;34.71;Ücret
+Ücret;E*******R3;2024-12-03;;E*******R3:CBOE ONE ADD-ON FOR DEC 2024;;-1.00;34.7056;-34.71;Ücret
+Ücret;E*******R3;2024-12-03;;E*******R3:OPRA NP L1 FOR NOV 2024;;1.50;34.7056;52.06;Ücret
+Ücret;E*******R3;2024-12-03;;E*******R3:OPRA NP L1 FOR DEC 2024;;-1.50;34.7056;-52.06;Ücret
+Ücret;e*******r3;2024-12-03;;e*******r3:US Securities Snapshot and Futures Value Bundle Non-Professional for Nov 2024;;10.00;34.7056;347.06;Ücret
+Ücret;e*******r3;2024-12-03;;e*******r3:US Securities Snapshot and Futures Value Bundle Non-Professional for Dec 2024;;-10.00;34.7056;-347.06;Ücret
+Ücret;E*******R3;2025-01-03;;E*******R3:CBOE ONE ADD-ON FOR DEC 2024;;1.00;35.3160;35.32;Ücret
+Ücret;E*******R3;2025-01-03;;E*******R3:CBOE ONE ADD-ON FOR JAN 2025;;-1.00;35.3160;-35.32;Ücret
+Ücret;E*******R3;2025-01-03;;E*******R3:OPRA NP L1 FOR DEC 2024;;1.50;35.3160;52.97;Ücret
+Ücret;E*******R3;2025-01-03;;E*******R3:OPRA NP L1 FOR JAN 2025;;-1.50;35.3160;-52.97;Ücret
+Ücret;e*******r3;2025-01-03;;e*******r3:US Securities Snapshot and Futures Value Bundle Non-Professional for Dec 2024;;10.00;35.3160;353.16;Ücret
+Ücret;e*******r3;2025-01-03;;e*******r3:US Securities Snapshot and Futures Value Bundle Non-Professional for Jan 2025;;-10.00;35.3160;-353.16;Ücret
 ;;;;;;;;;
+Temettü;TBIL;2024-12-03;;Brüt Temettü;;19.03;34.7056;660.45;Temettü
+Temettü;TLT;2024-12-05;;Brüt Temettü;;52.11;34.7498;1810.81;Temettü
+Temettü;TLT;2024-12-23;;Brüt Temettü;;56.43;35.1251;1982.11;Temettü
+Temettü;TBIL;2024-12-31;;Brüt Temettü;;18.77;35.2868;662.33;Temettü
 ;;;;;;;;;
-Stopaj;TBIL;2024-12-03;;Temettü Stopajı;-3.81;34.7056;-132.23;Stopaj
-Stopaj;TLT;2024-12-05;;Temettü Stopajı;-10.42;34.7498;-362.09;Stopaj
-Stopaj;TLT;2024-12-23;;Temettü Stopajı;-11.29;35.1251;-396.56;Stopaj
-Stopaj;TBIL;2024-12-31;;Temettü Stopajı;-3.75;35.2868;-132.33;Stopaj
+Stopaj;TBIL;2024-12-03;;Temettü Stopajı;;-3.81;34.7056;-132.23;Stopaj
+Stopaj;TLT;2024-12-05;;Temettü Stopajı;;-10.42;34.7498;-362.09;Stopaj
+Stopaj;TLT;2024-12-23;;Temettü Stopajı;;-11.29;35.1251;-396.56;Stopaj
+Stopaj;TBIL;2024-12-31;;Temettü Stopajı;;-3.75;35.2868;-132.33;Stopaj
 ;;;;;;;;;
 Özet Hesaplama;;;;;;;;;
 Kategori;USD Toplam;TL Toplam;;;;;;;
-Hisse Senedi;-233.32;-8058.01;;;;;;;
-Opsiyon;0.00;0.00;;;;;;;
-Temettü;0.00;0.00;;;;;;;
+Hisse Senedi;92.32;3230.77;;;;;;;
+Opsiyon;-325.64;-11288.78;;;;;;;
+Temettü;146.34;5115.70;;;;;;;
 Stopaj;-29.27;-1023.21;;;;;;;
-Toplam Kar/Zarar;-262.59;-9081.22;;;;;;;
+Toplam Kar/Zarar;-116.25;-3965.52;;;;;;;

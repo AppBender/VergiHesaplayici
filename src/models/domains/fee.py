@@ -1,32 +1,25 @@
 from utils.utils import parse_numeric
 from dataclasses import dataclass
+from datetime import datetime
 from decimal import Decimal
+from typing import List
 from .base_model import BaseModel
-
 
 @dataclass
 class Fee(BaseModel):
-    def __init__(self, date, amount_usd, amount_tl, exchange_rate, description):
-        super().__init__(
-            symbol="",  # Fee'ler için symbol kullanmıyoruz
-            date=date,
-            amount_usd=amount_usd,
-            amount_tl=amount_tl,
-            exchange_rate=exchange_rate,
-            description=description
-        )
+    symbol: str = ""    # Description'dan parse ediliyor
 
-    def to_csv_row(self) -> list[str]:
+    def to_csv_row(self) -> List[str]:
         return [
             'Ücret',
-            '',  # Symbol yok
+            self.symbol,  # Artık symbol bilgisini gösteriyoruz
             self.date.strftime('%Y-%m-%d'),
             '',  # Satış tarihi yok
             self.description,
             '',  # Miktar yok
-            f"{self.amount_usd:.2f}",
+            self.format_amount(self.amount_usd),
             f"{self.exchange_rate:.4f}",
-            f"{self.amount_tl:.2f}",
+            self.format_amount(self.amount_tl),
             'Ücret'
         ]
 

@@ -20,28 +20,41 @@ class TradeParser(ParserProtocol[Trade]):
         for _, row in df.iterrows():
             try:
                 if row.iloc[1] == "Data" and row.iloc[2] == "Trade":
-                    # DataFrame'den değerleri indeks ile alalım
-                    date = datetime.strptime(str(row.iloc[6]).split(',')[0], '%Y-%m-%d')
-                    symbol = row.iloc[5]
-                    amount = Decimal(str(row.iloc[13]))  # realized_pl
+                    if "Total" in str(row.iloc[2]):
+                        continue
+
+                    # Parse date and time
+                    date_str = str(row.iloc[6]).split(',')[0]
+                    date = datetime.strptime(date_str, '%Y-%m-%d')
+
+                    # Get exchange rate
                     exchange_rate = get_exchange_rate(date)
 
+                    # Parse amounts
+                    amount = Decimal(str(row.iloc[13]))  # realized_pl
+                    quantity = Decimal(str(row.iloc[8]))
+                    commission = Decimal(str(row.iloc[11]))  # Comm/Fee
+
+                    # Check if it's an option
+                    is_option = 'Option' in str(row.iloc[3])
+
                     trade = Trade(
-                        symbol=symbol,
+                        symbol=str(row.iloc[5]),
                         date=date,
                         amount_usd=amount,
                         amount_tl=amount * Decimal(str(exchange_rate)),
                         exchange_rate=Decimal(str(exchange_rate)),
                         description='Satış Karı' if amount > 0 else 'Satış Zararı',
-                        quantity=Decimal(str(row.iloc[8])),
-                        buy_date=date,  # Şimdilik satış tarihi ile aynı
+                        quantity=quantity,
+                        buy_date=date,
                         sell_date=date,
-                        is_option='Option' in str(row.iloc[3])  # Asset Category'de 'Option' kelimesi varsa
+                        is_option=is_option,
+                        commission=commission  # Add commission
                     )
                     trades.append(trade)
+
             except Exception as e:
-                error_msg = f"Trade satırı işlenirken hata: {str(e)}\nSatır verisi: {row.tolist()}"
-                self.logger.log_error(error_msg)
+                self.logger.log_error(f"Trade satırı işlenirken hata: {str(e)}\nSatır verisi: {row.tolist()}")
                 continue
 
         return trades

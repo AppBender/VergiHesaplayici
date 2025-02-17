@@ -1,27 +1,26 @@
 from utils.utils import parse_numeric
 from dataclasses import dataclass
+from datetime import datetime
 from decimal import Decimal
+from typing import List
 from .base_model import BaseModel
 
 
 @dataclass
 class Dividend(BaseModel):
-    def __init__(self, row):
-        self.currency = row.iloc[2]
-        self.date_time = str(row.iloc[3])  # Ensure date_time is a string
-        self.symbol = row.iloc[4]
-        self.amount = float(row.iloc[5])
+    symbol: str    # Description'dan parse ediliyor - TBIL(US74933W4520)
 
-    def to_csv_row(self) -> list[str]:
+    def to_csv_row(self) -> List[str]:
         return [
             'Temettü',
             self.symbol,
             self.date.strftime('%Y-%m-%d'),
-            '',  # No sell date for dividends
+            '',  # Satış tarihi yok
             'Brüt Temettü',
-            f"{self.amount_usd:.2f}",
+            '',  # Miktar yok
+            self.format_amount(self.amount_usd),
             f"{self.exchange_rate:.4f}",
-            f"{self.amount_tl:.2f}",
+            self.format_amount(self.amount_tl),
             'Temettü'
         ]
 

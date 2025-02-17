@@ -26,13 +26,13 @@ class ReportService:
 
     def process_report(self, file_path: str) -> bool:
         try:
-            # CSV dosyasını preprocess et ve oku
+            # Preprocess CSV file
             df = CSVPreprocessor.preprocess(file_path)
 
-            # Başlığı yaz
+            # Write header
             self.writer.write_header()
 
-            # Her bölümü işle
+            # Process each section
             sections = self._split_into_sections(df)
             for section_name, section_df in sections:
                 parser = self._find_parser(section_name)
@@ -41,13 +41,12 @@ class ReportService:
                     self._update_totals(section_name, parsed_data)
                     self.writer.write_section(section_name, parsed_data)
 
-            # Özeti yaz
+            # Write summary
             self.writer.write_summary(self.totals)
             return True
 
         except Exception as e:
-            error_msg = f"Rapor işlenirken hata oluştu: {str(e)}"
-            self.logger.log_error(error_msg)
+            self.logger.log_error(f"Rapor işlenirken hata: {str(e)}")
             return False
 
     def _split_into_sections(self, df: pd.DataFrame) -> List[tuple[str, pd.DataFrame]]:
@@ -56,10 +55,11 @@ class ReportService:
         current_rows = []
 
         for _, row in df.iterrows():
-            if row[0] != current_section and row[1] == "Header":
+            section_name = row.iloc[0]
+            if row.iloc[1] == "Header":
                 if current_section and current_rows:
                     sections.append((current_section, pd.DataFrame(current_rows)))
-                current_section = row[0]
+                current_section = section_name
                 current_rows = []
             current_rows.append(row)
 
@@ -75,18 +75,17 @@ class ReportService:
         )
 
     def _update_totals(self, section_name: str, data: List[Any]) -> None:
-        category = self._get_category(section_name)
-        if category:
-            for item in data:
+        for item in data:
+            category = self._get_category(section_name, item)
+            if category in self.totals:
                 self.totals[category]['USD'] += item.amount_usd
                 self.totals[category]['TL'] += item.amount_tl
 
-    def _get_category(self, section_name: str) -> str:
-        categories = {
-            'Trades': 'Hisse Senedi',
-            'Options': 'Opsiyon',
-            'Dividends': 'Temettü',
-            'Withholding Tax': 'Stopaj',
-            'Fees': 'Stopaj'
-        }
-        return categories.get(section_name)
+    def _get_category(self, section_name: str, item: Any) -> str:
+        if section_name == "Trades":
+            return "Opsiyon" if item.is_option else "Hisse Senedi"
+        elif section_name == "Dividends":
+            return "Temettü"
+        elif section_name in ["Withholding Tax", "Fees"]:
+            return "Stopaj"
+        return ""
