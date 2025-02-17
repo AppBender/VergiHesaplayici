@@ -165,6 +165,39 @@ tail -f output/logs.txt
 - Graceful handling of malformed data
 - Detailed error messages in logs
 
+## Security and Data Protection
+
+### Protected Files
+- CSV files containing financial data
+- Log files with transaction details
+- Temporary upload files
+
+### Git History Cleanup
+If sensitive data is accidentally committed, follow these steps:
+
+```bash
+# Install git-filter-repo (if not installed)
+brew install git-filter-repo
+
+# Commit any pending changes
+git add .
+git commit -m "Clean up before history rewrite"
+
+# Remove sensitive files from history
+git filter-repo --invert-paths --path-glob '*.csv' --path-glob 'output/*' --force
+
+# Reset remote connection
+git remote add origin https://github.com/yourusername/VergiHesaplayici.git
+
+# Force push changes
+git push origin --force --all
+```
+
+> **Warning**: After using `git filter-repo`:
+> - All collaborators must clone the repository again
+> - Repository history will be rewritten
+> - Previous commits will get new hashes
+
 ## Contributing
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
