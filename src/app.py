@@ -1,11 +1,18 @@
+# Standard library imports
 from flask import Flask, request, send_file, render_template
 from werkzeug.datastructures import FileStorage
+
+# Local imports
 import utils.config as config
 from utils.file_manager import FileManager
-from parsers.fee_parser import FeeParser
+
+# Parser imports
 from parsers.trade_parser import TradeParser
+from parsers.fee_parser import FeeParser
 from parsers.dividend_parser import DividendParser
 from parsers.withholding_tax_parser import WithholdingTaxParser
+
+# Service and writer imports
 from writers.csv_report_writer import CSVReportWriter
 from services.report_service import ReportService
 

@@ -1,11 +1,12 @@
+import pandas as pd
+
 from datetime import datetime
 from decimal import Decimal
-from typing import List
-import pandas as pd
-from protocols.parser_protocol import ParserProtocol
 from models.domains.withholding_tax import WithholdingTax
-from utils.exchange_rate import get_exchange_rate
+from protocols.parser_protocol import ParserProtocol
 from services.logger_service import LoggerService
+from typing import List
+from utils.exchange_rate import get_exchange_rate
 
 
 class WithholdingTaxParser(ParserProtocol[WithholdingTax]):

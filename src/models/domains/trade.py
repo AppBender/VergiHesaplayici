@@ -1,8 +1,7 @@
-from utils.utils import parse_numeric
+from base_model import BaseModel
 from dataclasses import dataclass
-from decimal import Decimal
-from .base_model import BaseModel
 from datetime import datetime
+from decimal import Decimal
 from typing import List
 
 
