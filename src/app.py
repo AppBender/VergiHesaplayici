@@ -1,13 +1,33 @@
-import utils.config as config
+# Standard library imports
 from flask import Flask, request, send_file, render_template
-from models.report_generator import ReportGenerator
-from utils.file_manager import FileManager
 from werkzeug.datastructures import FileStorage
-from utils.preprocess_csv import preprocess_csv  # Import the pre-processing function
+
+# Local imports
+import utils.config as config
+from utils.file_manager import FileManager
+
+# Parser imports
+from parsers.trade_parser import TradeParser
+from parsers.fee_parser import FeeParser
+from parsers.dividend_parser import DividendParser
+from parsers.withholding_tax_parser import WithholdingTaxParser
+
+# Service and writer imports
+from writers.csv_report_writer import CSVReportWriter
+from services.report_service import ReportService
 
 app = Flask(__name__, template_folder='templates/')
 file_manager = FileManager()
 file_manager.clear_directory(config.OUTPUT_DIR)
+
+
+def initialize_parsers():
+    return [
+        TradeParser(),
+        FeeParser(),
+        DividendParser(),
+        WithholdingTaxParser(),
+    ]
 
 
 @app.route('/')
@@ -52,16 +72,16 @@ def index():
                 raise ValueError('Dosya seçilmedi')
 
             # Save as temporary file
-            file.save(config.TEMP_PATH)
+            temp_path = file_manager.create_file(config.TEMP_PATH)
+            file.save(temp_path)
 
-            # Pre-process the CSV file to add missing commas
-            preprocess_csv(config.TEMP_PATH, config.TEMP_PATH, 17)
+            # Rapor servisini oluştur
+            writer = CSVReportWriter(config.REPORT_PATH)
+            service = ReportService(initialize_parsers(), writer)
 
-            generator = ReportGenerator(config.TEMP_PATH, config.REPORT_PATH)
-            processed_data, summary = generator.generate_report()
-
-            if processed_data is None:
-                raise ValueError('Dosya işlenemedi')
+            # Raporu işle
+            if not service.process_report(temp_path):
+                raise ValueError('Rapor işlenemedi')
 
         except Exception as e:
             error_message = str(e)
@@ -78,17 +98,22 @@ def download_csv():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Run the Flask app
+    # app.run(debug=True)
+
     # Simulate file upload
-    # with open('example_ibkr_report.csv', 'rb') as f:
-    # with open('example_ibkr_report_without_commas.csv', 'rb') as f:
-    #     file = FileStorage(f)
-    #     temp_path = file_manager.create_file(config.TEMP_PATH)
-    #     file.save(temp_path)
+    with open('sample_ibkr_detailed_report.csv', 'rb') as f:
+        file = FileStorage(f)
+        temp_path = file_manager.create_file(config.TEMP_PATH)
+        file.save(temp_path)
 
-    #     # Pre-process the CSV file to add missing commas
-    #     preprocess_csv(temp_path, temp_path, 17)
+        # Rapor servisini oluştur
+        writer = CSVReportWriter(config.REPORT_PATH)
+        service = ReportService(initialize_parsers(), writer)
 
-    #     generator = ReportGenerator(temp_path, config.REPORT_PATH)
-    #     processed_data, summary = generator.generate_report()
-    #     print(summary)
+        # Raporu işle
+        if not service.process_report(temp_path):
+            print("Hata: Rapor işlenemedi")
+        else:
+            print("Rapor başarıyla oluşturuldu")
+            print(f"Rapor dosyası: {config.REPORT_PATH}")
