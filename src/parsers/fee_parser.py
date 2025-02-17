@@ -21,25 +21,27 @@ class FeeParser(ParserProtocol[Fee]):
             try:
                 if row.iloc[1] == "Data" and row.iloc[2] == "Other Fees":
                     # Total satırını atla
-                    if row.iloc[2] == "Total":
+                    if "Total" in str(row.iloc[2]):
                         continue
 
                     date = datetime.strptime(str(row.iloc[4]), '%Y-%m-%d')
-                    exchange_rate = get_exchange_rate(date)
+                    description = str(row.iloc[5])
+                    # Symbol'u description'dan çıkar (eğer varsa)
+                    symbol = description.split(':')[0] if ':' in description else ""
                     amount = Decimal(str(row.iloc[6]))
+                    exchange_rate = get_exchange_rate(date)
 
                     fee = Fee(
-                        symbol="",  # Fee'lerde genelde symbol olmaz
+                        symbol=symbol,
                         date=date,
                         amount_usd=amount,
                         amount_tl=amount * Decimal(str(exchange_rate)),
                         exchange_rate=Decimal(str(exchange_rate)),
-                        description=row.iloc[5]  # Fee açıklaması
+                        description=description
                     )
                     fees.append(fee)
             except Exception as e:
-                error_msg = f"Fee satırı işlenirken hata: {str(e)}\nSatır verisi: {row.tolist()}"
-                self.logger.log_error(error_msg)
+                self.logger.log_error(f"Fee satırı işlenirken hata: {str(e)}\nSatır verisi: {row.tolist()}")
                 continue
 
         return fees

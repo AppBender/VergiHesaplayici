@@ -8,10 +8,12 @@ from typing import List
 
 @dataclass
 class Trade(BaseModel):
-    quantity: Decimal
-    buy_date: datetime
-    sell_date: datetime
-    is_option: bool
+    symbol: str           # Symbol
+    quantity: Decimal     # Quantity
+    buy_date: datetime    # Alış tarihi
+    sell_date: datetime   # Date/Time (satış tarihi)
+    is_option: bool       # Asset Category'den belirleniyor
+    commission: Decimal   # Comm/Fee
 
     def to_csv_row(self) -> List[str]:
         return [
@@ -19,10 +21,10 @@ class Trade(BaseModel):
             self.symbol,
             self.buy_date.strftime('%Y-%m-%d'),
             self.sell_date.strftime('%Y-%m-%d'),
-            self.description,
-            f"{self.quantity:.2f}",
-            f"{self.amount_usd:.2f}",
+            'Satış Karı' if self.amount_usd > 0 else 'Satış Zararı',
+            self.format_amount(self.quantity),
+            self.format_amount(self.amount_usd),
             f"{self.exchange_rate:.4f}",
-            f"{self.amount_tl:.2f}",
+            self.format_amount(self.amount_tl),
             'Alım-Satım'
         ]

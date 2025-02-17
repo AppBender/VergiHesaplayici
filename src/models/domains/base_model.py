@@ -1,18 +1,16 @@
 from dataclasses import dataclass
 from datetime import datetime
 from decimal import Decimal
-from typing import Optional, List
+from typing import List
 
 
 @dataclass
 class BaseModel:
-    symbol: str
-    date: datetime
-    amount_usd: Decimal
-    amount_tl: Decimal
-    exchange_rate: Decimal
-    description: str
+    date: datetime          # Tüm işlemlerin tarih bilgisi var
+    description: str        # Tüm işlemlerin açıklama bilgisi var
+    amount_usd: Decimal     # amount/proceeds değeri
+    amount_tl: Decimal      # TL karşılığı (hesaplanıyor)
+    exchange_rate: Decimal  # Kur bilgisi (TCMB'den alınıyor)
 
-    def to_csv_row(self) -> List[str]:
-        """Convert the model to a CSV row"""
-        raise NotImplementedError
+    def format_amount(self, value: Decimal) -> str:
+        return f"{value:.2f}" if value else "0.00"
