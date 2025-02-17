@@ -4,6 +4,8 @@ from writers.csv_report_writer import CSVReportWriter
 
 # Standard library imports
 from flask import Flask, request, send_file, render_template
+from pathlib import Path
+from utils.config import OUTPUT_DIR, BASE_DIR
 from werkzeug.datastructures import FileStorage
 
 # Local imports
@@ -15,6 +17,7 @@ from parsers.dividend_parser import DividendParser
 from parsers.fee_parser import FeeParser
 from parsers.trade_parser import TradeParser
 from parsers.withholding_tax_parser import WithholdingTaxParser
+
 
 app = Flask(__name__, template_folder='templates/')
 file_manager = FileManager()
@@ -97,8 +100,22 @@ def download_csv():
                      download_name=config.REPORT_NAME)
 
 
+def create_required_directories():
+    # Create output and temp directories
+    output_dir = Path(OUTPUT_DIR)
+    temp_dir = BASE_DIR / 'temp'
+
+    output_dir.mkdir(exist_ok=True)
+    temp_dir.mkdir(exist_ok=True)
+
+    # Create .gitkeep files
+    (output_dir / '.gitkeep').touch()
+    (temp_dir / '.gitkeep').touch()
+
+
 if __name__ == '__main__':
     # Run the Flask app
+    # create_required_directories()
     # app.run(debug=True)
 
     # Simulate file upload

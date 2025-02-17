@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 
 from decimal import Decimal
@@ -43,6 +44,13 @@ class ReportService:
 
             # Write summary
             self.writer.write_summary(self.totals)
+
+            # Clean up temporary file
+            try:
+                os.remove(file_path)
+            except Exception as e:
+                self.logger.log_error(f"Temp file cleanup failed: {str(e)}")
+
             return True
 
         except Exception as e:
