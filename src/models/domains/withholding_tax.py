@@ -1,8 +1,6 @@
+from base_model import BaseModel
 from dataclasses import dataclass
-from datetime import datetime
-from decimal import Decimal
 from typing import List
-from .base_model import BaseModel
 
 
 @dataclass

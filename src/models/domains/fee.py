@@ -1,9 +1,7 @@
-from utils.utils import parse_numeric
+from base_model import BaseModel
 from dataclasses import dataclass
-from datetime import datetime
-from decimal import Decimal
 from typing import List
-from .base_model import BaseModel
+
 
 @dataclass
 class Fee(BaseModel):
