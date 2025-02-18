@@ -10,40 +10,101 @@ class CSVReportWriter(ReportWriterProtocol):
         self.file = open(file_path, 'w', newline='', encoding='utf-8-sig')
         self.csv_writer = csv.writer(self.file, delimiter=';', lineterminator='\n')
 
-    def write_header(self) -> None:
-        self.csv_writer.writerow([
-            'İşlem Tipi', 'Sembol', 'Alış Tarihi', 'Satış Tarihi',
-            'İşlem Açıklaması', 'Miktar', 'USD Tutar', 'TCMB Kuru',
-            'TL Karşılığı', 'Kategori'
-        ])
+    def __enter__(self):
+        return self
 
-    def write_section(self, section_name: str, rows: List[Any]) -> None:
-        for row in rows:
-            self.csv_writer.writerow(row.to_csv_row())
-        self.csv_writer.writerow([''] * 10)  # Empty row between sections
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.file.close()
+
+    def write_header(self) -> None:
+        # for now, we don't need to write a main header
+        pass
+
+    def write_section(self, section_name: str, data: List[Any]) -> None:
+        if not data:
+            return
+
+        # Önce section header'ını yaz
+        self.csv_writer.writerow([])  # Boş satır
+        # self.csv_writer.writerow([f"{section_name} İşlemleri", "Header"])
+
+        # Trade section'ı için özel header
+        if section_name == "Trades":
+            self.csv_writer.writerow([
+                "İşlem Tipi",
+                "Sembol",
+                "Alış Tarihi",
+                "Satış Tarihi",
+                "İşlem Açıklaması",
+                "Miktar",
+                "USD Tutar",
+                "TCMB Kuru",
+                "TL Karşılığı",
+                "Kategori"
+            ])
+        else:
+            # Diğer section'lar için kendi header'larını yaz
+            self.csv_writer.writerow(self._get_section_headers(section_name))
+
+        # Section verilerini yaz
+        for item in data:
+            self.csv_writer.writerow(item.to_csv_row())
+
+    def _get_section_headers(self, section_name: str) -> List[str]:
+        base_headers = [
+            "İşlem Tipi",
+            "Sembol",
+            "Tarih",
+            "Satış Tarihi",
+            "Açıklama",
+            "Miktar",
+            "USD",
+            "Kur",
+            "TL",
+            "Kategori"
+        ]
+
+        if section_name == "Trades":
+            return base_headers
+        elif section_name in ["Dividends", "Withholding Tax", "Fees"]:
+            # Filter out unwanted headers and add empty cells
+            filtered_headers = [
+                "İşlem Tipi",
+                "Sembol",
+                "Tarih",
+                "",  # Empty cell
+                "Açıklama",
+                "",  # Empty cell
+                "USD",
+                "Kur",
+                "TL",
+                "Kategori"
+            ]
+            return filtered_headers
+
+        return base_headers
 
     def write_summary(self, totals: dict[str, dict[str, Decimal]]) -> None:
-        self.csv_writer.writerow(['Özet Hesaplama'] + [''] * 9)
-        self.csv_writer.writerow(['Kategori', 'USD Toplam', 'TL Toplam'] + [''] * 7)
+        self.csv_writer.writerow([])  # Boş satır
+        self.csv_writer.writerow(["Özet"])
+        self.csv_writer.writerow(["Kategori", "USD", "TL"])
 
-        total_usd = Decimal('0')
-        total_tl = Decimal('0')
-
-        for category, total in totals.items():
-            total_usd += total['USD']
-            total_tl += total['TL']
+        # Write category totals
+        for category, amounts in totals.items():
             self.csv_writer.writerow([
                 category,
-                f"{total['USD']:.2f}",
-                f"{total['TL']:.2f}"
-            ] + [''] * 7)
+                f"{amounts['USD']:.2f}",
+                f"{amounts['TL']:.2f}"
+            ])
 
+        # Calculate grand totals
+        total_usd = sum(amounts['USD'] for amounts in totals.values())
+        total_try = sum(amounts['TL'] for amounts in totals.values())
+
+        # Add empty row and total row
+        self.csv_writer.writerow([])  # Boş satır
         self.csv_writer.writerow([
-            'Toplam Kar/Zarar',
+            "Toplam",
             f"{total_usd:.2f}",
-            f"{total_tl:.2f}"
-        ] + [''] * 7)
-
-    def __del__(self):
-        if hasattr(self, 'file'):
-            self.file.close()
+            f"{total_try:.2f}"
+        ])
