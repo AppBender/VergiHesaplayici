@@ -21,7 +21,7 @@ class FeeParser(ParserProtocol[Fee]):
         for _, row in df.iterrows():
             try:
                 if row.iloc[1] == "Data" and row.iloc[2] == "Other Fees":
-                    # Total satırını atla
+                    # Skip Total row
                     if "Total" in str(row.iloc[2]):
                         continue
 

@@ -10,11 +10,11 @@ class Fee(BaseModel):
     def to_csv_row(self) -> List[str]:
         return [
             'Ücret',
-            self.symbol,  # Artık symbol bilgisini gösteriyoruz
+            self.symbol,  # Now showing symbol information
             self.date.strftime('%Y-%m-%d'),
-            '',  # Satış tarihi yok
+            '',  # No sale date
             self.description,
-            '',  # Miktar yok
+            '',  # No quantity
             self.format_amount(self.amount_usd),
             f"{self.exchange_rate:.4f}",
             self.format_amount(self.amount_tl),

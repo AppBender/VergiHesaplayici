@@ -9,9 +9,9 @@ from typing import List
 class Trade(BaseModel):
     symbol: str           # Symbol
     quantity: Decimal     # Quantity
-    buy_date: datetime    # Alış tarihi
-    sell_date: datetime   # Date/Time (satış tarihi)
-    is_option: bool       # Asset Category'den belirleniyor
+    buy_date: datetime    # Purchase date
+    sell_date: datetime   # Date/Time (sale date)
+    is_option: bool       # Determined from Asset Category
     commission: Decimal   # Comm/Fee
 
     def to_csv_row(self) -> List[str]:

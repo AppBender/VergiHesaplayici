@@ -68,23 +68,23 @@ def index():
         try:
             # File check
             if 'file' not in request.files:
-                raise ValueError('Dosya yüklenemedi')
+                raise ValueError('File could not be uploaded')
 
             file = request.files['file']
             if file.filename == '':
-                raise ValueError('Dosya seçilmedi')
+                raise ValueError('No file selected')
 
             # Save as temporary file
             temp_path = file_manager.create_file(config.TEMP_PATH)
             file.save(temp_path)
 
-            # Rapor servisini oluştur
+            # Create report service
             writer = CSVReportWriter(config.REPORT_PATH)
             service = ReportService(initialize_parsers(), writer)
 
-            # Raporu işle
+            # Process report
             if not service.process_report(temp_path):
-                raise ValueError('Rapor işlenemedi')
+                raise ValueError('Report could not be processed')
 
         except Exception as e:
             error_message = str(e)
@@ -120,13 +120,13 @@ if __name__ == '__main__':
         temp_path = file_manager.create_file(config.TEMP_PATH)
         file.save(temp_path)
 
-        # Rapor servisini oluştur
+        # Create report service
         writer = CSVReportWriter(config.REPORT_PATH)
         service = ReportService(initialize_parsers(), writer)
 
-        # Raporu işle
+        # Process report
         if not service.process_report(temp_path):
-            print("Hata: Rapor işlenemedi")
+            print("Error: Report could not be processed")
         else:
-            print("Rapor başarıyla oluşturuldu")
-            print(f"Rapor dosyası: {config.REPORT_PATH}")
+            print("Report created successfully")
+            print(f"Report file: {config.REPORT_PATH}")

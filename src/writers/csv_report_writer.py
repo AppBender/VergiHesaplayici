@@ -24,11 +24,11 @@ class CSVReportWriter(ReportWriterProtocol):
         if not data:
             return
 
-        # Önce section header'ını yaz
-        self.csv_writer.writerow([])  # Boş satır
         # self.csv_writer.writerow([f"{section_name} İşlemleri", "Header"])
+        # Write section header
+        self.csv_writer.writerow([])  # Empty row
 
-        # Trade section'ı için özel header
+        # Special header for Trade section
         if section_name == "Trades":
             self.csv_writer.writerow([
                 "İşlem Tipi",
@@ -43,10 +43,10 @@ class CSVReportWriter(ReportWriterProtocol):
                 "Kategori"
             ])
         else:
-            # Diğer section'lar için kendi header'larını yaz
+            # Write headers for other sections
             self.csv_writer.writerow(self._get_section_headers(section_name))
 
-        # Section verilerini yaz
+        # Write section data
         for item in data:
             self.csv_writer.writerow(item.to_csv_row())
 
@@ -85,9 +85,9 @@ class CSVReportWriter(ReportWriterProtocol):
         return base_headers
 
     def write_summary(self, totals: dict[str, dict[str, Decimal]]) -> None:
-        self.csv_writer.writerow([])  # Boş satır
         self.csv_writer.writerow(["Özet"])
         self.csv_writer.writerow(["Kategori", "USD", "TL"])
+        self.csv_writer.writerow([])  # Empty row
 
         # Write category totals
         for category, amounts in totals.items():
@@ -102,7 +102,7 @@ class CSVReportWriter(ReportWriterProtocol):
         total_try = sum(amounts['TL'] for amounts in totals.values())
 
         # Add empty row and total row
-        self.csv_writer.writerow([])  # Boş satır
+        self.csv_writer.writerow([])  # Empty row
         self.csv_writer.writerow([
             "Toplam",
             f"{total_usd:.2f}",

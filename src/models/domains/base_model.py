@@ -5,11 +5,11 @@ from decimal import Decimal
 
 @dataclass
 class BaseModel:
-    date: datetime          # Tüm işlemlerin tarih bilgisi var
-    description: str        # Tüm işlemlerin açıklama bilgisi var
-    amount_usd: Decimal     # amount/proceeds değeri
-    amount_tl: Decimal      # TL karşılığı (hesaplanıyor)
-    exchange_rate: Decimal  # Kur bilgisi (TCMB'den alınıyor)
+    date: datetime          # Date information for all transactions
+    description: str        # Description information for all transactions
+    amount_usd: Decimal     # amount/proceeds value
+    amount_tl: Decimal      # TRY equivalent (calculated)
+    exchange_rate: Decimal  # Exchange rate (from TCMB)
 
     def format_amount(self, value: Decimal) -> str:
         return f"{value:.2f}" if value else "0.00"
