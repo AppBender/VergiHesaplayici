@@ -85,9 +85,9 @@ class CSVReportWriter(ReportWriterProtocol):
         return base_headers
 
     def write_summary(self, totals: dict[str, dict[str, Decimal]]) -> None:
+        self.csv_writer.writerow([])  # Empty row
         self.csv_writer.writerow(["Özet"])
         self.csv_writer.writerow(["Kategori", "USD", "TL"])
-        self.csv_writer.writerow([])  # Empty row
 
         # Write category totals
         for category, amounts in totals.items():
