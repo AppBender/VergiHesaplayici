@@ -104,7 +104,7 @@ touch output/.gitkeep
 ```
 
 ## File Handling
-- Uploaded files are temporarily stored in `temp/`
+- Uploaded files are temporarily stored in `output/`
 - Generated reports are saved in `output/`
 - Temporary files are automatically cleaned up after processing
 - Logs are written to `output/logs.txt`

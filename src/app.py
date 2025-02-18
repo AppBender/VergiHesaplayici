@@ -101,25 +101,21 @@ def download_csv():
 
 
 def create_required_directories():
-    # Create output and temp directories
+    # Create output directory only
     output_dir = Path(OUTPUT_DIR)
-    temp_dir = BASE_DIR / 'temp'
-
     output_dir.mkdir(exist_ok=True)
-    temp_dir.mkdir(exist_ok=True)
-
-    # Create .gitkeep files
     (output_dir / '.gitkeep').touch()
-    (temp_dir / '.gitkeep').touch()
 
 
 if __name__ == '__main__':
+    # Create required directories first
+    create_required_directories()
+
     # Run the Flask app
-    # create_required_directories()
     # app.run(debug=True)
 
     # Simulate file upload
-    with open('sample_ibkr_detailed_report.csv', 'rb') as f:
+    with open('sample/sample_ibkr_detailed_report.csv', 'rb') as f:
         file = FileStorage(f)
         temp_path = file_manager.create_file(config.TEMP_PATH)
         file.save(temp_path)

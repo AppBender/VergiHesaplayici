@@ -168,11 +168,11 @@ cython_debug/
 # Vercel
 .vercel
 
-# Ignore all files in output and temp
-output/*.csv
-output/logs.txt
-temp/*.csv
+# Ignore all files in output and sample directories
+output/*
+sample/*
 
 # But keep the directories with .gitkeep
 !output/.gitkeep
 !temp/.gitkeep
+!sample/.gitkeep
