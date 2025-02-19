@@ -24,8 +24,6 @@ class CSVReportWriter(ReportWriterProtocol):
         if not data:
             return
 
-        # self.csv_writer.writerow([f"{section_name} İşlemleri", "Header"])
-        # Write section header
         self.csv_writer.writerow([])  # Empty row
 
         # Special header for Trade section
@@ -37,7 +35,7 @@ class CSVReportWriter(ReportWriterProtocol):
                 "Satış Tarihi",
                 "İşlem Açıklaması",
                 "Miktar",
-                "USD Tutar",
+                "Gerçekleşen K/Z (USD)",  # Updated column name
                 "TCMB Kuru",
                 "TL Karşılığı",
                 "Kategori"
@@ -89,22 +87,21 @@ class CSVReportWriter(ReportWriterProtocol):
         self.csv_writer.writerow(["Özet"])
         self.csv_writer.writerow(["Kategori", "USD", "TL"])
 
-        # Write category totals
+        # Write category totals without rounding
         for category, amounts in totals.items():
             self.csv_writer.writerow([
                 category,
-                f"{amounts['USD']:.2f}",
-                f"{amounts['TL']:.2f}"
+                str(amounts['USD']),  # Remove :.2f formatting
+                str(amounts['TL'])    # Remove :.2f formatting
             ])
 
         # Calculate grand totals
         total_usd = sum(amounts['USD'] for amounts in totals.values())
         total_try = sum(amounts['TL'] for amounts in totals.values())
 
-        # Add empty row and total row
         self.csv_writer.writerow([])  # Empty row
         self.csv_writer.writerow([
-            "Toplam",
-            f"{total_usd:.2f}",
-            f"{total_try:.2f}"
+            "Toplam Kar/Zarar",
+            str(total_usd),  # Remove :.2f formatting
+            str(total_try)   # Remove :.2f formatting
         ])

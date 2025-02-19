@@ -5,7 +5,7 @@ from writers.csv_report_writer import CSVReportWriter
 # Standard library imports
 from flask import Flask, request, send_file, render_template
 from pathlib import Path
-from utils.config import OUTPUT_DIR, BASE_DIR
+from utils.config import OUTPUT_DIR
 from werkzeug.datastructures import FileStorage
 
 # Local imports

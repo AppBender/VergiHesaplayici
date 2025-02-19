@@ -16,14 +16,14 @@ class Trade(BaseModel):
 
     def to_csv_row(self) -> List[str]:
         return [
-            'Opsiyon' if self.is_option else 'Hisse Senedi',
+            "Hisse Senedi" if not self.is_option else "Opsiyon",
             self.symbol,
             self.buy_date.strftime('%Y-%m-%d'),
             self.sell_date.strftime('%Y-%m-%d'),
-            'Satış Karı' if self.amount_usd > 0 else 'Satış Zararı',
-            self.format_amount(self.quantity),
-            self.format_amount(self.amount_usd),
-            f"{self.exchange_rate:.4f}",
-            self.format_amount(self.amount_tl),
-            'Alım-Satım'
+            self.description,
+            str(self.quantity),           # Remove :.2f formatting
+            str(self.amount_usd),         # Remove :.2f formatting
+            str(self.exchange_rate),      # Remove :.2f formatting
+            str(self.amount_tl),          # Remove :.2f formatting
+            "Alım-Satım"
         ]
