@@ -80,24 +80,27 @@ class TradeParser(ParserProtocol[Trade]):
 
     def _create_trades_from_lots(self, trade_data: Dict, closed_lots: List[Dict], is_short: bool) -> List[Trade]:
         result = []
-        exchange_rate = get_exchange_rate(trade_data['sell_date'])
 
         for lot in closed_lots:
             realized_pl = lot['realized_pl']
             if is_short:
-                # For short sales, swap buy/sell dates
                 buy_date = trade_data['sell_date']
                 sell_date = lot['buy_date']
+                buy_rate = get_exchange_rate(buy_date)
+                sell_rate = get_exchange_rate(sell_date)
             else:
                 buy_date = lot['buy_date']
                 sell_date = trade_data['sell_date']
+                buy_rate = get_exchange_rate(buy_date)
+                sell_rate = get_exchange_rate(sell_date)
 
             trade = Trade(
                 symbol=trade_data['symbol'],
                 date=buy_date,
                 amount_usd=realized_pl,
-                amount_tl=realized_pl * Decimal(str(exchange_rate)),
-                exchange_rate=Decimal(str(exchange_rate)),
+                amount_tl=realized_pl * Decimal(str(sell_rate)),
+                exchange_rate=Decimal(str(sell_rate)),
+                buy_exchange_rate=Decimal(str(buy_rate)),
                 description='Satış Karı' if realized_pl > 0 else 'Satış Zararı',
                 quantity=-lot['quantity'] if not is_short else lot['quantity'],
                 buy_date=buy_date,
@@ -120,18 +123,21 @@ class TradeParser(ParserProtocol[Trade]):
         }
 
     def _create_single_trade(self, trade_data: Dict) -> Trade:
-        exchange_rate = get_exchange_rate(trade_data['sell_date'])
+        sell_date = trade_data['sell_date']
+        sell_rate = get_exchange_rate(sell_date)
+        buy_rate = sell_rate  # For single trades, buy_date = sell_date so rates are same
 
         return Trade(
             symbol=trade_data['symbol'],
-            date=trade_data['sell_date'],
-            amount_usd=trade_data['realized_pl'],  # Using realized_pl instead of amount
-            amount_tl=trade_data['realized_pl'] * Decimal(str(exchange_rate)),
-            exchange_rate=Decimal(str(exchange_rate)),
+            date=sell_date,
+            amount_usd=trade_data['realized_pl'],
+            amount_tl=trade_data['realized_pl'] * Decimal(str(sell_rate)),
+            exchange_rate=Decimal(str(sell_rate)),
+            buy_exchange_rate=Decimal(str(buy_rate)),
             description='Satış Karı' if trade_data['realized_pl'] > 0 else 'Satış Zararı',
             quantity=trade_data['quantity'],
-            buy_date=trade_data['sell_date'],
-            sell_date=trade_data['sell_date'],
+            buy_date=sell_date,
+            sell_date=sell_date,
             is_option=trade_data['is_option'],
             commission=trade_data['commission']
         )

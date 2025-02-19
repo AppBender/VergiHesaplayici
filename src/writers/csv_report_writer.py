@@ -35,9 +35,12 @@ class CSVReportWriter(ReportWriterProtocol):
                 "Satış Tarihi",
                 "İşlem Açıklaması",
                 "Miktar",
-                "Gerçekleşen K/Z (USD)",  # Updated column name
-                "TCMB Kuru",
-                "TL Karşılığı",
+                "Gerçekleşen K/Z (USD)",
+                "Alış Kuru",           # New column
+                "Satış Kuru",          # Renamed column
+                "Alış TL Değeri",      # New column
+                "Satış TL Değeri",     # New column
+                "TL Kar/Zarar",        # Renamed column
                 "Kategori"
             ])
         else:
@@ -87,12 +90,12 @@ class CSVReportWriter(ReportWriterProtocol):
         self.csv_writer.writerow(["Özet"])
         self.csv_writer.writerow(["Kategori", "USD", "TL"])
 
-        # Write category totals without rounding
+        # Write category totals
         for category, amounts in totals.items():
             self.csv_writer.writerow([
                 category,
-                str(amounts['USD']),  # Remove :.2f formatting
-                str(amounts['TL'])    # Remove :.2f formatting
+                f"{amounts['USD']:.6f}",              # 6 decimal
+                f"{amounts['TL']:.2f}"                # 2 decimal
             ])
 
         # Calculate grand totals
@@ -102,6 +105,6 @@ class CSVReportWriter(ReportWriterProtocol):
         self.csv_writer.writerow([])  # Empty row
         self.csv_writer.writerow([
             "Toplam Kar/Zarar",
-            str(total_usd),  # Remove :.2f formatting
-            str(total_try)   # Remove :.2f formatting
+            f"{total_usd:.6f}",                      # 6 decimal
+            f"{total_try:.2f}"                       # 2 decimal
         ])
