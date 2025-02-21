@@ -4,6 +4,7 @@ from datetime import datetime
 from decimal import Decimal
 from typing import List, Dict
 from models.domains.trade import Trade
+from models.domains.order import Order
 from protocols.parser_protocol import ParserProtocol
 from services.logger_service import LoggerService
 from utils.exchange_rate import get_exchange_rate
@@ -12,54 +13,48 @@ from utils.exchange_rate import get_exchange_rate
 class TradeParser(ParserProtocol[Trade]):
     def __init__(self):
         self.logger = LoggerService()
-        self.current_order_is_sell = False
-        self.current_order_amount = Decimal('0')  # Track order total
-        self.is_short_sale = False  # Track if this is a short sale
 
     def can_parse(self, section_name: str) -> bool:
         return section_name == "Trades"
 
     def parse(self, df: pd.DataFrame) -> List[Trade]:
         trades: List[Trade] = []
+        orders: List[Order] = []
+
+        # First pass: Build the hierarchy
+        current_order = None
         current_trade = None
-        closed_lots: List[Dict] = []
 
         for _, row in df.iterrows():
             try:
                 if row.iloc[1] != "Data":
-                    if row.iloc[0] == "SubTotal":
-                        # Verify against subtotal
-                        reported_total = Decimal(str(row.iloc[13]))  # Realized P/L column
-                        if current_trade and abs(self.current_order_amount - reported_total) > Decimal('0.01'):
-                            self.logger.log_error(f"Amount mismatch: calculated {self.current_order_amount}, reported {reported_total}")
-                        self.current_order_amount = Decimal('0')  # Reset for next order
                     continue
 
                 discriminator = row.iloc[2]
 
                 if discriminator == "Order":
-                    quantity = Decimal(str(row.iloc[8]))
-                    self.current_order_is_sell = quantity < 0
-                    self.is_short_sale = 'Option' in str(row.iloc[3]) and quantity > 0  # Positive quantity for options might indicate short sale
+                    current_order = Order(
+                        symbol=str(row.iloc[5]),
+                        quantity=Decimal(str(row.iloc[8])),
+                        is_option='Option' in str(row.iloc[3])
+                    )
+                    orders.append(current_order)
 
                 elif discriminator == "Trade":
-                    # Process previous trade if exists
-                    if current_trade and closed_lots:
-                        new_trades = self._create_trades_from_lots(current_trade, closed_lots, self.is_short_sale)
-                        trades.extend(new_trades)
-                        self.current_order_amount += sum(t.amount_usd for t in new_trades)
-                        closed_lots = []
-                    elif current_trade:
-                        trade = self._create_single_trade(current_trade)
-                        trades.append(trade)
-                        self.current_order_amount += trade.amount_usd
-
-                    current_trade = self._parse_trade_row(row)
+                    current_trade = Trade(
+                        symbol=str(row.iloc[5]),
+                        date=datetime.strptime(str(row.iloc[6]).split(',')[0], '%Y-%m-%d'),
+                        amount_usd=Decimal(str(row.iloc[13])),
+                        quantity=Decimal(str(row.iloc[8])),
+                        commission=Decimal(str(row.iloc[11])),
+                        is_option='Option' in str(row.iloc[3])
+                    )
+                    if current_order:
+                        current_order.add_trade(current_trade)
 
                 elif discriminator == "ClosedLot":
-                    if (self.current_order_is_sell and not self.is_short_sale) or \
-                       (not self.current_order_is_sell and self.is_short_sale):
-                        closed_lots.append({
+                    if current_trade:
+                        current_trade.add_closed_lot({
                             'quantity': Decimal(str(row.iloc[8])),
                             'buy_date': datetime.strptime(str(row.iloc[6]), '%Y-%m-%d'),
                             'basis': Decimal(str(row.iloc[12])),
@@ -70,11 +65,24 @@ class TradeParser(ParserProtocol[Trade]):
                 self.logger.log_error(f"Trade parsing error: {str(e)}\nRow data: {row.tolist()}")
                 continue
 
-        # Process last trade
-        if current_trade and closed_lots:
-            trades.extend(self._create_trades_from_lots(current_trade, closed_lots, self.is_short_sale))
-        elif current_trade:
-            trades.append(self._create_single_trade(current_trade))
+        # Second pass: Process only trades with ClosedLots
+        for order in orders:
+            for trade in order.trades:
+                if trade.closed_lots:  # Only process if there are ClosedLots
+                    is_short = order.quantity < 0  # True for short sales being covered
+                    new_trades = self._create_trades_from_lots(
+                        trade_data={
+                            'symbol': trade.symbol,
+                            'sell_date': trade.sell_date,
+                            'quantity': trade.quantity,
+                            'realized_pl': trade.realized_pl,
+                            'commission': trade.commission,
+                            'is_option': trade.is_option
+                        },
+                        closed_lots=trade.closed_lots,
+                        is_short=is_short
+                    )
+                    trades.extend(new_trades)
 
         return trades
 
@@ -82,31 +90,40 @@ class TradeParser(ParserProtocol[Trade]):
         result = []
 
         for lot in closed_lots:
-            realized_pl = lot['realized_pl']
             if is_short:
                 buy_date = trade_data['sell_date']
                 sell_date = lot['buy_date']
-                buy_rate = get_exchange_rate(buy_date)
-                sell_rate = get_exchange_rate(sell_date)
+                buy_price = Decimal(str(lot['basis'] / lot['quantity']))  # Calculate price from basis
+                sell_price = Decimal(str(abs(trade_data['realized_pl'] / trade_data['quantity'])))
             else:
                 buy_date = lot['buy_date']
                 sell_date = trade_data['sell_date']
-                buy_rate = get_exchange_rate(buy_date)
-                sell_rate = get_exchange_rate(sell_date)
+                buy_price = Decimal(str(lot['basis'] / lot['quantity']))  # Calculate price from basis
+                sell_price = Decimal(str(abs(trade_data['realized_pl'] / trade_data['quantity'])))
+
+            buy_rate = get_exchange_rate(buy_date)
+            sell_rate = get_exchange_rate(sell_date)
+
+            # Calculate amounts
+            quantity = abs(lot['quantity'])
+            buy_amount_tl = quantity * buy_price * Decimal(str(buy_rate))
+            sell_amount_tl = quantity * sell_price * Decimal(str(sell_rate))
 
             trade = Trade(
                 symbol=trade_data['symbol'],
                 date=buy_date,
-                amount_usd=realized_pl,
-                amount_tl=realized_pl * Decimal(str(sell_rate)),
-                exchange_rate=Decimal(str(sell_rate)),
-                buy_exchange_rate=Decimal(str(buy_rate)),
-                description='Satış Karı' if realized_pl > 0 else 'Satış Zararı',
+                amount_usd=lot['realized_pl'],
                 quantity=-lot['quantity'] if not is_short else lot['quantity'],
+                commission=trade_data['commission'] * abs(lot['quantity'] / trade_data['quantity']),
+                is_option=trade_data['is_option'],
                 buy_date=buy_date,
                 sell_date=sell_date,
-                is_option=trade_data['is_option'],
-                commission=trade_data['commission'] * abs(lot['quantity'] / trade_data['quantity'])
+                buy_exchange_rate=Decimal(str(buy_rate)),
+                exchange_rate=Decimal(str(sell_rate)),
+                buy_amount_tl=buy_amount_tl,
+                sell_amount_tl=sell_amount_tl,
+                buy_price=buy_price,      # Add buy price
+                sell_price=sell_price     # Add sell price
             )
             result.append(trade)
 

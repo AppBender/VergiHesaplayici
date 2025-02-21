@@ -36,11 +36,13 @@ class CSVReportWriter(ReportWriterProtocol):
                 "İşlem Açıklaması",
                 "Miktar",
                 "Gerçekleşen K/Z (USD)",
-                "Alış Kuru",           # New column
-                "Satış Kuru",          # Renamed column
-                "Alış TL Değeri",      # New column
-                "Satış TL Değeri",     # New column
-                "TL Kar/Zarar",        # Renamed column
+                "Alış Fiyatı",
+                "Satış Fiyatı",
+                "Alış Kuru",
+                "Satış Kuru",
+                "Alış TL Değeri",
+                "Satış TL Değeri",
+                "TL Kar/Zarar",
                 "Kategori"
             ])
         else:
@@ -94,8 +96,8 @@ class CSVReportWriter(ReportWriterProtocol):
         for category, amounts in totals.items():
             self.csv_writer.writerow([
                 category,
-                f"{amounts['USD']:.6f}",              # 6 decimal
-                f"{amounts['TL']:.2f}"                # 2 decimal
+                f"{amounts['USD']:.2f}",          # 2 decimals for USD
+                f"{amounts['TL']:.2f}"            # 2 decimals for TL
             ])
 
         # Calculate grand totals
@@ -105,6 +107,6 @@ class CSVReportWriter(ReportWriterProtocol):
         self.csv_writer.writerow([])  # Empty row
         self.csv_writer.writerow([
             "Toplam Kar/Zarar",
-            f"{total_usd:.6f}",                      # 6 decimal
-            f"{total_try:.2f}"                       # 2 decimal
+            f"{total_usd:.2f}",                   # 2 decimals for totals
+            f"{total_try:.2f}"
         ])

@@ -176,3 +176,5 @@ sample/*
 !output/.gitkeep
 !temp/.gitkeep
 !sample/.gitkeep
+
+.qodo
