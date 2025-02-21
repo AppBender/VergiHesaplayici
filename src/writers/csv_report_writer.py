@@ -24,54 +24,65 @@ class CSVReportWriter(ReportWriterProtocol):
         if not data:
             return
 
-        self.csv_writer.writerow([])  # Empty row
+        self.csv_writer.writerow([])  # Empty row for spacing
+        headers = self._get_section_headers(section_name)
+        self.csv_writer.writerow(headers)
 
-        # Special header for Trade section
+        # Write data rows
+        for item in data:
+            self.csv_writer.writerow(item.to_csv_row())
+
+        # Add section total
+        if data:
+            total_usd = sum(item.amount_usd for item in data)
+            total_tl = sum(item.amount_tl for item in data)
+
+            # Create total row based on section type
+            if section_name == "Trades":
+                # Find indices for USD K/Z and TL K/Z columns
+                usd_index = headers.index("USD K/Z")
+                tl_index = headers.index("TL K/Z")
+
+                # Create empty row with proper length
+                total_row = [""] * len(headers)
+                total_row[0] = "TOPLAM"
+                total_row[usd_index] = f"{total_usd:.2f}"
+                total_row[tl_index] = f"{total_tl:.2f}"
+            else:
+                # Find indices for USD and TL columns
+                usd_index = headers.index("USD")
+                tl_index = headers.index("TL")
+
+                # Create empty row with proper length
+                total_row = [""] * len(headers)
+                total_row[0] = "TOPLAM"
+                total_row[usd_index] = f"{total_usd:.2f}"
+                total_row[tl_index] = f"{total_tl:.2f}"
+
+            self.csv_writer.writerow(total_row)
+
+    def _get_section_headers(self, section_name: str) -> List[str]:
         if section_name == "Trades":
-            self.csv_writer.writerow([
+            return [
                 "İşlem Tipi",
                 "Sembol",
                 "Alış Tarihi",
                 "Satış Tarihi",
                 "İşlem Açıklaması",
                 "Miktar",
-                "Gerçekleşen K/Z (USD)",
+                "USD K/Z",
                 "Alış Fiyatı",
                 "Satış Fiyatı",
                 "Alış Kuru",
                 "Satış Kuru",
                 "Alış TL Değeri",
                 "Satış TL Değeri",
-                "TL Kar/Zarar",
+                "TL K/Z",
                 "Kategori"
-            ])
+            ]
         else:
-            # Write headers for other sections
-            self.csv_writer.writerow(self._get_section_headers(section_name))
-
-        # Write section data
-        for item in data:
-            self.csv_writer.writerow(item.to_csv_row())
-
-    def _get_section_headers(self, section_name: str) -> List[str]:
-        base_headers = [
-            "İşlem Tipi",
-            "Sembol",
-            "Tarih",
-            "Satış Tarihi",
-            "Açıklama",
-            "Miktar",
-            "USD",
-            "Kur",
-            "TL",
-            "Kategori"
-        ]
-
-        if section_name == "Trades":
-            return base_headers
-        elif section_name in ["Dividends", "Withholding Tax", "Fees"]:
-            # Filter out unwanted headers and add empty cells
-            filtered_headers = [
+            # For Dividends, Withholding Tax, and Fees
+            return [
                 "İşlem Tipi",
                 "Sembol",
                 "Tarih",
@@ -83,9 +94,6 @@ class CSVReportWriter(ReportWriterProtocol):
                 "TL",
                 "Kategori"
             ]
-            return filtered_headers
-
-        return base_headers
 
     def write_summary(self, totals: dict[str, dict[str, Decimal]]) -> None:
         self.csv_writer.writerow([])  # Empty row
