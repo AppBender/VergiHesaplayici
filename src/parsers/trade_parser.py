@@ -70,7 +70,7 @@ class TradeParser(ParserProtocol[Trade]):
         for order in orders:
             for trade in order.trades:
                 if trade.closed_lots:  # Only process if there are ClosedLots
-                    is_short = order.quantity < 0  # True for short sales being covered
+                    is_short = order.quantity > 0  # True for short sales being covered
                     new_trades = self._create_trades_from_lots(
                         trade_data={
                             'symbol': trade.symbol,
