@@ -29,8 +29,8 @@ class Trade(BaseModel):
         self.date = date
         self.amount_usd = amount_usd
         self.quantity = quantity
-        self.commission = commission
-        self.commission_tl = commission * exchange_rate if (commission and exchange_rate) else None
+        self.commission = abs(commission)
+        self.commission_tl = abs(commission * exchange_rate) if (commission and exchange_rate) else None
         self.is_option = is_option
         self.price = price
         self.closed_lots: List[Dict] = []
@@ -44,7 +44,6 @@ class Trade(BaseModel):
         self.exchange_rate = exchange_rate
         self.buy_amount_tl = buy_amount_tl
         self.sell_amount_tl = sell_amount_tl
-        self.commission_tl = commission * exchange_rate if (commission and exchange_rate) else None
 
         # Calculate TL profit/loss including commission
         self.amount_tl = (self.sell_amount_tl - self.buy_amount_tl - self.commission_tl) if (
