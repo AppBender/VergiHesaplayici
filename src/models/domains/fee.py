@@ -11,10 +11,8 @@ class Fee(BaseModel):
         return [
             'Ücret',
             self.symbol,  # Now showing symbol information
-            self.date.strftime('%Y-%m-%d'),
-            '',  # No sale date
             self.description,
-            '',  # No quantity
+            self.date.strftime('%Y-%m-%d'),
             self.format_amount(self.amount_usd),
             f"{self.exchange_rate:.4f}",
             self.format_amount(self.amount_tl),

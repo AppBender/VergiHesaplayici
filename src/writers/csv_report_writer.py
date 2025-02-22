@@ -66,11 +66,11 @@ class CSVReportWriter(ReportWriterProtocol):
             return [
                 "İşlem Tipi",
                 "Sembol",
-                "Alış Tarihi",
-                "Satış Tarihi",
                 "İşlem Açıklaması",
                 "Miktar",
                 "USD K/Z",
+                "Alış Tarihi",
+                "Satış Tarihi",
                 "Alış Fiyatı",
                 "Satış Fiyatı",
                 "Alış Kuru",
@@ -85,10 +85,8 @@ class CSVReportWriter(ReportWriterProtocol):
             return [
                 "İşlem Tipi",
                 "Sembol",
-                "Tarih",
-                "",  # Empty cell
                 "Açıklama",
-                "",  # Empty cell
+                "Tarih",
                 "USD",
                 "Kur",
                 "TL",

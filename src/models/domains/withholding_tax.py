@@ -11,10 +11,8 @@ class WithholdingTax(BaseModel):
         return [
             'Stopaj',
             self.symbol,
-            self.date.strftime('%Y-%m-%d'),
-            '',
             'Temettü Stopajı',
-            '',
+            self.date.strftime('%Y-%m-%d'),
             self.format_amount(self.amount_usd),
             f"{self.exchange_rate:.4f}",
             self.format_amount(self.amount_tl),

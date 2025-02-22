@@ -11,10 +11,8 @@ class Dividend(BaseModel):
         return [
             'Temettü',
             self.symbol,
-            self.date.strftime('%Y-%m-%d'),
-            '',
             'Brüt Temettü',
-            '',
+            self.date.strftime('%Y-%m-%d'),
             self.format_amount(self.amount_usd),
             f"{self.exchange_rate:.4f}",
             self.format_amount(self.amount_tl),

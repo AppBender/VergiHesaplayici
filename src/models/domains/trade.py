@@ -60,16 +60,16 @@ class Trade:
         return [
             "Hisse Senedi" if not self.is_option else "Opsiyon",
             self.symbol,
+            self.description,
+            f"{self.quantity:.4f}",
+            f"{self.amount_usd:.2f}",
             self.buy_date.strftime('%Y-%m-%d'),
             self.sell_date.strftime('%Y-%m-%d'),
-            self.description,
-            f"{self.quantity:.4f}",                # 4 decimals for quantity
-            f"{self.amount_usd:.2f}",             # 2 decimals for USD
-            f"{self.buy_price:.2f}",              # 2 decimals for prices
+            f"{self.buy_price:.2f}",
             f"{self.sell_price:.2f}",
-            f"{self.buy_exchange_rate:.4f}",      # 4 decimals for exchange rates
+            f"{self.buy_exchange_rate:.4f}",
             f"{self.exchange_rate:.4f}",
-            f"{self.buy_amount_tl:.2f}",          # 2 decimals for TL amounts
+            f"{self.buy_amount_tl:.2f}",
             f"{self.sell_amount_tl:.2f}",
             f"{self.amount_tl:.2f}",
             "Alım-Satım"
