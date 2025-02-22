@@ -70,7 +70,6 @@ class TradeParser(ParserProtocol[Trade]):
         for order in orders:
             for trade in order.trades:
                 if trade.closed_lots:  # Only process if there are ClosedLots
-                    is_short = order.quantity > 0  # True for short sales being covered
                     new_trades = self._create_trades_from_lots(
                         trade_data={
                             'symbol': trade.symbol,
@@ -82,16 +81,18 @@ class TradeParser(ParserProtocol[Trade]):
                             'price': trade.price  # Add price from trade
                         },
                         closed_lots=trade.closed_lots,
-                        is_short=is_short
                     )
                     trades.extend(new_trades)
 
         return trades
 
-    def _create_trades_from_lots(self, trade_data: Dict, closed_lots: List[Dict], is_short: bool) -> List[Trade]:
+    def _create_trades_from_lots(self, trade_data: Dict, closed_lots: List[Dict]) -> List[Trade]:
         result = []
 
         for lot in closed_lots:
+            quantity = abs(lot['quantity'])
+            is_short = lot['quantity'] < 0
+
             if is_short:
                 buy_date = trade_data['sell_date']
                 sell_date = lot['buy_date']
@@ -125,8 +126,9 @@ class TradeParser(ParserProtocol[Trade]):
                 exchange_rate=Decimal(str(sell_rate)),
                 buy_amount_tl=buy_amount_tl,
                 sell_amount_tl=sell_amount_tl,
-                buy_price=buy_price,      # Add buy price
-                sell_price=sell_price     # Add sell price
+                buy_price=buy_price,
+                sell_price=sell_price,
+                is_short=is_short
             )
             result.append(trade)
 

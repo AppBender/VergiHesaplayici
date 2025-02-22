@@ -5,7 +5,7 @@ from decimal import Decimal
 from typing import List, Dict
 
 
-class Trade:
+class Trade(BaseModel):
     def __init__(self,
                  symbol: str,
                  date: datetime,
@@ -20,8 +20,9 @@ class Trade:
                  exchange_rate: Decimal = None,
                  buy_amount_tl: Decimal = None,
                  sell_amount_tl: Decimal = None,
-                 buy_price: Decimal = None,    # Add buy price
-                 sell_price: Decimal = None):  # Add sell price
+                 buy_price: Decimal = None,
+                 sell_price: Decimal = None,
+                 is_short: bool = False):
 
         self.symbol = symbol
         self.date = date
@@ -43,8 +44,12 @@ class Trade:
         self.sell_amount_tl = sell_amount_tl
         self.amount_tl = self.sell_amount_tl - self.buy_amount_tl if (self.sell_amount_tl and self.buy_amount_tl) else None
 
-        # Description
-        self.description = 'Satış Karı' if amount_usd > 0 else 'Satış Zararı'
+        is_profit = amount_usd > 0
+
+        if is_short:
+            self.description = '(Açığa) Satış Karı' if is_profit else '(Açığa) Satış Zararı'
+        else:
+            self.description = 'Satış Karı' if is_profit else 'Satış Zararı'
 
         self.buy_price = buy_price
         self.sell_price = sell_price
