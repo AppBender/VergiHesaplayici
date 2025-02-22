@@ -73,6 +73,8 @@ class CSVReportWriter(ReportWriterProtocol):
                 "Satış Tarihi",
                 "Alış Fiyatı",
                 "Satış Fiyatı",
+                "Alış Komisyonu",
+                "Satış Komisyonu",
                 "Alış Kuru",
                 "Satış Kuru",
                 "Alış TL Değeri",

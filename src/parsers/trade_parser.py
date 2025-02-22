@@ -93,24 +93,30 @@ class TradeParser(ParserProtocol[Trade]):
             quantity = abs(lot['quantity'])
             is_short = lot['quantity'] < 0
 
+            # Calculate commission for this lot
+            lot_commission = trade_data['commission'] * abs(lot['quantity'] / trade_data['quantity'])
+
             if is_short:
                 buy_date = trade_data['sell_date']
                 sell_date = lot['buy_date']
-                buy_price = trade_data['price']  # Use trade's T.Price
+                buy_price = trade_data['price']
                 sell_price = Decimal(str(lot['basis'] / lot['quantity']))
+                buy_commission = lot_commission  # Commission applied to buy (closing) transaction
+                sell_commission = Decimal('0')   # No commission on sell (opening) for this lot
             else:
                 buy_date = lot['buy_date']
                 sell_date = trade_data['sell_date']
                 buy_price = Decimal(str(lot['basis'] / lot['quantity']))
-                sell_price = trade_data['price']  # Use trade's T.Price
+                sell_price = trade_data['price']
+                buy_commission = Decimal('0')    # No commission on buy (opening) for this lot
+                sell_commission = lot_commission # Commission applied to sell (closing) transaction
 
             buy_rate = get_exchange_rate(buy_date)
             sell_rate = get_exchange_rate(sell_date)
 
-            # Calculate amounts
-            quantity = abs(lot['quantity'])
-            buy_amount_tl = quantity * buy_price * Decimal(str(buy_rate))
-            sell_amount_tl = quantity * sell_price * Decimal(str(sell_rate))
+            # Calculate amounts including commissions
+            buy_amount_tl = (quantity * buy_price * Decimal(str(buy_rate))) + (buy_commission * Decimal(str(buy_rate)))
+            sell_amount_tl = (quantity * sell_price * Decimal(str(sell_rate))) - (sell_commission * Decimal(str(sell_rate)))
 
             trade = Trade(
                 symbol=trade_data['symbol'],
@@ -128,38 +134,10 @@ class TradeParser(ParserProtocol[Trade]):
                 sell_amount_tl=sell_amount_tl,
                 buy_price=buy_price,
                 sell_price=sell_price,
-                is_short=is_short
+                is_short=is_short,
+                buy_commission=buy_commission,
+                sell_commission=sell_commission
             )
             result.append(trade)
 
         return result
-
-    def _parse_trade_row(self, row) -> Dict:
-        return {
-            'symbol': str(row.iloc[5]),
-            'sell_date': datetime.strptime(str(row.iloc[6]).split(',')[0], '%Y-%m-%d'),
-            'quantity': Decimal(str(row.iloc[8])),
-            'realized_pl': Decimal(str(row.iloc[13])),  # Using consistent key name
-            'commission': Decimal(str(row.iloc[11])),
-            'is_option': 'Option' in str(row.iloc[3])
-        }
-
-    def _create_single_trade(self, trade_data: Dict) -> Trade:
-        sell_date = trade_data['sell_date']
-        sell_rate = get_exchange_rate(sell_date)
-        buy_rate = sell_rate  # For single trades, buy_date = sell_date so rates are same
-
-        return Trade(
-            symbol=trade_data['symbol'],
-            date=sell_date,
-            amount_usd=trade_data['realized_pl'],
-            amount_tl=trade_data['realized_pl'] * Decimal(str(sell_rate)),
-            exchange_rate=Decimal(str(sell_rate)),
-            buy_exchange_rate=Decimal(str(buy_rate)),
-            description='Satış Karı' if trade_data['realized_pl'] > 0 else 'Satış Zararı',
-            quantity=trade_data['quantity'],
-            buy_date=sell_date,
-            sell_date=sell_date,
-            is_option=trade_data['is_option'],
-            commission=trade_data['commission']
-        )

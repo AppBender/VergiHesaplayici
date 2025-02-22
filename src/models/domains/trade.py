@@ -1,28 +1,31 @@
 from .base_model import BaseModel
-from dataclasses import dataclass
 from datetime import datetime
 from decimal import Decimal
 from typing import List, Dict
 
 
 class Trade(BaseModel):
-    def __init__(self,
-                 symbol: str,
-                 date: datetime,
-                 amount_usd: Decimal,
-                 quantity: Decimal,
-                 commission: Decimal,
-                 is_option: bool,
-                 price: Decimal,
-                 buy_date: datetime = None,
-                 sell_date: datetime = None,
-                 buy_exchange_rate: Decimal = None,
-                 exchange_rate: Decimal = None,
-                 buy_amount_tl: Decimal = None,
-                 sell_amount_tl: Decimal = None,
-                 buy_price: Decimal = None,
-                 sell_price: Decimal = None,
-                 is_short: bool = False):
+    def __init__(
+        self,
+        symbol: str,
+        date: datetime,
+        amount_usd: Decimal,
+        quantity: Decimal,
+        commission: Decimal,
+        is_option: bool,
+        price: Decimal,
+        buy_date: datetime = None,
+        sell_date: datetime = None,
+        buy_exchange_rate: Decimal = None,
+        exchange_rate: Decimal = None,
+        buy_amount_tl: Decimal = None,
+        sell_amount_tl: Decimal = None,
+        buy_price: Decimal = None,
+        sell_price: Decimal = None,
+        is_short: bool = False,
+        buy_commission: Decimal = None,
+        sell_commission: Decimal = None
+    ):
 
         self.symbol = symbol
         self.date = date
@@ -53,6 +56,8 @@ class Trade(BaseModel):
 
         self.buy_price = buy_price
         self.sell_price = sell_price
+        self.buy_commission = buy_commission or Decimal('0')
+        self.sell_commission = sell_commission or Decimal('0')
 
     def add_closed_lot(self, lot: Dict):
         self.closed_lots.append(lot)
@@ -72,6 +77,8 @@ class Trade(BaseModel):
             self.sell_date.strftime('%Y-%m-%d'),
             f"{self.buy_price:.2f}",
             f"{self.sell_price:.2f}",
+            f"{self.buy_commission:.2f}",
+            f"{self.sell_commission:.2f}",
             f"{self.buy_exchange_rate:.4f}",
             f"{self.exchange_rate:.4f}",
             f"{self.buy_amount_tl:.2f}",
