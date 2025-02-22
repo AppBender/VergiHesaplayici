@@ -47,7 +47,8 @@ class TradeParser(ParserProtocol[Trade]):
                         amount_usd=Decimal(str(row.iloc[13])),
                         quantity=Decimal(str(row.iloc[8])),
                         commission=Decimal(str(row.iloc[11])),
-                        is_option='Option' in str(row.iloc[3])
+                        is_option='Option' in str(row.iloc[3]),
+                        price=Decimal(str(row.iloc[9]))  # Add T.Price from column 9
                     )
                     if current_order:
                         current_order.add_trade(current_trade)
@@ -77,7 +78,8 @@ class TradeParser(ParserProtocol[Trade]):
                             'quantity': trade.quantity,
                             'realized_pl': trade.realized_pl,
                             'commission': trade.commission,
-                            'is_option': trade.is_option
+                            'is_option': trade.is_option,
+                            'price': trade.price  # Add price from trade
                         },
                         closed_lots=trade.closed_lots,
                         is_short=is_short
@@ -93,13 +95,13 @@ class TradeParser(ParserProtocol[Trade]):
             if is_short:
                 buy_date = trade_data['sell_date']
                 sell_date = lot['buy_date']
-                buy_price = Decimal(str(lot['basis'] / lot['quantity']))  # Calculate price from basis
-                sell_price = Decimal(str(abs(trade_data['realized_pl'] / trade_data['quantity'])))
+                buy_price = trade_data['price']  # Use trade's T.Price
+                sell_price = Decimal(str(lot['basis'] / lot['quantity']))
             else:
                 buy_date = lot['buy_date']
                 sell_date = trade_data['sell_date']
-                buy_price = Decimal(str(lot['basis'] / lot['quantity']))  # Calculate price from basis
-                sell_price = Decimal(str(abs(trade_data['realized_pl'] / trade_data['quantity'])))
+                buy_price = Decimal(str(lot['basis'] / lot['quantity']))
+                sell_price = trade_data['price']  # Use trade's T.Price
 
             buy_rate = get_exchange_rate(buy_date)
             sell_rate = get_exchange_rate(sell_date)
@@ -116,6 +118,7 @@ class TradeParser(ParserProtocol[Trade]):
                 quantity=-lot['quantity'] if not is_short else lot['quantity'],
                 commission=trade_data['commission'] * abs(lot['quantity'] / trade_data['quantity']),
                 is_option=trade_data['is_option'],
+                price=trade_data['price'],
                 buy_date=buy_date,
                 sell_date=sell_date,
                 buy_exchange_rate=Decimal(str(buy_rate)),

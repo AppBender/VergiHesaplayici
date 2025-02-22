@@ -13,6 +13,7 @@ class Trade:
                  quantity: Decimal,
                  commission: Decimal,
                  is_option: bool,
+                 price: Decimal,
                  buy_date: datetime = None,
                  sell_date: datetime = None,
                  buy_exchange_rate: Decimal = None,
@@ -28,6 +29,7 @@ class Trade:
         self.quantity = quantity
         self.commission = commission
         self.is_option = is_option
+        self.price = price
         self.closed_lots: List[Dict] = []
 
         # Position dates
