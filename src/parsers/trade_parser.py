@@ -93,7 +93,7 @@ class TradeParser(ParserProtocol[Trade]):
             quantity = abs(lot['quantity'])
             is_short = lot['quantity'] < 0
 
-            # Calculate commission for this lot
+            # Calculate proportional commission for this lot
             lot_commission = trade_data['commission'] * abs(lot['quantity'] / trade_data['quantity'])
 
             if is_short:
@@ -101,42 +101,36 @@ class TradeParser(ParserProtocol[Trade]):
                 sell_date = lot['buy_date']
                 buy_price = trade_data['price']
                 sell_price = Decimal(str(lot['basis'] / lot['quantity']))
-                buy_commission = lot_commission  # Commission applied to buy (closing) transaction
-                sell_commission = Decimal('0')   # No commission on sell (opening) for this lot
             else:
                 buy_date = lot['buy_date']
                 sell_date = trade_data['sell_date']
                 buy_price = Decimal(str(lot['basis'] / lot['quantity']))
                 sell_price = trade_data['price']
-                buy_commission = Decimal('0')    # No commission on buy (opening) for this lot
-                sell_commission = lot_commission # Commission applied to sell (closing) transaction
 
             buy_rate = get_exchange_rate(buy_date)
             sell_rate = get_exchange_rate(sell_date)
 
-            # Calculate amounts including commissions
-            buy_amount_tl = (quantity * buy_price * Decimal(str(buy_rate))) + (buy_commission * Decimal(str(buy_rate)))
-            sell_amount_tl = (quantity * sell_price * Decimal(str(sell_rate))) - (sell_commission * Decimal(str(sell_rate)))
+            # Calculate amounts with commission
+            buy_amount_tl = quantity * buy_price * Decimal(str(buy_rate))
+            sell_amount_tl = quantity * sell_price * Decimal(str(sell_rate))
 
             trade = Trade(
                 symbol=trade_data['symbol'],
                 date=buy_date,
                 amount_usd=lot['realized_pl'],
                 quantity=-lot['quantity'] if not is_short else lot['quantity'],
-                commission=trade_data['commission'] * abs(lot['quantity'] / trade_data['quantity']),
+                commission=lot_commission,     # Store proportional commission
                 is_option=trade_data['is_option'],
                 price=trade_data['price'],
                 buy_date=buy_date,
                 sell_date=sell_date,
                 buy_exchange_rate=Decimal(str(buy_rate)),
-                exchange_rate=Decimal(str(sell_rate)),
+                exchange_rate=Decimal(str(sell_rate)),  # Use sell_rate for commission
                 buy_amount_tl=buy_amount_tl,
                 sell_amount_tl=sell_amount_tl,
                 buy_price=buy_price,
                 sell_price=sell_price,
-                is_short=is_short,
-                buy_commission=buy_commission,
-                sell_commission=sell_commission
+                is_short=is_short
             )
             result.append(trade)
 

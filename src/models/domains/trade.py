@@ -22,9 +22,7 @@ class Trade(BaseModel):
         sell_amount_tl: Decimal = None,
         buy_price: Decimal = None,
         sell_price: Decimal = None,
-        is_short: bool = False,
-        buy_commission: Decimal = None,
-        sell_commission: Decimal = None
+        is_short: bool = False
     ):
 
         self.symbol = symbol
@@ -32,6 +30,7 @@ class Trade(BaseModel):
         self.amount_usd = amount_usd
         self.quantity = quantity
         self.commission = commission
+        self.commission_tl = commission * exchange_rate if (commission and exchange_rate) else None
         self.is_option = is_option
         self.price = price
         self.closed_lots: List[Dict] = []
@@ -45,7 +44,14 @@ class Trade(BaseModel):
         self.exchange_rate = exchange_rate
         self.buy_amount_tl = buy_amount_tl
         self.sell_amount_tl = sell_amount_tl
-        self.amount_tl = self.sell_amount_tl - self.buy_amount_tl if (self.sell_amount_tl and self.buy_amount_tl) else None
+        self.commission_tl = commission * exchange_rate if (commission and exchange_rate) else None
+
+        # Calculate TL profit/loss including commission
+        self.amount_tl = (self.sell_amount_tl - self.buy_amount_tl - self.commission_tl) if (
+            self.sell_amount_tl and
+            self.buy_amount_tl and
+            self.commission_tl
+        ) else None
 
         is_profit = amount_usd > 0
 
@@ -56,8 +62,6 @@ class Trade(BaseModel):
 
         self.buy_price = buy_price
         self.sell_price = sell_price
-        self.buy_commission = buy_commission or Decimal('0')
-        self.sell_commission = sell_commission or Decimal('0')
 
     def add_closed_lot(self, lot: Dict):
         self.closed_lots.append(lot)
@@ -72,17 +76,16 @@ class Trade(BaseModel):
             self.symbol,
             self.description,
             f"{self.quantity:.4f}",
-            f"{self.amount_usd:.2f}",
             self.buy_date.strftime('%Y-%m-%d'),
-            self.sell_date.strftime('%Y-%m-%d'),
             f"{self.buy_price:.2f}",
-            f"{self.sell_price:.2f}",
-            f"{self.buy_commission:.2f}",
-            f"{self.sell_commission:.2f}",
             f"{self.buy_exchange_rate:.4f}",
+            self.sell_date.strftime('%Y-%m-%d'),
+            f"{self.sell_price:.2f}",
             f"{self.exchange_rate:.4f}",
+            f"{self.commission_tl:.2f}",
             f"{self.buy_amount_tl:.2f}",
             f"{self.sell_amount_tl:.2f}",
             f"{self.amount_tl:.2f}",
+            f"{self.amount_usd:.2f}",
             "Alım-Satım"
         ]

@@ -68,18 +68,17 @@ class CSVReportWriter(ReportWriterProtocol):
                 "Sembol",
                 "İşlem Açıklaması",
                 "Miktar",
-                "USD K/Z",
                 "Alış Tarihi",
-                "Satış Tarihi",
                 "Alış Fiyatı",
-                "Satış Fiyatı",
-                "Alış Komisyonu",
-                "Satış Komisyonu",
                 "Alış Kuru",
+                "Satış Tarihi",
+                "Satış Fiyatı",
                 "Satış Kuru",
+                "Komisyon TL",      # Only TL commission
                 "Alış TL Değeri",
                 "Satış TL Değeri",
                 "TL K/Z",
+                "USD K/Z",
                 "Kategori"
             ]
         else:
