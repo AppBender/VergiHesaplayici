@@ -5,13 +5,14 @@ from decimal import Decimal
 from models.domains.dividend import Dividend
 from protocols.parser_protocol import ParserProtocol
 from services.logger_service import LoggerService
+from services.evds_service import EvdsService
 from typing import List
-from utils.exchange_rate import get_exchange_rate
 
 
 class DividendParser(ParserProtocol[Dividend]):
     def __init__(self):
         self.logger = LoggerService.get_instance()
+        self.evds_service = EvdsService()
 
     def can_parse(self, section_name: str) -> bool:
         return section_name == "Dividends"
@@ -28,7 +29,7 @@ class DividendParser(ParserProtocol[Dividend]):
                     date = datetime.strptime(str(row.iloc[3]), '%Y-%m-%d')
                     symbol = str(row.iloc[4]).split('(')[0].strip()
                     amount = Decimal(str(row.iloc[5]))
-                    exchange_rate = get_exchange_rate(date)
+                    exchange_rate = self.evds_service.get_exchange_rate(date)
 
                     dividend = Dividend(
                         symbol=symbol,

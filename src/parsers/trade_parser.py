@@ -7,12 +7,13 @@ from models.domains.trade import Trade
 from models.domains.order import Order
 from protocols.parser_protocol import ParserProtocol
 from services.logger_service import LoggerService
-from utils.exchange_rate import get_exchange_rate
+from services.evds_service import EvdsService
 
 
 class TradeParser(ParserProtocol[Trade]):
     def __init__(self):
         self.logger = LoggerService()
+        self.evds_service = EvdsService()
 
     def can_parse(self, section_name: str) -> bool:
         return section_name == "Trades"
@@ -48,7 +49,7 @@ class TradeParser(ParserProtocol[Trade]):
                         quantity=Decimal(str(row.iloc[8])),
                         commission=Decimal(str(row.iloc[11])),
                         is_option='Option' in str(row.iloc[3]),
-                        price=Decimal(str(row.iloc[9]))  # Add T.Price from column 9
+                        price=Decimal(str(row.iloc[9]))
                     )
                     if current_order:
                         current_order.add_trade(current_trade)
@@ -107,12 +108,15 @@ class TradeParser(ParserProtocol[Trade]):
                 buy_price = Decimal(str(lot['basis'] / lot['quantity']))
                 sell_price = trade_data['price']
 
-            buy_rate = get_exchange_rate(buy_date)
-            sell_rate = get_exchange_rate(sell_date)
+            buy_rate = self.evds_service.get_exchange_rate(buy_date)
+            sell_rate = self.evds_service.get_exchange_rate(sell_date)
 
             # Calculate amounts with commission
             buy_amount_tl = quantity * buy_price * Decimal(str(buy_rate))
             sell_amount_tl = quantity * sell_price * Decimal(str(sell_rate))
+
+            # Get YI-ÜFE rate using evds_service
+            yiufe_rate = self.evds_service.get_yiufe_index_rate(buy_date, sell_date)
 
             trade = Trade(
                 symbol=trade_data['symbol'],
@@ -130,7 +134,8 @@ class TradeParser(ParserProtocol[Trade]):
                 sell_amount_tl=sell_amount_tl,
                 buy_price=buy_price,
                 sell_price=sell_price,
-                is_short=is_short
+                is_short=is_short,
+                yiufe_rate=yiufe_rate
             )
             result.append(trade)
 

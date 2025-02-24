@@ -6,12 +6,13 @@ from models.domains.fee import Fee
 from protocols.parser_protocol import ParserProtocol
 from services.logger_service import LoggerService
 from typing import List
-from utils.exchange_rate import get_exchange_rate
+from services.evds_service import EvdsService
 
 
 class FeeParser(ParserProtocol[Fee]):
     def __init__(self):
         self.logger = LoggerService.get_instance()
+        self.evds_service = EvdsService()
 
     def can_parse(self, section_name: str) -> bool:
         return section_name == "Fees"
@@ -30,7 +31,7 @@ class FeeParser(ParserProtocol[Fee]):
                     # Symbol'u description'dan çıkar (eğer varsa)
                     symbol = description.split(':')[0] if ':' in description else ""
                     amount = Decimal(str(row.iloc[6]))
-                    exchange_rate = get_exchange_rate(date)
+                    exchange_rate = self.evds_service.get_exchange_rate(date)
 
                     fee = Fee(
                         symbol=symbol,
