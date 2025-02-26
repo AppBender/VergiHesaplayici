@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <title>Vergi Hesaplayıcı</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        table { border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: right; }
+        th { background-color: #f2f2f2; }
+        .total-row { font-weight: bold; }
+        .section { margin: 20px 0; }
+    </style>
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
@@ -31,28 +38,55 @@
         </form>
 
         {% if summary %}
-        <div class="mt-6 p-4 bg-gray-50 rounded-lg">
-            <h2 class="text-lg font-semibold mb-4">Vergi Özeti</h2>
-            <div class="space-y-2">
-                <p>
-                    <span class="font-medium">Toplam Vergilendirilebilir Kar:</span>
-                    {{ summary.TotalTaxableProfit }} TL
-                </p>
-                <p>
-                    <span class="font-medium">Toplam Vergi Tutarı:</span>
-                    {{ summary.TotalTaxAmount }} TL
-                </p>
-                <p>
-                    <span class="font-medium">Toplam Net Kar:</span>
-                    {{ summary.TotalNetProfit }} TL
-                </p>
-            </div>
-
-            <a href="{{ url_for('download_csv') }}"
-               class="mt-4 block w-full bg-green-500 text-white text-center py-2 rounded-md hover:bg-green-600 transition duration-300">
-                Detaylı Raporu İndir
-            </a>
+        <div class="section">
+            <h2>Kategori Bazında Kar/Zarar</h2>
+            <table>
+                <tr>
+                    <th>Kategori</th>
+                    <th>USD</th>
+                    <th>TL</th>
+                </tr>
+                {% for category, amounts in summary.categories.items() %}
+                <tr>
+                    <td>{{ category }}</td>
+                    <td>{{ "%.2f"|format(amounts.USD) }}</td>
+                    <td>{{ "%.2f"|format(amounts.TL) }}</td>
+                </tr>
+                {% endfor %}
+                <tr class="total-row">
+                    <td>Toplam Kar/Zarar</td>
+                    <td>{{ "%.2f"|format(summary.totals.USD) }}</td>
+                    <td>{{ "%.2f"|format(summary.totals.TL) }}</td>
+                </tr>
+            </table>
         </div>
+
+        <div class="section">
+            <h2>Vergi Özeti</h2>
+            <table>
+                <tr>
+                    <th>Açıklama</th>
+                    <th>Tutar (TL)</th>
+                </tr>
+                <tr>
+                    <td>Toplam Vergilendirilebilir Kar</td>
+                    <td>{{ "%.2f"|format(summary.tax_summary.taxable_profit) }}</td>
+                </tr>
+                <tr>
+                    <td>Toplam Vergi Tutarı</td>
+                    <td>{{ "%.2f"|format(summary.tax_summary.tax_amount) }}</td>
+                </tr>
+                <tr>
+                    <td>Toplam Net Kar</td>
+                    <td>{{ "%.2f"|format(summary.tax_summary.net_profit) }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <a href="{{ url_for('download_csv') }}"
+           class="mt-4 block w-full bg-green-500 text-white text-center py-2 rounded-md hover:bg-green-600 transition duration-300">
+            Detaylı Raporu İndir
+        </a>
         {% endif %}
     </div>
 </body>

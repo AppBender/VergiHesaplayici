@@ -68,11 +68,11 @@ def index():
         try:
             # File check
             if 'file' not in request.files:
-                raise ValueError('File could not be uploaded')
+                raise ValueError('Dosya yüklenemedi')
 
             file = request.files['file']
             if file.filename == '':
-                raise ValueError('No file selected')
+                raise ValueError('Dosya seçilmedi')
 
             # Save as temporary file
             temp_path = file_manager.create_file(config.TEMP_PATH)
@@ -82,9 +82,11 @@ def index():
             writer = CSVReportWriter(config.REPORT_PATH)
             service = ReportService(initialize_parsers(), writer)
 
-            # Process report
-            if not service.process_report(temp_path):
-                raise ValueError('Report could not be processed')
+            # Process report and get summary
+            try:
+                summary = service.process_report(temp_path)
+            except Exception as e:
+                raise ValueError('Rapor işlenemedi') from e
 
         except Exception as e:
             error_message = str(e)
@@ -112,21 +114,24 @@ if __name__ == '__main__':
     create_required_directories()
 
     # Run the Flask app
-    # app.run(debug=True)
+    app.run(debug=True)
+
+    # simualte_file_upload()
 
     # Simulate file upload
-    with open('sample/sample_ibkr_detailed_report.csv', 'rb') as f:
-        file = FileStorage(f)
-        temp_path = file_manager.create_file(config.TEMP_PATH)
-        file.save(temp_path)
+    def simualte_file_upload():
+        with open('sample/sample_ibkr_detailed_report.csv', 'rb') as f:
+            file = FileStorage(f)
+            temp_path = file_manager.create_file(config.TEMP_PATH)
+            file.save(temp_path)
 
-        # Create report service
-        writer = CSVReportWriter(config.REPORT_PATH)
-        service = ReportService(initialize_parsers(), writer)
+            # Create report service
+            writer = CSVReportWriter(config.REPORT_PATH)
+            service = ReportService(initialize_parsers(), writer)
 
-        # Process report
-        if not service.process_report(temp_path):
-            print("Error: Report could not be processed")
-        else:
-            print("Report created successfully")
-            print(f"Report file: {config.REPORT_PATH}")
+            # Process report
+            if not service.process_report(temp_path):
+                print("Error: Report could not be processed")
+            else:
+                print("Report created successfully")
+                print(f"Report file: {config.REPORT_PATH}")

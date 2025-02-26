@@ -25,7 +25,8 @@ class ReportService:
             'Stopaj': {'USD': Decimal('0'), 'TL': Decimal('0')}
         }
 
-    def process_report(self, file_path: str) -> bool:
+    def process_report(self, file_path: str) -> Dict[str, Any]:
+        """Process report and return summary data"""
         try:
             # Preprocess CSV file
             df = CSVPreprocessor.preprocess(file_path)
@@ -45,17 +46,49 @@ class ReportService:
             # Write summary
             self.writer.write_summary(self.totals)
 
+            # Calculate summary values
+            stock_profit = self.totals.get('Hisse Senedi', {}).get('TL', Decimal('0'))
+            option_profit = self.totals.get('Opsiyon', {}).get('TL', Decimal('0'))
+            dividend_profit = self.totals.get('Temettü', {}).get('TL', Decimal('0'))
+            withholding_tax = self.totals.get('Stopaj', {}).get('TL', Decimal('0'))
+
+            total_taxable_profit = max(stock_profit + option_profit + dividend_profit + withholding_tax, Decimal('0'))
+            tax_rate = Decimal('0.15')  # 15% tax rate for 2024
+            total_tax_amount = total_taxable_profit * tax_rate
+            total_net_profit = total_taxable_profit - total_tax_amount
+
             # Clean up temporary file
             try:
                 os.remove(file_path)
             except Exception as e:
                 self.logger.log_error(f"Temp file cleanup failed: {str(e)}")
 
-            return True
+            # Return detailed summary
+            return {
+                'categories': {
+                    'Hisse Senedi': {'USD': self.totals.get('Hisse Senedi', {}).get('USD', Decimal('0')),
+                                    'TL': stock_profit},
+                    'Opsiyon': {'USD': self.totals.get('Opsiyon', {}).get('USD', Decimal('0')),
+                               'TL': option_profit},
+                    'Temettü': {'USD': self.totals.get('Temettü', {}).get('USD', Decimal('0')),
+                               'TL': dividend_profit},
+                    'Stopaj': {'USD': self.totals.get('Stopaj', {}).get('USD', Decimal('0')),
+                              'TL': withholding_tax}
+                },
+                'totals': {
+                    'USD': sum(cat.get('USD', Decimal('0')) for cat in self.totals.values()),
+                    'TL': sum(cat.get('TL', Decimal('0')) for cat in self.totals.values()),
+                },
+                'tax_summary': {
+                    'taxable_profit': total_taxable_profit,
+                    'tax_amount': total_tax_amount,
+                    'net_profit': total_net_profit
+                }
+            }
 
         except Exception as e:
             self.logger.log_error(f"Rapor işlenirken hata: {str(e)}")
-            return False
+            raise
 
     def _split_into_sections(self, df: pd.DataFrame) -> List[tuple[str, pd.DataFrame]]:
         sections = []
