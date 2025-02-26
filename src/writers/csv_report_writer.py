@@ -32,22 +32,28 @@ class CSVReportWriter(ReportWriterProtocol):
         for item in data:
             self.csv_writer.writerow(item.to_csv_row())
 
-        # Add section total
-        if data and section_name == "Trades":
-            # Find indices for relevant columns
-            taxable_index = headers.index("Vergiye Tabi Kazanç")
-            tl_index = headers.index("TL K/Z")
-            usd_index = headers.index("USD K/Z")
+        # Add section total for all sections
+        if data:
+            # Find indices for USD and TL columns
+            usd_index = headers.index("USD") if "USD" in headers else headers.index("USD K/Z")
+            tl_index = headers.index("TL") if "TL" in headers else headers.index("TL K/Z")
 
             # Calculate totals
-            total_taxable = sum(item.taxable_amount_tl for item in data if item.taxable_amount_tl)
             total_tl = sum(item.amount_tl for item in data if item.amount_tl)
             total_usd = sum(item.amount_usd for item in data if item.amount_usd)
+
+            # Add taxable amount for Trades section
+            if section_name == "Trades":
+                taxable_index = headers.index("Vergiye Tabi Kazanç")
+                total_taxable = sum(item.taxable_amount_tl for item in data if item.taxable_amount_tl)
 
             # Create total row with proper length
             total_row = [""] * len(headers)
             total_row[0] = "TOPLAM"
-            total_row[taxable_index] = f"{total_taxable:.2f}"
+
+            if section_name == "Trades":
+                total_row[taxable_index] = f"{total_taxable:.2f}"
+
             total_row[tl_index] = f"{total_tl:.2f}"
             total_row[usd_index] = f"{total_usd:.2f}"
 
