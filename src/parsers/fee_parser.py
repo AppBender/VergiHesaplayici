@@ -38,6 +38,7 @@ class FeeParser(ParserProtocol[Fee]):
                         date=date,
                         amount_usd=amount,
                         amount_tl=amount * Decimal(str(exchange_rate)),
+                        taxable_amount_tl=amount * Decimal(str(exchange_rate)),
                         exchange_rate=Decimal(str(exchange_rate)),
                         description=description
                     )

@@ -87,7 +87,7 @@ class ReportService:
             category = self._get_category(section_name, item)
             if category in self.totals:
                 self.totals[category]['USD'] += item.amount_usd
-                self.totals[category]['TL'] += item.amount_tl
+                self.totals[category]['TL'] += item.taxable_amount_tl
 
     def _get_category(self, section_name: str, item: Any) -> str:
         if section_name == "Trades":

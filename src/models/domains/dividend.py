@@ -15,7 +15,7 @@ class Dividend(BaseModel):
             self.date.strftime('%Y-%m-%d'),
             self.format_amount(self.amount_usd),
             f"{self.exchange_rate:.4f}",
-            self.format_amount(self.amount_tl),
+            self.format_amount(self.taxable_amount_tl),
             'Temettü'
         ]
 
