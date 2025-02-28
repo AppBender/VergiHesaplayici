@@ -29,7 +29,7 @@ class EvdsService:
                 return existing_rate
 
             # Fetch from EVDS if not in cache
-            rate = self._fetch_from_evds('TP.DK.USD.S.YTL', date_str)
+            rate = self._fetch_from_evds('TP.DK.USD.S.YTL', date_str, value_code='TP_DK_USD_S_YTL')
             if rate is None:
                 self.logger.log_warning(f"No exchange rate found for {date}")
                 return None
@@ -99,7 +99,12 @@ class EvdsService:
 
             # Get the first value from the series
             value = df.iloc[0][value_code]
-            return Decimal(str(value)) if pd.notna(value) else None
+
+            # Check if value is valid (not NaN or None)
+            if pd.notna(value):
+                return Decimal(str(value))
+
+            return None
 
         except Exception as e:
             self.logger.log_error(f"EVDS API error for {series_code}: {str(e)}")

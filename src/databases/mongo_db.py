@@ -26,8 +26,27 @@ class MongoDB(Database):
         info_copy["timestamp"] = datetime.datetime.now()
         self.errors.insert_one(info_copy)
 
-    def save_exchange_rate(self, date: str, rate: float):
-        self.exchange_rates.insert_one({'date': date, 'rate': rate})
+    def save_exchange_rate(self, date: str, rate: Decimal):
+        """Save exchange rate to MongoDB only if it doesn't exist"""
+        try:
+            # Check if rate already exists
+            existing_rate = self.exchange_rates.find_one({'date': date})
+            if existing_rate:
+                return  # Skip if already exists
+
+            # Insert new rate
+            self.exchange_rates.insert_one({
+                'date': date,
+                'rate': float(rate),
+                'created_at': datetime.datetime.now()
+            })
+        except Exception as e:
+            self.log_error({
+                "message": f"Error saving exchange rate: {str(e)}",
+                "date": date,
+                "rate": str(rate)
+            })
+            raise
 
     def get_exchange_rate(self, date: str) -> float:
         rate = self.exchange_rates.find_one({'date': date})
@@ -38,14 +57,23 @@ class MongoDB(Database):
         return Decimal(str(record['index'])) if record else None
 
     def save_yiufe_index(self, date_str: str, index: Decimal):
-        self.db['yiufe_indices'].update_one(
-            {'date': date_str},
-            {
-                '$set': {
-                    'date': date_str,
-                    'index': float(index),
-                    'updated_at': datetime.datetime.now()
-                }
-            },
-            upsert=True
-        )
+        """Save YI-ÜFE index to MongoDB only if it doesn't exist"""
+        try:
+            # Check if index already exists
+            existing_index = self.db['yiufe_indices'].find_one({'date': date_str})
+            if existing_index:
+                return  # Skip if already exists
+
+            # Insert new index
+            self.db['yiufe_indices'].insert_one({
+                'date': date_str,
+                'index': float(index),
+                'created_at': datetime.datetime.now()
+            })
+        except Exception as e:
+            self.log_error({
+                "message": f"Error saving YI-ÜFE index: {str(e)}",
+                "date": date_str,
+                "index": str(index)
+            })
+            raise
