@@ -60,7 +60,8 @@ class TradeParser(ParserProtocol[Trade]):
                             'quantity': Decimal(str(row.iloc[8])),
                             'buy_date': datetime.strptime(str(row.iloc[6]), '%Y-%m-%d'),
                             'basis': Decimal(str(row.iloc[12])),
-                            'realized_pl': Decimal(str(row.iloc[13]))
+                            'realized_pl': Decimal(str(row.iloc[13])),
+                            'price': Decimal(str(row.iloc[9]))
                         })
 
             except Exception as e:
@@ -101,15 +102,30 @@ class TradeParser(ParserProtocol[Trade]):
                 buy_date = trade_data['sell_date']
                 sell_date = lot['buy_date']
                 buy_price = trade_data['price']
-                sell_price = Decimal(str(lot['basis'] / lot['quantity']))
+                sell_price = lot['price']
             else:
                 buy_date = lot['buy_date']
                 sell_date = trade_data['sell_date']
-                buy_price = Decimal(str(lot['basis'] / lot['quantity']))
+                buy_price = lot['price']
                 sell_price = trade_data['price']
 
+            # Apply option price adjustment (multiply by 100)
+            if trade_data['is_option']:
+                buy_price = buy_price * Decimal('100')
+                sell_price = sell_price * Decimal('100')
+
+            # Get exchange rate data and check for None values
             buy_rate = self.evds_service.get_exchange_rate(buy_date)
             sell_rate = self.evds_service.get_exchange_rate(sell_date)
+
+            # If exchange rate data is missing (holiday etc.), use the next available business day's data
+            if buy_rate is None:
+                self.logger.log_warning(f"No exchange rate data found for {buy_date}. Using data from the next available business day.")
+                buy_rate = self.evds_service.get_next_available_exchange_rate(buy_date)
+
+            if sell_rate is None:
+                self.logger.log_warning(f"No exchange rate data found for {sell_date}. Using data from the next available business day.")
+                sell_rate = self.evds_service.get_next_available_exchange_rate(sell_date)
 
             # Calculate amounts with commission
             buy_amount_tl = quantity * buy_price * Decimal(str(buy_rate))
@@ -117,6 +133,10 @@ class TradeParser(ParserProtocol[Trade]):
 
             # Get YI-ÜFE rate using evds_service
             yiufe_rate = self.evds_service.get_yiufe_index_rate(buy_date, sell_date)
+
+            if yiufe_rate is None:
+                self.logger.log_warning(f"No YI-ÜFE index data found for {buy_date} and {sell_date}. Using data from the next available business day.")
+                yiufe_rate = self.evds_service.get_next_available_yiufe_index(buy_date)
 
             trade = Trade(
                 symbol=trade_data['symbol'],

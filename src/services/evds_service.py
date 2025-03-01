@@ -42,6 +42,26 @@ class EvdsService:
             self.logger.log_error(f"Error getting exchange rate: {str(e)}")
             raise ValueError(f"Could not get exchange rate for {date_str}")
 
+    def get_next_available_exchange_rate(self, date):
+        """
+        If there is no exchange rate data for the specified date, it returns the exchange
+        rate data for the next available business day.
+        """
+        rate = self.get_exchange_rate(date)
+        if rate is not None:
+            return rate
+
+        # Search for data starting from the next day (maximum 10 days)
+        for i in range(1, 10):
+            next_date = date + pd.Timedelta(days=i)
+            rate = self.get_exchange_rate(next_date)
+            if rate is not None:
+                return rate
+
+        # If no data is found within 10 days, return a default value or throw an error
+        self.logger.log_error(f"No exchange rate data found within 10 days after {date}.")
+        return 1.0  # Default value or you can return None
+
     def get_yiufe_index(self, date: datetime) -> Decimal:
         """Get YI-ÜFE index for given date"""
         date_str = date.strftime("%d-%m-%Y")
@@ -72,6 +92,13 @@ class EvdsService:
             buy_index = self.get_yiufe_index(buy_date)
             sell_index = self.get_yiufe_index(sell_date)
 
+            # Log specific dates when indices are None
+            if buy_index is None:
+                self.logger.log_warning(f"No YI-ÜFE index found for buy date: {buy_date}")
+
+            if sell_index is None:
+                self.logger.log_warning(f"No YI-ÜFE index found for sell date: {sell_date}")
+
             if buy_index is None or sell_index is None:
                 self.logger.log_warning(f"Could not calculate YI-ÜFE rate for period {buy_date} - {sell_date}")
                 return None
@@ -79,12 +106,31 @@ class EvdsService:
             # Calculate increase rate
             increase_rate = ((sell_index - buy_index) / buy_index) * 100
 
-            #
             return Decimal(str(increase_rate))
 
         except Exception as e:
             self.logger.log_error(f"YI-ÜFE rate calculation failed: {str(e)}")
             return None
+
+    def get_next_available_yiufe_index(self, date):
+        """
+        If there is no YI-ÜFE index data for the specified date, it returns the index
+        data for the next available business day.
+        """
+        index = self.get_yiufe_index(date)
+        if index is not None:
+            return index
+
+        # Search for data starting from the next day (maximum 10 days)
+        for i in range(1, 10):
+            next_date = date + pd.Timedelta(days=i)
+            index = self.get_yiufe_index(next_date)
+            if index is not None:
+                return index
+
+        # If no data is found within 10 days, return a default value or throw an error
+        self.logger.log_error(f"No YI-ÜFE index data found within 10 days after {date}.")
+        return None
 
     def _fetch_from_evds(self, series_code: str, date_str: str, value_code=None) -> Decimal:
         """Fetch data from EVDS API for given series and date"""
