@@ -2,20 +2,21 @@ import pandas as pd
 import csv
 from typing import List
 
+
 class CSVPreprocessor:
     @staticmethod
     def preprocess(input_path: str, expected_columns: int = 17) -> pd.DataFrame:
         """
-        CSV dosyasını işler ve tüm satırların beklenen sayıda sütuna sahip olmasını sağlar.
+        Processes the CSV file and ensures that all rows have the expected number of columns.
 
         Args:
-            input_path: İşlenecek CSV dosyasının yolu
-            expected_columns: Beklenen sütun sayısı (varsayılan: 17)
+            input_path: Path to the CSV file to be processed
+            expected_columns: Expected number of columns (default: 17)
 
         Returns:
-            pandas.DataFrame: İşlenmiş veri
+            pandas.DataFrame: Processed data
         """
-        # Önce raw data olarak oku
+        # First, read as raw data
         rows: List[List[str]] = []
         with open(input_path, 'r', encoding='utf-8') as file:
             csv_reader = csv.reader(file)

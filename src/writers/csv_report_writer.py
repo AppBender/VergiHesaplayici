@@ -8,7 +8,7 @@ class CSVReportWriter(ReportWriterProtocol):
     def __init__(self, file_path: str):
         self.file_path = file_path
         self.file = open(file_path, 'w', newline='', encoding='utf-8-sig')
-        self.csv_writer = csv.writer(self.file, delimiter=';', lineterminator='\n')
+        self.csv_writer = csv.writer(self.file, delimiter=',', lineterminator='\n')
 
     def __enter__(self):
         return self
