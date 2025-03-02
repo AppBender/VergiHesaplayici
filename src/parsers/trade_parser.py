@@ -136,7 +136,6 @@ class TradeParser(ParserProtocol[Trade]):
 
             if yiufe_rate is None:
                 self.logger.log_warning(f"No YI-ÜFE index data found for {buy_date} and {sell_date}. Using data from the next available business day.")
-                yiufe_rate = self.evds_service.get_next_available_yiufe_index(buy_date)
 
             trade = Trade(
                 symbol=trade_data['symbol'],

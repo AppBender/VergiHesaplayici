@@ -31,7 +31,11 @@ class EvdsService:
             # Fetch from EVDS if not in cache
             rate = self._fetch_from_evds('TP.DK.USD.S.YTL', date_str, value_code='TP_DK_USD_S_YTL')
             if rate is None:
-                self.logger.log_warning(f"No exchange rate found for {date}")
+                self.logger.log_warning(f"No exchange rate data found for {date}. Using data from the next available business day.")
+                rate = self.get_next_available_exchange_rate(date)
+
+            if rate is None:
+                self.logger.log_error(f"No exchange rate data found for {date}")
                 return None
 
             # Cache the result
@@ -47,10 +51,6 @@ class EvdsService:
         If there is no exchange rate data for the specified date, it returns the exchange
         rate data for the next available business day.
         """
-        rate = self.get_exchange_rate(date)
-        if rate is not None:
-            return rate
-
         # Search for data starting from the next day (maximum 10 days)
         for i in range(1, 10):
             next_date = date + pd.Timedelta(days=i)
@@ -95,9 +95,11 @@ class EvdsService:
             # Log specific dates when indices are None
             if buy_index is None:
                 self.logger.log_warning(f"No YI-ÜFE index found for buy date: {buy_date}")
+                buy_index = self.get_next_available_yiufe_index(buy_date)
 
             if sell_index is None:
                 self.logger.log_warning(f"No YI-ÜFE index found for sell date: {sell_date}")
+                sell_index = self.get_next_available_yiufe_index(sell_date)
 
             if buy_index is None or sell_index is None:
                 self.logger.log_warning(f"Could not calculate YI-ÜFE rate for period {buy_date} - {sell_date}")
@@ -114,13 +116,9 @@ class EvdsService:
 
     def get_next_available_yiufe_index(self, date):
         """
-        If there is no YI-ÜFE index data for the specified date, it returns the index
+        For the specified date, it returns the index
         data for the next available business day.
         """
-        index = self.get_yiufe_index(date)
-        if index is not None:
-            return index
-
         # Search for data starting from the next day (maximum 10 days)
         for i in range(1, 10):
             next_date = date + pd.Timedelta(days=i)
