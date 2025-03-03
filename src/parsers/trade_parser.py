@@ -28,8 +28,21 @@ class TradeParser(ParserProtocol[Trade]):
 
         for _, row in df.iterrows():
             try:
+                # Skip if not a trade record
                 if row.iloc[1] != "Data":
                     continue
+
+                # Skip if not a stock or option trade (skip forex)
+                asset_category = str(row.iloc[3]).strip()
+                if asset_category == "Forex":
+                    continue
+
+                # Skip if Total row
+                if "Total" in str(row.iloc[2]):
+                    continue
+
+                # Get trade type (stock or option)
+                is_option = asset_category == "Equity and Index Options"
 
                 discriminator = row.iloc[2]
 
@@ -37,7 +50,7 @@ class TradeParser(ParserProtocol[Trade]):
                     current_order = Order(
                         symbol=str(row.iloc[5]),
                         quantity=Decimal(str(row.iloc[8])),
-                        is_option='Option' in str(row.iloc[3])
+                        is_option=is_option
                     )
                     orders.append(current_order)
 
@@ -48,7 +61,7 @@ class TradeParser(ParserProtocol[Trade]):
                         amount_usd=Decimal(str(row.iloc[13])),
                         quantity=Decimal(str(row.iloc[8])),
                         commission=Decimal(str(row.iloc[11])),
-                        is_option='Option' in str(row.iloc[3]),
+                        is_option=is_option,
                         price=Decimal(str(row.iloc[9]))
                     )
                     if current_order:
