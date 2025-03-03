@@ -1,124 +1,137 @@
-import csv
+# Service and writer imports
+from services.report_service import ReportService
+from writers.csv_report_writer import CSVReportWriter
+
+# Standard library imports
 from flask import Flask, request, send_file, render_template
-import io
-import os
-import pandas as pd
+from pathlib import Path
+from utils.config import OUTPUT_DIR
+from werkzeug.datastructures import FileStorage
+
+# Local imports
+import utils.config as config
+from utils.file_manager import FileManager
+
+# Parser imports
+from parsers.dividend_parser import DividendParser
+from parsers.fee_parser import FeeParser
+from parsers.trade_parser import TradeParser
+from parsers.withholding_tax_parser import WithholdingTaxParser
 
 
-# Flask uygulaması
-app = Flask(__name__, template_folder='../templates')
+app = Flask(__name__, template_folder='templates/')
+file_manager = FileManager()
+file_manager.clear_directory(config.OUTPUT_DIR)
 
 
-# Anasayfa
+def initialize_parsers():
+    return [
+        TradeParser(),
+        FeeParser(),
+        DividendParser(),
+        WithholdingTaxParser(),
+    ]
+
+
 @app.route('/')
 def welcome():
     return render_template('index.html')
 
 
-def read_and_process_tax_calculation(file_path):
-    # Önceki Python kodundaki hesaplama fonksiyonu aynı kalacak
-    df = pd.read_csv(file_path, header=0)
-
-    def parse_numeric(value):
-        try:
-            if pd.isna(value):
-                return 0
-            value_str = str(value).replace(',', '').replace('(', '-').replace(')', '')
-            return float(value_str)
-        except ValueError:
-            return 0  # Return 0 for non-numeric values
-
-    processed_data = []
-    tax_rate = 0.15
-
-    for _, row in df.iterrows():
-        quantity = parse_numeric(row['Quantity'])
-        trade_price = parse_numeric(row['T. Price'])
-        proceeds = parse_numeric(row['Proceeds'])
-        basis = parse_numeric(row['Basis'])
-        realized_pl = parse_numeric(row['Realized P/L'])
-
-        taxable_profit = max(realized_pl, 0)
-        tax_amount = taxable_profit * tax_rate
-        net_profit = realized_pl - tax_amount
-
-        processed_row = {
-            'Symbol': row['Symbol'],
-            'Date': row['Date/Time'],
-            'Quantity': f"{quantity:.2f}",
-            'TradePrice': f"{trade_price:.2f}",
-            'Proceeds': f"{proceeds:.2f}",
-            'Basis': f"{basis:.2f}",
-            'RealizedProfit': f"{realized_pl:.2f}",
-            'TaxableProfit': f"{taxable_profit:.2f}",
-            'TaxRate': f"%{tax_rate * 100:.2f}",
-            'TaxAmount': f"{tax_amount:.2f}",
-            'NetProfit': f"{net_profit:.2f}"
-        }
-        processed_data.append(processed_row)
-
-    summary = {
-        'TotalTaxableProfit': f"{sum(float(row['TaxableProfit']) for row in processed_data):.2f}",
-        'TotalTaxAmount': f"{sum(float(row['TaxAmount']) for row in processed_data):.2f}",
-        'TotalNetProfit': f"{sum(float(row['NetProfit']) for row in processed_data):.2f}"
-    }
-
-    return processed_data, summary
-
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    """
+    Flask route handler for the index page that processes uploaded CSV files.
+
+    This function handles both GET and POST requests. For POST requests, it processes
+    an uploaded CSV file and generates a summary report. For GET requests, it simply
+    renders the index template.
+
+    Returns:
+        For GET requests:
+            render_template: Renders 'index.html' with no summary data
+        For POST requests:
+            On success: render_template: Renders 'index.html' with processed summary data
+            On file upload error: tuple: ('Dosya yüklenemedi', 400)
+            On processing error: tuple: ('Hata: Dosya işlenemedi', 500)
+
+    Raises:
+        None: Exceptions are handled internally
+
+    Note:
+        The function expects a file to be uploaded with the form field name 'file'
+        The uploaded file is temporarily saved as 'temp_uploaded_file.csv'
+    """
     summary = None
+    error_message = None
     if request.method == 'POST':
-        # Dosya kontrolü
-        if 'file' not in request.files:
-            return 'Dosya yüklenemedi', 400
-
-        file = request.files['file']
-
-        # Geçici dosya olarak kaydet
-        temp_path = 'temp_uploaded_file.csv'
-        file.save(temp_path)
-
         try:
-            # Vergi hesaplamasını yap
-            processed_data, summary = read_and_process_tax_calculation(temp_path)
+            # File check
+            if 'file' not in request.files:
+                raise ValueError('Dosya yüklenemedi')
 
-            # CSV dosyası oluştur
-            output = io.StringIO()
-            csv_writer = csv.DictWriter(output, fieldnames=processed_data[0].keys())
+            file = request.files['file']
+            if file.filename == '':
+                raise ValueError('Dosya seçilmedi')
 
-            # Başlıkları yaz
-            csv_writer.writeheader()
+            # Save as temporary file
+            temp_path = file_manager.create_file(config.TEMP_PATH)
+            file.save(temp_path)
 
-            # Verileri yaz
-            for row in processed_data:
-                csv_writer.writerow(row)
+            # Create report service
+            writer = CSVReportWriter(config.REPORT_PATH)
+            service = ReportService(initialize_parsers(), writer)
 
-            # İmleç başına dön
-            output.seek(0)
-
-            # Dosyayı geçici olarak kaydet
-            with open('src/vergi_hesaplama_raporu.csv', 'w', newline='', encoding='utf-8') as f:
-                f.write(output.getvalue())
+            # Process report and get summary
+            try:
+                summary = service.process_report(temp_path)
+            except Exception as e:
+                raise ValueError('Rapor işlenemedi') from e
 
         except Exception as e:
-            return f'Hata: {str(e)}', 500
-        finally:
-            # Geçici dosyayı sil
-            if os.path.exists(temp_path):
-                os.remove(temp_path)
+            error_message = str(e)
 
-    return render_template('index.html', summary=summary)
+    return render_template('index.html', summary=summary, error_message=error_message)
 
 
 @app.route('/download')
 def download_csv():
-    return send_file('vergi_hesaplama_raporu.csv',
+    return send_file(config.REPORT_PATH,
                      mimetype='text/csv',
                      as_attachment=True,
-                     download_name='vergi_hesaplama_raporu.csv')
+                     download_name=config.REPORT_NAME)
+
+
+def create_required_directories():
+    # Create output directory only
+    output_dir = Path(OUTPUT_DIR)
+    output_dir.mkdir(exist_ok=True)
+    (output_dir / '.gitkeep').touch()
 
 
 if __name__ == '__main__':
+    # Create required directories first
+    create_required_directories()
+
+    # Run the Flask app
     app.run(debug=True)
+
+    # simualte_file_upload()
+
+    # Simulate file upload
+    def simualte_file_upload():
+        with open('sample/sample_ibkr_detailed_report.csv', 'rb') as f:
+            file = FileStorage(f)
+            temp_path = file_manager.create_file(config.TEMP_PATH)
+            file.save(temp_path)
+
+            # Create report service
+            writer = CSVReportWriter(config.REPORT_PATH)
+            service = ReportService(initialize_parsers(), writer)
+
+            # Process report
+            if not service.process_report(temp_path):
+                print("Error: Report could not be processed")
+            else:
+                print("Report created successfully")
+                print(f"Report file: {config.REPORT_PATH}")
