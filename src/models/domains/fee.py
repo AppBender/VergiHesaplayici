@@ -5,7 +5,7 @@ from typing import List
 
 @dataclass
 class Fee(BaseModel):
-    symbol: str = ""    # Description'dan parse ediliyor
+    symbol: str = ""
 
     def to_csv_row(self) -> List[str]:
         return [
@@ -18,6 +18,3 @@ class Fee(BaseModel):
             self.format_amount(self.taxable_amount_tl),
             'Ücret'
         ]
-
-# Fees,Header,Subtitle,Currency,Date,Description,Amount,,,,,,,,,,
-# Fees,Data,Other Fees,USD,2024-12-03,E*******R3:CBOE ONE ADD-ON FOR NOV 2024,1,,,,,,,,,,

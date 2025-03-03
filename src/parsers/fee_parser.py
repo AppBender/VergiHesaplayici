@@ -28,7 +28,7 @@ class FeeParser(ParserProtocol[Fee]):
 
                     date = datetime.strptime(str(row.iloc[4]), '%Y-%m-%d')
                     description = str(row.iloc[5])
-                    # Symbol'u description'dan çıkar (eğer varsa)
+                    # Parse symbol from description
                     symbol = description.split(':')[0] if ':' in description else ""
                     amount = Decimal(str(row.iloc[6]))
                     exchange_rate = self.evds_service.get_exchange_rate(date)
@@ -44,7 +44,7 @@ class FeeParser(ParserProtocol[Fee]):
                     )
                     fees.append(fee)
             except Exception as e:
-                self.logger.log_error(f"Fee satırı işlenirken hata: {str(e)}\nSatır verisi: {row.tolist()}")
+                self.logger.log_error(f"Fee parser error: {str(e)}\nRow data: {row.tolist()}")
                 continue
 
         return fees

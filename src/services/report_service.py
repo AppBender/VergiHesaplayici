@@ -53,7 +53,7 @@ class ReportService:
             withholding_tax = self.totals.get('Stopaj', {}).get('TL', Decimal('0'))
 
             total_taxable_profit = max(stock_profit + option_profit + dividend_profit + withholding_tax, Decimal('0'))
-            tax_rate = Decimal('0.15')  # 15% tax rate for 2024
+            tax_rate = Decimal('0.15')  # 15% tax rate for 2025
             total_tax_amount = total_taxable_profit * tax_rate
             total_net_profit = total_taxable_profit - total_tax_amount
 

@@ -41,7 +41,7 @@ class WithholdingTaxParser(ParserProtocol[WithholdingTax]):
                     )
                     taxes.append(tax)
             except Exception as e:
-                error_msg = f"Stopaj satırı işlenirken hata: {str(e)}\nSatır verisi: {row.tolist()}"
+                error_msg = f"Withholding tax parser error: {str(e)}\nRow data: {row.tolist()}"
                 self.logger.log_error(error_msg)
                 continue
 

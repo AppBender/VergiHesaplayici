@@ -5,7 +5,7 @@ from typing import List
 
 @dataclass
 class WithholdingTax(BaseModel):
-    symbol: str    # Description'dan parse ediliyor
+    symbol: str
 
     def to_csv_row(self) -> List[str]:
         return [
