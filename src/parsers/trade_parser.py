@@ -78,7 +78,7 @@ class TradeParser(ParserProtocol[Trade]):
                         })
 
             except Exception as e:
-                self.logger.log_error(f"Trade parsing error: {str(e)}\nRow data: {row.tolist()}")
+                self.logger.log_error(f"Trade parser error: {str(e)}\nRow data: {row.tolist()}")
                 continue
 
         # Second pass: Process only trades with ClosedLots

@@ -73,7 +73,7 @@ class EvdsService:
                 return existing_index
 
             # Fetch from EVDS if not in cache
-            index = self._fetch_from_evds('TP.TUFE1YI.T1', date_str, value_code='TP_TUFE1YI_T1')  # TP.TUFE1YI.T1 Yİ-ÜFE genel endeks serisi
+            index = self._fetch_from_evds('TP.TUFE1YI.T1', date_str, value_code='TP_TUFE1YI_T1')
             if index is None:
                 self.logger.log_warning(f"No YI-ÜFE index found for {date}")
                 return None
@@ -86,23 +86,33 @@ class EvdsService:
             self.logger.log_error(f"Error getting YI-ÜFE index: {str(e)}")
             raise ValueError(f"Could not get YI-ÜFE index for {date_str}")
 
+    def _get_previous_month_date(self, date: datetime) -> datetime:
+        """Returns the last day of the previous month from the given date"""
+        if date.month == 1:
+            return datetime(date.year - 1, 12, 31)
+        return datetime(date.year, date.month - 1, 1) - pd.Timedelta(days=1)
+
     def get_yiufe_index_rate(self, buy_date: datetime, sell_date: datetime) -> Decimal:
         """Calculate YI-ÜFE rate between buy and sell dates"""
         try:
-            buy_index = self.get_yiufe_index(buy_date)
-            sell_index = self.get_yiufe_index(sell_date)
+            # Get the last days of previous months for buy and sell dates
+            buy_index_date = self._get_previous_month_date(buy_date)
+            sell_index_date = self._get_previous_month_date(sell_date)
+
+            buy_index = self.get_yiufe_index(buy_index_date)
+            sell_index = self.get_yiufe_index(sell_index_date)
 
             # Log specific dates when indices are None
             if buy_index is None:
-                self.logger.log_warning(f"No YI-ÜFE index found for buy date: {buy_date}")
-                buy_index = self.get_next_available_yiufe_index(buy_date)
+                self.logger.log_warning(f"No YI-ÜFE index found for buy date: {buy_index_date}")
+                buy_index = self.get_next_available_yiufe_index(buy_index_date)
 
             if sell_index is None:
-                self.logger.log_warning(f"No YI-ÜFE index found for sell date: {sell_date}")
-                sell_index = self.get_next_available_yiufe_index(sell_date)
+                self.logger.log_warning(f"No YI-ÜFE index found for sell date: {sell_index_date}")
+                sell_index = self.get_next_available_yiufe_index(sell_index_date)
 
             if buy_index is None or sell_index is None:
-                self.logger.log_warning(f"Could not calculate YI-ÜFE rate for period {buy_date} - {sell_date}")
+                self.logger.log_warning(f"Could not calculate YI-ÜFE rate for period {buy_index_date} - {sell_index_date}")
                 return None
 
             # Calculate increase rate
