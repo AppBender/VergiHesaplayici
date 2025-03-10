@@ -2,22 +2,32 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vergi Hesaplayıcı</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        table { border-collapse: collapse; margin: 20px 0; }
+        /* Mobil cihazlar için tablo düzenlemesi */
+        @media (max-width: 640px) {
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+
+        table { border-collapse: collapse; margin: 20px 0; width: 100%; }
         th, td { border: 1px solid #ddd; padding: 8px; text-align: right; }
         th { background-color: #f2f2f2; }
         .total-row { font-weight: bold; }
         .section { margin: 20px 0; }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
-    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h1 class="text-2xl font-bold mb-6 text-center">Vergi Hesaplayıcı</h1>
+<body class="bg-gray-100 min-h-screen p-4">
+    <div class="bg-white p-4 sm:p-8 rounded-lg shadow-md w-full max-w-4xl mx-auto my-4">
+        <h1 class="text-xl sm:text-2xl font-bold mb-6 text-center">Vergi Hesaplayıcı</h1>
 
         {% if error_message %}
-            <div style="color: red;">
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
                 <strong>Hata:</strong> {{ error_message }}
             </div>
         {% endif %}
@@ -28,7 +38,7 @@
                     CSV Dosyası Seç
                 </label>
                 <input type="file" name="file" accept=".csv"
-                       class="w-full p-2 border rounded-md file:mr-4 file:rounded-md file:border-0 file:bg-blue-500 file:text-white file:px-4 file:py-2">
+                       class="w-full p-2 border rounded-md file:mr-4 file:rounded-md file:border-0 file:bg-blue-500 file:text-white file:px-4 file:py-2 text-sm sm:text-base">
             </div>
 
             <button type="submit"
@@ -38,53 +48,57 @@
         </form>
 
         {% if summary %}
-        <div class="section">
-            <h2>Kategori Bazında Kar/Zarar</h2>
-            <table>
-                <tr>
-                    <th>Kategori</th>
-                    <th>USD</th>
-                    <th>TL</th>
-                </tr>
-                {% for category, amounts in summary.categories.items() %}
-                <tr>
-                    <td>{{ category }}</td>
-                    <td>{{ "%.2f"|format(amounts.USD) }}</td>
-                    <td>{{ "%.2f"|format(amounts.TL) }}</td>
-                </tr>
-                {% endfor %}
-                <tr class="total-row">
-                    <td>Toplam Kar/Zarar</td>
-                    <td>{{ "%.2f"|format(summary.totals.USD) }}</td>
-                    <td>{{ "%.2f"|format(summary.totals.TL) }}</td>
-                </tr>
-            </table>
+        <div class="section overflow-x-auto">
+            <h2 class="text-lg sm:text-xl font-semibold mb-3">Kategori Bazında Kar/Zarar</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full">
+                    <tr>
+                        <th class="text-left">Kategori</th>
+                        <th>USD</th>
+                        <th>TL</th>
+                    </tr>
+                    {% for category, amounts in summary.categories.items() %}
+                    <tr>
+                        <td class="text-left">{{ category }}</td>
+                        <td>{{ "%.2f"|format(amounts.USD) }}</td>
+                        <td>{{ "%.2f"|format(amounts.TL) }}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr class="total-row bg-gray-50">
+                        <td class="text-left">Toplam Kar/Zarar</td>
+                        <td>{{ "%.2f"|format(summary.totals.USD) }}</td>
+                        <td>{{ "%.2f"|format(summary.totals.TL) }}</td>
+                    </tr>
+                </table>
+            </div>
         </div>
 
-        <div class="section">
-            <h2>Vergi Özeti</h2>
-            <table>
-                <tr>
-                    <th>Açıklama</th>
-                    <th>Tutar (TL)</th>
-                </tr>
-                <tr>
-                    <td>Toplam Vergilendirilebilir Kar</td>
-                    <td>{{ "%.2f"|format(summary.tax_summary.taxable_profit) }}</td>
-                </tr>
-                <tr>
-                    <td>Toplam Vergi Tutarı</td>
-                    <td>{{ "%.2f"|format(summary.tax_summary.tax_amount) }}</td>
-                </tr>
-                <tr>
-                    <td>Toplam Net Kar</td>
-                    <td>{{ "%.2f"|format(summary.tax_summary.net_profit) }}</td>
-                </tr>
-            </table>
+        <div class="section overflow-x-auto">
+            <h2 class="text-lg sm:text-xl font-semibold mb-3">Vergi Özeti</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full">
+                    <tr>
+                        <th class="text-left">Açıklama</th>
+                        <th>Tutar (TL)</th>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Toplam Vergilendirilebilir Kar</td>
+                        <td>{{ "%.2f"|format(summary.tax_summary.taxable_profit) }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Toplam Vergi Tutarı</td>
+                        <td>{{ "%.2f"|format(summary.tax_summary.tax_amount) }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Toplam Net Kar</td>
+                        <td>{{ "%.2f"|format(summary.tax_summary.net_profit) }}</td>
+                    </tr>
+                </table>
+            </div>
         </div>
 
         <a href="{{ url_for('download_csv') }}"
-           class="mt-4 block w-full bg-green-500 text-white text-center py-2 rounded-md hover:bg-green-600 transition duration-300">
+           class="mt-6 block w-full bg-green-500 text-white text-center py-2 rounded-md hover:bg-green-600 transition duration-300">
             Detaylı Raporu İndir
         </a>
         {% endif %}
