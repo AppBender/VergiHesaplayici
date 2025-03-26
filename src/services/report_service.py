@@ -22,11 +22,12 @@ class ReportService:
             'Hisse Senedi': {'USD': Decimal('0'), 'TL': Decimal('0')},
             'Opsiyon': {'USD': Decimal('0'), 'TL': Decimal('0')},
             'Temettü': {'USD': Decimal('0'), 'TL': Decimal('0')},
-            'Stopaj': {'USD': Decimal('0'), 'TL': Decimal('0')}
+            'Stopaj': {'USD': Decimal('0'), 'TL': Decimal('0')},
+            'Ücretler': {'USD': Decimal('0'), 'TL': Decimal('0')}  # Add fees
         }
 
     def process_report(self, file_path: str) -> Dict[str, Any]:
-        """Process report and return summary data"""
+        """Process report and return tax summary"""
         try:
             # Preprocess CSV file
             df = CSVPreprocessor.preprocess(file_path)
@@ -51,9 +52,11 @@ class ReportService:
             option_profit = self.totals.get('Opsiyon', {}).get('TL', Decimal('0'))
             dividend_profit = self.totals.get('Temettü', {}).get('TL', Decimal('0'))
             withholding_tax = self.totals.get('Stopaj', {}).get('TL', Decimal('0'))
+            fees = self.totals.get('Ücretler', {}).get('TL', Decimal('0'))
 
-            total_taxable_profit = max(stock_profit + option_profit + dividend_profit + withholding_tax, Decimal('0'))
-            tax_rate = Decimal('0.15')  # 15% tax rate for 2025
+            # Calculate total taxable profit excluding fees
+            total_taxable_profit = max(stock_profit + option_profit + dividend_profit + withholding_tax + fees, Decimal('0'))
+            tax_rate = Decimal('0.15')  # 15% tax rate for 2024, this should be dynamic
             total_tax_amount = total_taxable_profit * tax_rate
             total_net_profit = total_taxable_profit - total_tax_amount
 
@@ -73,7 +76,9 @@ class ReportService:
                     'Temettü': {'USD': self.totals.get('Temettü', {}).get('USD', Decimal('0')),
                                'TL': dividend_profit},
                     'Stopaj': {'USD': self.totals.get('Stopaj', {}).get('USD', Decimal('0')),
-                              'TL': withholding_tax}
+                              'TL': withholding_tax},
+                    'Ücretler': {'USD': self.totals.get('Ücretler', {}).get('USD', Decimal('0')),  # Add fees
+                                'TL': fees}
                 },
                 'totals': {
                     'USD': sum(cat.get('USD', Decimal('0')) for cat in self.totals.values()),
@@ -127,6 +132,8 @@ class ReportService:
             return "Opsiyon" if item.is_option else "Hisse Senedi"
         elif section_name == "Dividends":
             return "Temettü"
-        elif section_name in ["Withholding Tax", "Fees"]:
+        elif section_name == "Withholding Tax":
             return "Stopaj"
+        elif section_name == "Fees":
+            return "Ücretler"
         return ""
